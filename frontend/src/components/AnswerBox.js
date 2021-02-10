@@ -9,7 +9,6 @@ class AnswerBox extends React.Component{
                 <AnswerElement />
                 <AnswerElement />
                 <AnswerElement />
-                <button>Ok</button>
             </div>
         )
     }

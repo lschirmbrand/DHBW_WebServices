@@ -4,13 +4,14 @@
 
 .Title{  
   text-align: center;
+  color: #ddd;
   margin: 0px;
 }
 
 .Header{
   height: 100px;
   width: 100%;
-  background-color: pink;  
+  background-color: #203A43;  
 }
 
 .AnswerBox{

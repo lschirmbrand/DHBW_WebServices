@@ -1,0 +1,21 @@
+.Navbar{
+    padding-right: 20px;    
+    overflow: hidden;
+    background-color: #203A43;
+    float: center;
+    margin-bottom: 0px;
+    font-size: medium;
+}
+
+.Navbar a {
+    float: left;    
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.Navbar a:hover {
+    background-color: #ddd;
+    color:black;
+}
