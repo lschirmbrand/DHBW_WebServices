@@ -1,4 +1,4 @@
-# DHBW_WerbServices
+# DHBW_WebServices
 
 ## External APIs
 
