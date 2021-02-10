@@ -1,7 +1,11 @@
+:root{
+    --backColor: #203A43;
+}
+
 .Navbar{
     padding-right: 20px;    
     overflow: hidden;
-    background-color: #203A43;
+    background-color: var(--backColor);
     float: center;
     margin-bottom: 0px;
     font-size: medium;

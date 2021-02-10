@@ -1,3 +1,7 @@
+:root{
+  --backColor: #203A43;
+}
+
 .App {
   text-align: center;
 }
@@ -11,17 +15,5 @@
 .Header{
   height: 100px;
   width: 100%;
-  background-color: #203A43;  
-}
-
-.AnswerBox{
-  
-}
-
-.AnswerElement{
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 30px 20px 0;
-  width: 50%;    
+  background-color: var(--backColor);  
 }
