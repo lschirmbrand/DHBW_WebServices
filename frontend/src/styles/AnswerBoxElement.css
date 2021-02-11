@@ -7,17 +7,18 @@
     display: flex;
     flex-flow: row wrap;    
     justify-content: flex-start;
-    width: 500px;
+    width: 400px;
     margin-left: 1%;
     margin-right: 5%;  
 }
   
 .AnswerElement{
-    width: 500px;
+    width: 400px;
     height: 100px;
     font-size: 50px;
     border-style: solid;
     border-color: black;
+    transition: all 0.25s;
 }
 
 .AnswerElement:hover{

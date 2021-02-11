@@ -31,6 +31,7 @@ body{
   display: flex;
   flex-flow: row wrap;    
   justify-content: flex-start;
+  width: 85%
 }
 
 .HeadlineBig{
@@ -38,4 +39,20 @@ body{
   font-size: 35px;
   text-decoration: underline;
   font-weight: bold;
+}
+
+.Sidebar{
+  border-style: solid;
+  border-width: 2px;
+  width: 15%;
+  text-align: center;
+}
+
+.OuterDiv{
+  display: flex;
+  justify-content:space-between;
+}
+
+#wave{
+  width: 500px;
 }
