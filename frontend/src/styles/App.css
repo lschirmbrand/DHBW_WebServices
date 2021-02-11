@@ -1,5 +1,10 @@
 :root{
   --backColor: #203A43;
+  --backColorBody: #c8e0e9;
+}
+
+body{
+  /* background-color: var(--backColorBody); */
 }
 
 .App {
@@ -20,8 +25,15 @@
 
 .InfoBox{
   font-size: 50px;
-  margin: 0;
+  margin-top: 1%;
   display: flex;
   flex-flow: row wrap;    
   justify-content: flex-start;
+}
+
+.HeadlineBig{
+  margin: 1%;
+  font-size: 35px;
+  text-decoration: underline;
+  font-weight: bold;
 }

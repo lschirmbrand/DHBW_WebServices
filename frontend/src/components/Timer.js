@@ -15,7 +15,7 @@ class Timer extends React.Component {
     getThemeLength(){
         return(
             //Going to return the Length of the Song
-            5000
+            15000
         )
     }  
 }

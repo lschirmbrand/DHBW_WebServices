@@ -6,6 +6,7 @@ import Header from "./components/Header"
 import Footer from "./components/Footer"
 import Navbar from "./components/Navbar"
 import Timer from "./components/Timer"
+import { render } from '@testing-library/react';
 
 class App extends React.Component{
   render(){
@@ -13,7 +14,7 @@ class App extends React.Component{
       <div>
         <Header />
         <Navbar />
-        <h1>Hier steht eine Überschrift</h1>
+        {/* <span className={"HeadlineBig"}>Hier steht eine Überschrift</span> */}
         <div className={"InfoBox"}>
           <AnswerBox />
           <Timer onComplete={() => this.timeOver()}/>
@@ -26,5 +27,4 @@ class App extends React.Component{
     console.log("d")
   }
 }
-
 export default App;
