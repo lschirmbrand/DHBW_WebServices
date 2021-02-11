@@ -3,12 +3,15 @@
 }
 
 .Navbar{
+    display: flex;
+    justify-content: center;
     padding-right: 20px;    
     overflow: hidden;
     background-color: var(--backColor);
     float: center;
     margin-bottom: 0px;
     font-size: medium;
+    
 }
 
 .Navbar a {
@@ -17,6 +20,7 @@
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    width: 33.33%;
 }
 
 .Navbar a:hover {

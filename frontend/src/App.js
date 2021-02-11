@@ -14,7 +14,7 @@ class App extends React.Component{
       <div>
         <Header />
         <Navbar />
-        {/* <span className={"HeadlineBig"}>Hier steht eine Überschrift</span> */}
+        <span className={"HeadlineBig"}>Hier steht eine Überschrift</span>
         <div className={"InfoBox"}>
           <AnswerBox />
           <Timer onComplete={() => this.timeOver()}/>
