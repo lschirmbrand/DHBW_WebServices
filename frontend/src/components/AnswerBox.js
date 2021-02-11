@@ -10,7 +10,7 @@ class AnswerBox extends React.Component{
     }
 
     render(){        
-        let elem = [{"name":"Star Wars"},{"name":"Herr der Ringe"},{"name":"Harry Potter"},{"name":"Iron Sky"}]
+        let elem = [{"name":"Star Wars"},{"name":"Herr der Ringe"},{"name":"Harry Potter"}]
         let myArray = []
         
         for(let index = 0; index < elem.length; index++){

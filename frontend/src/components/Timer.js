@@ -4,7 +4,7 @@ import Countdown from 'react-countdown';
 class Timer extends React.Component {
     render(){
         return(
-          <div>
+          <div className={"Timer"}>
               <Countdown date={Date.now() + this.getThemeLength()}>
                 <span>Time is over!</span>
               </Countdown>

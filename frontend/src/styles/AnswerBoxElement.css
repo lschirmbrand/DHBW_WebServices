@@ -6,16 +6,14 @@
 .AnswerBox{    
     display: flex;
     flex-flow: row wrap;    
-    justify-content: flex-start;
-    width: 400px;
-    margin-left: 1%;
-    margin-right: 5%;  
+    justify-content: space-evenly;
+    width: 35%;
+    margin-top: 200px;
 }
   
 .AnswerElement{
-    width: 400px;
-    height: 100px;
-    font-size: 50px;
+    width: 108px;
+    height: 190px;
     border-style: solid;
     border-color: black;
     transition: all 0.25s;
@@ -24,4 +22,9 @@
 .AnswerElement:hover{
     background-color: var(--backColor);
     color: var(--fontColor)
+}
+
+.ElementPar{
+    font-size: 20px;
+    text-align: center;
 }

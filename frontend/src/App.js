@@ -32,13 +32,15 @@ class App extends React.Component{
         {/* <script src="https://cdn.jsdelivr.net/gh/PiethonCoder/wave.js/wave.js"></script>         */}
         <Header />
         <Navbar />
-        <span className={"HeadlineBig"}>Hier steht eine Überschrift</span>
+        <div className={"HeadlineBig"}>
+          <span>Guess the movie!</span>
+        </div>        
+        <Timer onComplete={() => this.timeOver()}/> 
         <div className={"OuterDiv"}>
           <div className={"InfoBox"}>
-            <AnswerBox />
-            <Timer onComplete={() => this.timeOver()}/>                
+            <AnswerBox />               
           </div>
-          <Sidebar results={this.resultHis}/>
+          {/* <Sidebar results={this.resultHis}/> */}
         </div>
         {/*<canvas id="wave">Canvas</canvas>
           <audio id="audio" controls>
