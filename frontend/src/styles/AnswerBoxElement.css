@@ -7,8 +7,9 @@
     display: flex;
     flex-flow: row wrap;    
     justify-content: flex-start;
-    width: 30%;
-    margin-left: 1%;    
+    width: 500px;
+    margin-left: 1%;
+    margin-right: 5%;  
 }
   
 .AnswerElement{

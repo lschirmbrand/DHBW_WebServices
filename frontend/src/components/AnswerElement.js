@@ -5,9 +5,13 @@ class AnswerElement extends React.Component{
         return (
             // <div className="AnswerElement">
             <div>
-                <button className="AnswerElement">{this.props.name}</button>
+                <button onClick={() => {/*this.checkAnswer(this.props.key)*/} }className="AnswerElement">{this.props.name}</button>
             </div>
         )        
+    }
+
+    checkAnswer(props){
+        console.log("Testoutput")
     }
 }
 
