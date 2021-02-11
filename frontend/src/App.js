@@ -14,11 +14,16 @@ class App extends React.Component{
         <Header />
         <Navbar />
         <h1>Hier steht eine Überschrift</h1>
-        <Timer />
-        <AnswerBox />
+        <div className={"InfoBox"}>
+          <AnswerBox />
+          <Timer onComplete={() => this.timeOver()}/>
+        </div>
         <Footer />
       </div>     
     )
+  }
+  timeOver(){
+    console.log("d")
   }
 }
 

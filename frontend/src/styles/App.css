@@ -17,3 +17,11 @@
   width: 100%;
   background-color: var(--backColor);  
 }
+
+.InfoBox{
+  font-size: 50px;
+  margin: 0;
+  display: flex;
+  flex-flow: row wrap;    
+  justify-content: flex-start;
+}

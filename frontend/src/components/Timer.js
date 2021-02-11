@@ -2,9 +2,6 @@ import React from 'react';
 import Countdown from 'react-countdown';
 
 class Timer extends React.Component {
-
-    Completionist = <span>You are good to go!</span>
-
     render(){
         return(
           <div>
