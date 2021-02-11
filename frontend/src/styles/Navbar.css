@@ -3,19 +3,24 @@
 }
 
 .Navbar{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
     padding-right: 20px;    
     overflow: hidden;
     background-color: var(--backColor);
     float: center;
-    margin-bottom: 0px;
+    margin: 0px;
+    padding: 0px;
     font-size: medium;
 }
 
 .Navbar a {
-    float: left;    
+    /* float: center;     */
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     text-decoration: none;
 }
 
