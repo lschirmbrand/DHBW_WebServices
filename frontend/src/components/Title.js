@@ -4,7 +4,7 @@ class Title extends React.Component{
     render(){
         return(
             <div className={"Title"}>
-                Song-Guesser
+                Movie-Guesser
             </div>
         )
     }
