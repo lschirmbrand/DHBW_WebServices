@@ -6,20 +6,20 @@ class AnswerBox extends React.Component{
         super()
         this.state = {
             correctAnswer: Math.floor(Math.random() * Math.floor(4)) + 1,
-            movieData : {}
+            movieData : []
         }
     }
 
     componentDidMount(){
         fetch('http://localhost:8081/movies')
             .then(response => response.json())
-            .then(data => {this.setState({moviedata: data})})
-            console.log(this.state.movieData)
+            .then(data => {this.setState({movieData: data})})
+
     }
 
     render(){   
         
-
+        const listItems = this.state.movieData.map((d) => <AnswerElement name={d.title}/>)
         
         let elem = [{"name":"Star Wars"},{"name":"Herr der Ringe"},{"name":"Harry Potter"}]
         let myArray = []
@@ -36,12 +36,12 @@ class AnswerBox extends React.Component{
             worked = false
         }
         
-        const listItems = myArray.map((d) => <AnswerElement name={d.name}/>);
+        
 
         return(
             <div className={"AnswerBox"}>
                 {listItems}
-                {this.state.movieData.name}
+                {/* {this.state.movieData */}
             </div>
         )
     }

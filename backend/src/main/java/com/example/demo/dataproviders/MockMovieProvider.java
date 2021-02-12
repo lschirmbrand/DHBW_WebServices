@@ -29,7 +29,8 @@ public class MockMovieProvider implements MovieProvider {
                         "/plnlrtBUULT0rh3Xsjmpubiso3L.jpg",
                         List.of("Thriller", "Crime"),
                         "A burger-loving hit man, his philosophical partner, a drug-addled gangster's moll and a washed-up boxer converge in this sprawling, comedic crime caper. Their adventures unfurl in three stories that ingeniously trip back and forth in time."
-                ),
+                )/*,
+
                 new Movie(
                         13,
                         "Forrest Gump",
@@ -44,6 +45,7 @@ public class MockMovieProvider implements MovieProvider {
                         List.of("Drama", "Action", "Thriller", "War"),
                         "In Nazi-occupied France during World War II, a group of Jewish-American soldiers known as \"The Basterds\" are chosen specifically to spread fear throughout the Third Reich by scalping and brutally killing Nazis. The Basterds, lead by Lt. Aldo Raine soon cross paths with a French-Jewish teenage girl who runs a movie theater in Paris which is targeted by the soldiers"
                 )
+                */
         );
     }
 }

@@ -46,7 +46,7 @@ class App extends React.Component{
           <audio id="audio" controls>
           <source src="http://localhost:3000/"></source>
         </audio> */}
-        <Footer />
+        {/*<Footer />*/}
       </div>     
     )
   }
