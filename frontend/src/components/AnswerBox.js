@@ -19,8 +19,9 @@ class AnswerBox extends React.Component{
 
     render(){   
         
-        const listItems = this.state.movieData.map((d) => <AnswerElement object={d}/>)
-        
+        const listItems = this.state.movieData.map(d => <AnswerElement object={d} key={d.id}/>)
+        console.log(listItems)
+
         let elem = [{"name":"Star Wars"},{"name":"Herr der Ringe"},{"name":"Harry Potter"}]
         let myArray = []
         

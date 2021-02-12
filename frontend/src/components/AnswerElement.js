@@ -6,14 +6,14 @@ class AnswerElement extends React.Component{
         return (
             // <div className="AnswerElement">
             <div className={"ElementCell"}>
-                <button onClick={() => {/*this.checkAnswer(this.props.key)*/} } className="AnswerElement"></button>
+                <button onClick={() => {this.checkAnswer(this.key)} } className="AnswerElement"></button>
                 <p className="ElementPar">{title}</p>
             </div>
         )        
     }
 
     checkAnswer(props){
-        console.log("Testoutput")
+        console.log(props)
     }
 }
 
