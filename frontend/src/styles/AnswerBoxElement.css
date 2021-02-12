@@ -7,27 +7,31 @@
     display: flex;
     flex-flow: row wrap;    
     justify-content: space-around;
-    width: 45%;
+    width: 60%;
     margin-top: 200px;
 }
 
 .ElementCell{
-    width: 15%;
+    width: 20%;
     text-align: center;
 }
   
 .AnswerElement{
-    width: 108px;
+    width: 128px;
     height: 190px;
-    border-style: solid;
-    border-color: black;
+    border: none;
+    background-color: white;
     transition: all 0.25s;
 }
 
-.AnswerElement:hover{
+.AnswerElementPic{
+    width: 128px;
+    height: 190px;
+}
+/* .AnswerElement:hover{
     background-color: var(--backColor);
     color: var(--fontColor)
-}
+} */
 
 .ElementPar{
     font-size: 20px;
