@@ -46,4 +46,9 @@ public class MockMovieProvider implements MovieProvider {
                 )
         );
     }
+
+    @Override
+    public Movie getMovieById(int id) {
+        return null;
+    }
 }

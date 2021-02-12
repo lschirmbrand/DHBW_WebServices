@@ -33,4 +33,18 @@ public class TMDBMovieProvider implements MovieProvider {
 
         return List.of();
     }
+
+    @Override
+    public Movie getMovieById(int id){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyN2NmZTg4YzU5YTc3NzdhYmVhMGFmYmEyZWNhNWU2OCIsInN1YiI6IjYwMjNhNGZmNDU4MTk5MDAzZmFjZjcwMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Tn3gy3VlkVBw87KlnTEpzuMrGb1I50WaKoWBph3SPqc");
+        String uri = "https://api.themoviedb.org/3/movie/" + id;
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+        Movie res = this.restTemplate.exchange(URI.create(uri), HttpMethod.GET, entity, Movie.class).getBody();
+
+        System.out.println(res);
+
+        return res;
+    }
 }

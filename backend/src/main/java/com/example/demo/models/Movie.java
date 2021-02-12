@@ -8,7 +8,7 @@ public class Movie {
     private int id;
     private String title;
     private String posterURL;
-    private List<String> genres;
+    //private List<String> genres;
     private String overview;
 
     public Movie() {
@@ -19,7 +19,7 @@ public class Movie {
         this.id = id;
         this.title = title;
         this.posterURL = posterURLPrefix + posterPath;
-        this.genres = genres;
+       // this.genres = genres;
         this.overview = overview;
     }
 
@@ -35,9 +35,9 @@ public class Movie {
         return posterURL;
     }
 
-    public List<String> getGenres() {
+/*    public List<String> getGenres() {
         return genres;
-    }
+    }*/
 
     public String getOverview() {
         return overview;
@@ -50,7 +50,7 @@ public class Movie {
                 ", id=" + id +
                 ", title='" + title + '\'' +
                 ", posterURL='" + posterURL + '\'' +
-                ", genres=" + genres +
+              //  ", genres=" + genres +
                 ", overview='" + overview + '\'' +
                 '}';
     }
