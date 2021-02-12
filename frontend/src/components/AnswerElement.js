@@ -11,14 +11,14 @@ class AnswerElement extends React.Component{
     render(props){
         return (            
             <div className={"ElementCell"}>
-                    <img onClick={() => {console.log(this.props.id)} } className="AnswerElement" src={this.props.object.posterURL}></img>
+                    <img onClick={() => {this.checkAnswer()} } className="AnswerElement" src={this.props.object.posterURL}></img>
                 <p className="ElementPar">{this.props.object.title}</p>
             </div>
         )        
     }
 
     checkAnswer(props){
-        console.log(props)
+        console.log("Es wurde das Element mit der ID "+this.props.id+" geklickt")
     }
 }
 
