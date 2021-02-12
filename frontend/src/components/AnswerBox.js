@@ -5,7 +5,7 @@ class AnswerBox extends React.Component{
     constructor(){
         super()
         this.state = {
-            correctAnswer: Math.floor(Math.random() * Math.floor(4)) + 1,
+            correctAnswer: Math.floor(Math.random() * Math.floor(3)),
             movieData : []
         }
     }
@@ -14,13 +14,12 @@ class AnswerBox extends React.Component{
         fetch('http://localhost:8081/movies')
             .then(response => response.json())
             .then(data => {this.setState({movieData: data})})
-
     }
 
     render(){
-
         let myArray = []
         
+
         for(let index = 0; index < this.state.movieData.length; index++){
             let worked = false;
             while(!worked){
@@ -33,7 +32,9 @@ class AnswerBox extends React.Component{
             worked = false
         }
 
-        const listItems = myArray.map((d) => <AnswerElement object={d} id={d.id} key={d.id}/>)       
+
+        const rightObject = this.state.movieData[this.state.correctAnswer]
+        const listItems = myArray.map((d) => <AnswerElement object={d} id={d.id} key={d.id} rightObject={rightObject}/>)       
         
 
         return(
