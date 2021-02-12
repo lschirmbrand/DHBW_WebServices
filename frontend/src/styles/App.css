@@ -4,7 +4,7 @@
 }
 
 body{
-  /* background-color: var(--backColorBody); */
+  /*background-color: var(--backColorBody);*/
 }
 
 .App {
@@ -17,6 +17,7 @@ body{
   font-weight: bold;
   color: #ddd;
   margin: 0px;
+  padding-top: 20px;
 }
 
 .Header{

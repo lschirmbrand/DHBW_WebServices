@@ -29,7 +29,7 @@ class App extends React.Component{
   render(){    
     return(
       <div>
-        {/* <script src="https://cdn.jsdelivr.net/gh/PiethonCoder/wave.js/wave.js"></script>         */}
+        {/* <script src="https://cdn.jsdelivr.net/gh/PiethonCoder/wave.js/wave.js"></script>*/}
         <Header />
         <Navbar />
         <div className={"HeadlineBig"}>
