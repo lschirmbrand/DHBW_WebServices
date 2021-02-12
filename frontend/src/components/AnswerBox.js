@@ -5,11 +5,22 @@ class AnswerBox extends React.Component{
     constructor(){
         super()
         this.state = {
-            correctAnswer: Math.floor(Math.random() * Math.floor(4)) + 1
+            correctAnswer: Math.floor(Math.random() * Math.floor(4)) + 1,
+            movieData : {}
         }
     }
 
-    render(){        
+    componentDidMount(){
+        fetch('http://localhost:8081/movies')
+            .then(response => response.json())
+            .then(data => {this.setState({moviedata: data})})
+            console.log(this.state.movieData)
+    }
+
+    render(){   
+        
+
+        
         let elem = [{"name":"Star Wars"},{"name":"Herr der Ringe"},{"name":"Harry Potter"}]
         let myArray = []
         
@@ -30,6 +41,7 @@ class AnswerBox extends React.Component{
         return(
             <div className={"AnswerBox"}>
                 {listItems}
+                {this.state.movieData.name}
             </div>
         )
     }
