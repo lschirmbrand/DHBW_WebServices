@@ -9,12 +9,11 @@ class AnswerElement extends React.Component{
     }
 
 
-    render(){
-        console.log(this.props.thumbnail)
+    render(props){
         return (
             // <div className="AnswerElement">
             <div className={"ElementCell"}>
-                <button onClick={() => {this.checkAnswer(this.props.key)} } className="AnswerElement">
+                <button onClick={() => {console.log(this.props.id)} } className="AnswerElement">
                     <img className="AnswerElement" src={this.props.object.posterURL}></img>
                 </button>
                 <p className="ElementPar">{this.props.object.title}</p>
