@@ -6,9 +6,14 @@
 .AnswerBox{    
     display: flex;
     flex-flow: row wrap;    
-    justify-content: space-evenly;
-    width: 35%;
+    justify-content: space-around;
+    width: 45%;
     margin-top: 200px;
+}
+
+.ElementCell{
+    width: 15%;
+    text-align: center;
 }
   
 .AnswerElement{
@@ -26,5 +31,6 @@
 
 .ElementPar{
     font-size: 20px;
-    text-align: center;
 }
+
+
