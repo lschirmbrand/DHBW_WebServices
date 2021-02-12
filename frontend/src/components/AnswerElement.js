@@ -7,13 +7,11 @@ class AnswerElement extends React.Component{
             
         }
     }
-    
+
     render(props){
         return (            
             <div className={"ElementCell"}>
-                <button onClick={() => {console.log(this.props.id)} } className="AnswerElement">
-                    <img className="AnswerElement" src={this.props.object.posterURL}></img>
-                </button>
+                    <img onClick={() => {console.log(this.props.id)} } className="AnswerElement" src={this.props.object.posterURL}></img>
                 <p className="ElementPar">{this.props.object.title}</p>
             </div>
         )        
