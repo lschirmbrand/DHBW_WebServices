@@ -5,11 +5,15 @@ import java.util.List;
 public class Movie {
     private final String posterURLPrefix = "https://image.tmdb.org/t/p/w1280";
 
-    private final int id;
-    private final String title;
-    private final String posterURL;
-    private final List<String> genres;
-    private final String overview;
+    private int id;
+    private String title;
+    private String posterURL;
+    private List<String> genres;
+    private String overview;
+
+    public Movie() {
+
+    }
 
     public Movie(int id, String title, String posterPath, List<String> genres, String overview) {
         this.id = id;
@@ -37,5 +41,17 @@ public class Movie {
 
     public String getOverview() {
         return overview;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "posterURLPrefix='" + posterURLPrefix + '\'' +
+                ", id=" + id +
+                ", title='" + title + '\'' +
+                ", posterURL='" + posterURL + '\'' +
+                ", genres=" + genres +
+                ", overview='" + overview + '\'' +
+                '}';
     }
 }
