@@ -7,7 +7,9 @@ import java.util.List;
 
 public class MockMovieProvider implements MovieProvider {
 
-    @Override
+
+
+/*    @Override
     public List<Movie> getAllMovies() {
         return List.of(
                 new Movie(
@@ -45,6 +47,11 @@ public class MockMovieProvider implements MovieProvider {
                         "In Nazi-occupied France during World War II, a group of Jewish-American soldiers known as \"The Basterds\" are chosen specifically to spread fear throughout the Third Reich by scalping and brutally killing Nazis. The Basterds, lead by Lt. Aldo Raine soon cross paths with a French-Jewish teenage girl who runs a movie theater in Paris which is targeted by the soldiers"
                 )
         );
+    }*/
+
+    @Override
+    public List<Movie> getAllMovies() {
+        return null;
     }
 
     @Override
