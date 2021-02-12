@@ -1,13 +1,21 @@
 import React from "react"
 
 class AnswerElement extends React.Component{
+    constructor(){
+        super()
+        this.state ={
+            thumbnailPre: "https://image.tmdb.org/t/p/w1280"
+        }
+    }
     render(){
-        let title = this.props.object.title
+        console.log(this.props.thumbnail)
         return (
             // <div className="AnswerElement">
             <div className={"ElementCell"}>
-                <button onClick={() => {/*this.checkAnswer(this.props.key)*/} } className="AnswerElement"></button>
-                <p className="ElementPar">{title}</p>
+                <button onClick={() => {this.checkAnswer(this.props.key)} } className="AnswerElement">
+                    <img className="AnswerElement" src={this.props.thumbnail}></img>
+                </button>
+                <p className="ElementPar">{this.props.name}</p>
             </div>
         )        
     }
