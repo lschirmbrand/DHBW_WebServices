@@ -17,31 +17,28 @@ class AnswerBox extends React.Component{
 
     }
 
-    render(){   
-        
-        const listItems = this.state.movieData.map((d) => <AnswerElement object={d} id={d.id} key={d.id}/>)
-        
-        let elem = [{"name":"Star Wars"},{"name":"Herr der Ringe"},{"name":"Harry Potter"}]
+    render(){
+
         let myArray = []
         
-        for(let index = 0; index < elem.length; index++){
+        for(let index = 0; index < this.state.movieData.length; index++){
             let worked = false;
             while(!worked){
                 let temp = Math.floor(Math.random() * Math.floor(4))               
                 if(myArray[temp] == null){
-                    myArray[temp] = elem[index]
+                    myArray[temp] = this.state.movieData[index]
                     worked = true
                 }
             }
             worked = false
         }
-        
+
+        const listItems = myArray.map((d) => <AnswerElement object={d} id={d.id} key={d.id}/>)       
         
 
         return(
             <div className={"AnswerBox"}>
                 {listItems}
-                {/* {this.state.movieData */}
             </div>
         )
     }
