@@ -18,7 +18,7 @@ class AnswerElement extends React.Component{
     }
 
     checkAnswer(props){
-        console.log("Es wurde das Element mit der ID "+this.props.id+" geklickt.")
+        console.log("Es wurde das Element mit der ID "+this.props.id+" geklickt.\n Richtig ist das Element mit der ID "+this.props.rightObject.id+".")
         if(this.props.id == this.props.rightObject.id){
             console.log("True")
         }

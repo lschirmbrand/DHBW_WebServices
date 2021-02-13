@@ -10,14 +10,14 @@ class Timer extends React.Component {
               return <span>0s </span>;
             } else {
               // Render a countdown
-              return <span>{seconds}s </span>;
+              return <span>{seconds}s</span>;
             }
           };
 
         return(
           <div className={"Timer"}>
               <Countdown renderer={renderer} daysInHours={true} date={Date.now() + this.getThemeLength()}></Countdown>
-            | 30s
+            /30s
           </div>
         )
     }
