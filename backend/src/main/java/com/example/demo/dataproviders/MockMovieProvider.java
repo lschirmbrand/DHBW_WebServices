@@ -1,7 +1,7 @@
 package com.example.demo.dataproviders;
 
 import com.example.demo.models.Movie;
-import org.springframework.context.annotation.Bean;
+import com.example.demo.models.Query;
 
 import java.util.List;
 
@@ -56,6 +56,11 @@ public class MockMovieProvider implements MovieProvider {
 
     @Override
     public Movie getMovieById(int id) {
+        return null;
+    }
+
+    @Override
+    public Query search(String title) {
         return null;
     }
 }

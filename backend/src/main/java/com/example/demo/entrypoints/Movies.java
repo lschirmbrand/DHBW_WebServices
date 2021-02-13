@@ -2,6 +2,7 @@ package com.example.demo.entrypoints;
 
 import com.example.demo.dataproviders.MovieProvider;
 import com.example.demo.models.Movie;
+import com.example.demo.models.Query;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,13 @@ public class Movies {
     }
 
     @GetMapping("/{id}")
-    public  Movie getMovieById(@PathVariable int id){return movieProvider.getMovieById(id);}
+    public Movie getMovieById(@PathVariable int id) {
+        return movieProvider.getMovieById(id);
+    }
+
+    @GetMapping("/search/{title}")
+    public Query getSearch(@PathVariable String title) {
+        return movieProvider.search(title);
+    }
 
 }

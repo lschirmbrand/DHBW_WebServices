@@ -1,9 +1,5 @@
 package com.example.demo.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
 
 public class Movie {
@@ -14,7 +10,6 @@ public class Movie {
     private String poster_path;
     private List<Genre> genres;
     private String overview;
-    private String posterURL;
 
     public Movie() {
 
@@ -23,7 +18,7 @@ public class Movie {
     public Movie(int id, String title, String posterPath, List<Genre> genres, String overview) {
         this.id = id;
         this.title = title;
-        this.posterURL = posterURLPrefix + posterPath;
+        this.poster_path = posterPath;
         this.genres = genres;
         this.overview = overview;
     }
@@ -36,12 +31,8 @@ public class Movie {
         return title;
     }
 
-
     public String getPoster_path() {
-        return poster_path;
-    }
-
-    public String getPosterURL(){return posterURLPrefix + poster_path;
+        return posterURLPrefix + poster_path;
     }
 
 
