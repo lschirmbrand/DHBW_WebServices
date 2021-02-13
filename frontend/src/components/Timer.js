@@ -3,7 +3,6 @@ import Countdown from 'react-countdown';
 
 class Timer extends React.Component {
     render(){
-        const Completionist = () => <span>0</span>;
         const renderer = ({ hours, minutes, seconds, completed }) => {
             if (completed) {
               // Render a completed state
@@ -24,8 +23,7 @@ class Timer extends React.Component {
     }
 
     getThemeLength(){
-        return(
-            //Going to return the Length of the Song
+        return(     
             30000
         )
     }  
