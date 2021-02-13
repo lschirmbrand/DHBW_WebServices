@@ -56,6 +56,16 @@ body{
   padding-bottom: 5rem;    /* Footer height */
 }
 
+#HeadlineAndClock{
+  text-align: center;  
+  margin: auto;
+  margin-top: 1%;
+  width: 20%;
+  border-style: solid;
+  border-color: black;
+  border-radius: 20px;
+}
+
 .Timer{
   font-size: 40px;
   text-align: center;
