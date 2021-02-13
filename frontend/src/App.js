@@ -16,14 +16,6 @@ class App extends React.Component{
     this.state = {
       currentQuestion: 0
     }  
-    // var wave = new Wave();
-    // var options = {
-    //   type: "shockwave",
-    //   stroke: 2,
-    //   colors:["#24292e","#547ee2"]
-    // };
-    // wave.fromElement("audio", "wave", options)
-    // wave.playStream()
   }
   
   render(){ 
@@ -44,18 +36,19 @@ class App extends React.Component{
           <span>Guess the movie!</span>
         </div>        
         <Timer onComplete={() => this.timeOver()}/> 
-        <div className={"OuterDiv"}>
-          <div className={"InfoBox"}>
-            <AnswerBox />               
+        <iframe width="100%" height="1000" src={"https://www.youtube.com/embed/cyOPcsnJS7o?autoplay=1&mute=1&start=30"}>
+          <div className={"OuterDiv"}>
+            <div className={"InfoBox"}>
+              <AnswerBox />               
+            </div>
           </div>
-        </div>
+        </iframe>
           <div>
             <canvas id="wave">Canvas</canvas>
-            <audio id="audio" controls>
-              <source src="https://p.scdn.co/mp3-preview/f6ab4a4ae33450c4edb89bb5711e8486d367d257?cid=6b05de1c165548d485b84df3bccc9965%22"></source>
-            </audio>
+            <audio id="audio" src="https://p.scdn.co/mp3-preview/f6ab4a4ae33450c4edb89bb5711e8486d367d257?cid=6b05de1c165548d485b84df3bccc9965%22" autoPlay></audio>
           </div>
         
+
         <Footer />
       </div>     
     )
