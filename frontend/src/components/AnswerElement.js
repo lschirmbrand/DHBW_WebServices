@@ -1,4 +1,6 @@
 import React from "react"
+import PopUp from "./PopUp.js"
+
 
 class AnswerElement extends React.Component{
     constructor(){
@@ -17,14 +19,17 @@ class AnswerElement extends React.Component{
         )        
     }
 
-    checkAnswer(props){
+    checkAnswer(){
         console.log("Es wurde das Element mit der ID "+this.props.id+" geklickt.")
         if(this.props.id == this.props.rightObject.id){
-            console.log("True")
+            <PopUp/>
+            console.log("ok")
         }
         else{
-            console.log("False")
+            console.log("no")
         }
+
+        
     }
 }
 
