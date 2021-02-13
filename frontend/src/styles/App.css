@@ -4,7 +4,8 @@
 }
 
 body{
-  /*background-color: var(--backColorBody);*/
+  position: relative;
+  min-height: 100vh;
 }
 
 .App {
@@ -52,6 +53,17 @@ body{
   display: flex;
   justify-content: center;
   width: 100%;
+  padding-bottom: 5rem;    /* Footer height */
+}
+
+#HeadlineAndClock{
+  text-align: center;  
+  margin: auto;
+  margin-top: 1%;
+  width: 20%;
+  border-style: solid;
+  border-color: black;
+  border-radius: 20px;
 }
 
 .Timer{
