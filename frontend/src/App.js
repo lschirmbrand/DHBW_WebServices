@@ -36,16 +36,14 @@ class App extends React.Component{
           <span>Guess the movie!</span>
         </div>        
         <Timer onComplete={() => this.timeOver()}/> 
-        <iframe width="100%" height="1000" src={"https://www.youtube.com/embed/cyOPcsnJS7o?autoplay=1&mute=1&start=30"}>
           <div className={"OuterDiv"}>
             <div className={"InfoBox"}>
               <AnswerBox />               
             </div>
           </div>
-        </iframe>
           <div>
             <canvas id="wave">Canvas</canvas>
-            <audio id="audio" src="https://p.scdn.co/mp3-preview/f6ab4a4ae33450c4edb89bb5711e8486d367d257?cid=6b05de1c165548d485b84df3bccc9965%22" autoPlay></audio>
+            <audio id="audio" src="https://p.scdn.co/mp3-preview/f6ab4a4ae33450c4edb89bb5711e8486d367d257?cid=6b05de1c165548d485b84df3bccc9965%22"></audio>
           </div>
         
 
