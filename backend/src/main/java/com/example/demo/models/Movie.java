@@ -11,7 +11,7 @@ public class Movie {
 
     private int id;
     private String title;
-    private String poster_path;
+    private String posterURL;
     private List<String> genres;
     private String overview;
 
@@ -22,7 +22,7 @@ public class Movie {
     public Movie(int id, String title, String posterPath, List<String> genres, String overview) {
         this.id = id;
         this.title = title;
-        this.poster_path = posterPath;
+        this.posterURL = posterURLPrefix + posterPath;
         this.genres = genres;
         this.overview = overview;
     }
@@ -35,8 +35,8 @@ public class Movie {
         return title;
     }
 
-    public String getPoster_path() {
-        return posterURLPrefix + poster_path;
+    public String getPosterURL() {
+        return posterURL;
     }
 
 
@@ -54,7 +54,7 @@ public class Movie {
                 "posterURLPrefix='" + posterURLPrefix + '\'' +
                 ", id=" + id +
                 ", title='" + title + '\'' +
-                ", posterURL='" + poster_path + '\'' +
+                ", posterURL='" + posterURL + '\'' +
                 ", genres=" + genres +
                 ", overview='" + overview + '\'' +
                 '}';
