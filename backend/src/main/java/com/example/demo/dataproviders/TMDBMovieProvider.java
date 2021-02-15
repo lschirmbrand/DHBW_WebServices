@@ -35,7 +35,7 @@ public class TMDBMovieProvider implements MovieProvider {
     public List<Movie> getAllMovies() {
 
         // hard coded for now, should be stored in db
-        List<Integer> movieIDs = List.of(120, 278, 680, 13, 16869).subList(0, 3);
+        List<Integer> movieIDs = List.of(120, 278, 680, 13, 16869,155, 27205, 603, 85, 68718);
 
         // perform async request for each ID
         return movieIDs.parallelStream().map(this::getMovieById).collect(Collectors.toList());
