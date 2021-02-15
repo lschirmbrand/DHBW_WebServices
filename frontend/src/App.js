@@ -28,7 +28,7 @@ class App extends React.Component{
     wave.fromElement("audio", "wave", options)
     
     return(
-      <div>
+      <div className = "Screen">
         <script src="https://cdn.jsdelivr.net/gh/PiethonCoder/wave.js/wave.js"></script>
         <Header />
         <Navbar />
