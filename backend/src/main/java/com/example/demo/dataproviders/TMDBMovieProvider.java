@@ -10,7 +10,10 @@ import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TMDBMovieProvider implements MovieProvider {
 
@@ -20,38 +23,30 @@ public class TMDBMovieProvider implements MovieProvider {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    private HttpEntity<String> createBasicRequest() {
+    private HttpEntity<String> httpEntity() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer " + "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyN2NmZTg4YzU5YTc3NzdhYmVhMGFmYmEyZWNhNWU2OCIsInN1YiI6IjYwMjNhNGZmNDU4MTk5MDAzZmFjZjcwMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Tn3gy3VlkVBw87KlnTEpzuMrGb1I50WaKoWBph3SPqc");
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-        return entity;
+        return new HttpEntity<>(headers);
     }
 
     @Override
     public List<Movie> getAllMovies() {
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer " + "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyN2NmZTg4YzU5YTc3NzdhYmVhMGFmYmEyZWNhNWU2OCIsInN1YiI6IjYwMjNhNGZmNDU4MTk5MDAzZmFjZjcwMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Tn3gy3VlkVBw87KlnTEpzuMrGb1I50WaKoWBph3SPqc");
+        // hard coded for now, should be stored in db
+        List<Integer> movieIDs = List.of(120, 278, 680, 13, 16869);
 
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-        Movie res = this.restTemplate.exchange(URI.create("https://api.themoviedb.org/3/movie/16869"), HttpMethod.GET, entity, Movie.class).getBody();
-
-        System.out.println(res);
-
-        return List.of();
+        // perform request for each ID, maybe async?
+        return movieIDs.stream().map(movieID -> {
+            String uri = "https://api.themoviedb.org/3/movie/" + movieID;
+            return this.restTemplate.exchange(URI.create(uri), HttpMethod.GET, httpEntity(), Movie.class).getBody();
+        }).collect(Collectors.toList());
     }
 
     @Override
-    public Movie getMovieById(int id){
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer " + "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyN2NmZTg4YzU5YTc3NzdhYmVhMGFmYmEyZWNhNWU2OCIsInN1YiI6IjYwMjNhNGZmNDU4MTk5MDAzZmFjZjcwMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Tn3gy3VlkVBw87KlnTEpzuMrGb1I50WaKoWBph3SPqc");
+    public Movie getMovieById(int id) {
         String uri = "https://api.themoviedb.org/3/movie/" + id;
-        HttpEntity<String> entity = new HttpEntity<>(headers);
-        Movie res = this.restTemplate.exchange(URI.create(uri), HttpMethod.GET, entity, Movie.class).getBody();
-
+        Movie res = this.restTemplate.exchange(URI.create(uri), HttpMethod.GET, httpEntity(), Movie.class).getBody();
         System.out.println(res);
 
         return res;
@@ -59,9 +54,8 @@ public class TMDBMovieProvider implements MovieProvider {
 
     @Override
     public Query search(String title) {
-        HttpEntity<String> entity = createBasicRequest();
-        String uri = "https://api.themoviedb.org/3/search/movie?query=" + title;
-        Query res = this.restTemplate.exchange(URI.create(uri), HttpMethod.GET, entity, Query.class).getBody();
+        String uri = "https://api.themoviedb.org/3/search/movie?query=" + URLEncoder.encode(title, StandardCharsets.UTF_8);
+        Query res = this.restTemplate.exchange(URI.create(uri), HttpMethod.GET, httpEntity(), Query.class).getBody();
 
         System.out.println(res);
 
