@@ -17,10 +17,10 @@ class PopUp extends React.Component {
                     <div>
                         <div className={"modal"} id={"modal"}>
                             <div className={"modal-header"}>
-                                <div className={"title"}>{this.props.answer? "True" : "False"}</div>
+                                <div className={"title"}>{this.props.answer? "Richtig" : "Falsch"}</div>
                                 <button onClick={() => this.closePopUp()} className={"close-button"}>&times;</button>
                             </div>
-                            <div className={"modal-body"}>{this.props.answer? "True True True" : "False False False"}</div>
+                            <div className={"modal-body"}>{this.props.answer? "Ja, richtig!" : "Nein, das war leider nicht der richtige Film."}</div>
                         </div>
                         <div className={"active"} id={"overlay"}></div>
                     </div>
