@@ -1,7 +1,6 @@
 package com.example.demo.dataproviders;
 
 import com.example.demo.models.Movie;
-import com.example.demo.models.Query;
 
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class MockMovieProvider implements MovieProvider {
     }
 
     @Override
-    public Query search(String title) {
+    public List<Movie> search(String title) {
         return null;
     }
 }

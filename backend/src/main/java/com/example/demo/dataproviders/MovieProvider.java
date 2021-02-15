@@ -1,7 +1,6 @@
 package com.example.demo.dataproviders;
 
 import com.example.demo.models.Movie;
-import com.example.demo.models.Query;
 
 import java.util.List;
 
@@ -10,5 +9,5 @@ public interface MovieProvider {
 
     Movie getMovieById(int id);
 
-    Query search(String title);
+    List<Movie> search(String title);
 }

@@ -3,14 +3,14 @@ package com.example.demo.models;
 
 import java.util.List;
 
-public class Query {
+public class TMDBSearchResponse {
     private List<Movie> results;
 
-    public Query() {
+    public TMDBSearchResponse() {
 
     }
 
-    public Query(List<Movie> results) {
+    public TMDBSearchResponse(List<Movie> results) {
         this.results = results;
     }
 
