@@ -1,21 +1,25 @@
 package com.example.demo.models;
 
+import com.example.demo.dataproviders.TMDBMovieDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.util.List;
 
+@JsonDeserialize(using = TMDBMovieDeserializer.class)
 public class Movie {
     private final String posterURLPrefix = "https://image.tmdb.org/t/p/w1280";
 
     private int id;
     private String title;
     private String poster_path;
-    private List<Genre> genres;
+    private List<String> genres;
     private String overview;
 
     public Movie() {
 
     }
 
-    public Movie(int id, String title, String posterPath, List<Genre> genres, String overview) {
+    public Movie(int id, String title, String posterPath, List<String> genres, String overview) {
         this.id = id;
         this.title = title;
         this.poster_path = posterPath;
@@ -36,7 +40,7 @@ public class Movie {
     }
 
 
-    public List<Genre> getGenres() {
+    public List<String> getGenres() {
         return genres;
     }
 
