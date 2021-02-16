@@ -21,6 +21,8 @@ public class MoviesController {
 
     @GetMapping("")
     public List<Movie> getAllMovies() {
+        // TODO return all movies after frontend uses /game endpoint
+//        return movieProvider.getAllMovies();
         return movieProvider.getAllMovies().subList(0, 3);
     }
 
