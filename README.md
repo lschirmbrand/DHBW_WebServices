@@ -18,3 +18,10 @@
 
 - Client ID: `c38b4ae6e9044e959087ab9d468fdcdb`
 - Client Secret: `9ea62490d4f241df9dae04bab128b618`
+
+## Database
+
+1. Create User with root credentials (username: Songguesser, password: songguesser)
+2. Create database songguesser
+
+(Or change application.properties)
