@@ -2,8 +2,6 @@ version: '3.8'
 services:
   db:
     build: ./database
-    ports:
-      - '3306:3306'
   client:
     build:
       context: ./frontend
@@ -14,3 +12,7 @@ services:
       context: ./backend
     ports:
       - '8081:8081'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/songguesser
+    links:
+      - 'db'
