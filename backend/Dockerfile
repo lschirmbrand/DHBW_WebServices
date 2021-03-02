@@ -2,7 +2,7 @@ FROM gradle:jdk15 AS build
 
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
-RUN gradle build --no-daemon
+RUN gradle build --no-daemon -x test
 
 
 FROM openjdk:15.0.2

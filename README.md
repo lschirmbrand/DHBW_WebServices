@@ -1,5 +1,24 @@
 # DHBW_WebServices
 
+## Setup for Development
+
+### Build and Start DB-Container
+
+To build and start the MariaDB Container for the first time
+
+```bash
+cd database
+docker build . -t db
+docker run --name db -p 3306:3306 -d db
+```
+
+After that you can always stop and start the database with
+
+```bash
+docker stop db
+docker start db
+```
+
 ## Run and build with Docker Compose
 
 To build and start containers run
@@ -27,3 +46,10 @@ To rebuild run
 
 - Client ID: `c38b4ae6e9044e959087ab9d468fdcdb`
 - Client Secret: `9ea62490d4f241df9dae04bab128b618`
+
+## Database
+
+1. Create User with root credentials (username: Songguesser, password: songguesser)
+2. Create database songguesser
+
+(Or change application.properties)

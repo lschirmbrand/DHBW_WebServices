@@ -1,9 +1,8 @@
 import React from "react"
 import "../styles/PopUp.css"
-import App from "../App"
 
 
-class PopUp extends React.Component {
+class PopUpEdit extends React.Component {
 
     constructor() {
         super()
@@ -15,10 +14,10 @@ class PopUp extends React.Component {
     render(props) {
         if (this.state.display == true) {
                 return (
-                    <div>
+                    <div id="Edit">
                         <div className={"modal"} id={"modal"}>
                             <div className={"modal-header"}>
-                                <div className={"title"}>{this.props.answer? "Richtig" : "Falsch"}</div>
+                                <div className={"title"}>Edit</div>
                                 <button onClick={() => this.closePopUp()} className={"close-button"}>&times;</button>
                             </div>
                             <div className={"modal-body"}>{this.props.answer? "Ja, richtig!" : "Nein, das war leider nicht der richtige Film."}</div>
@@ -42,4 +41,4 @@ class PopUp extends React.Component {
 }
 
 
-export default PopUp
+export default PopUpEdit
