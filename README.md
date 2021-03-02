@@ -1,5 +1,14 @@
 # DHBW_WebServices
 
+## Run and build with Docker Compose
+
+To build and start containers run
+
+`docker-compose up -d`
+
+To rebuild run
+
+`docker-compose build`
 ## External APIs
 
 ### The Movie Databse API

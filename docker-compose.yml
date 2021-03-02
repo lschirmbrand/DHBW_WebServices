@@ -1,12 +1,16 @@
-version: "3.3"
+version: "3.8"
 services: 
   client:
-    stdin_open: true
     build: 
       context: ./frontend
     ports:
       - "80:80"
-    # volumes: 
-    #   - "/app/node_modules"
-    #   - "./:/app"
-      
+  server:
+    build:
+      context: ./backend
+    ports:
+      - "8081:8081"
+  db:
+    image: mariadb
+    ports: 
+      - "8001:5432"
