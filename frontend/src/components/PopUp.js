@@ -1,5 +1,6 @@
 import React from "react"
 import "../styles/PopUp.css"
+import App from "../App"
 
 
 class PopUp extends React.Component {
@@ -22,7 +23,7 @@ class PopUp extends React.Component {
                             </div>
                             <div className={"modal-body"}>{this.props.answer? "Ja, richtig!" : "Nein, das war leider nicht der richtige Film."}</div>
                         </div>
-                        <div className={"active"} id={"overlay"}></div>
+                        <div id={"overlay"}></div>
                     </div>
                 )
             }
@@ -30,11 +31,12 @@ class PopUp extends React.Component {
             return null;
         }
 
+
     }
     closePopUp() {
         console.log("Close-Button")
         this.setState({
-            display: false
+            display: false,
         })
     }
 }
