@@ -2,14 +2,13 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(1);
-    transition: 200ms ease-in-out;
-    border: 1px solid black;
-    border-radius: 5px;
+    transform: translate(-50%, -50%);
+    border: 3px solid black;
+    border-radius: 13px;
     z-index: 10;
     background-color: white;
     width: 500px;
-    max-width: 80%;
+    max-width: 60%;
     
 }
 
@@ -18,7 +17,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid black;
+    border-bottom: 1.5px solid black;
 }
 
 .modal-header .title{
@@ -29,14 +28,14 @@
 .modal-header .close-button{
     cursor: pointer;
     border: none;
-    outline: none;
     background: none;
-    font-size: 1.25rem;
+    font-size: 1.6rem;
     font-weight: bold;
 }
 
 .modal-body{
     padding: 10px 15px;
+    font-size: 2.8rem;
 }
 
 
@@ -49,5 +48,4 @@
     bottom:0;
     background-color: rgba(0,0,0,0.5);
     pointer-events: all;
-    transition: 200ms ease-in-out;
 }

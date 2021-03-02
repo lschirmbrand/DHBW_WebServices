@@ -12,6 +12,16 @@ body{
   text-align: center;
 }
 
+/* Vorschlag, einfach auskommentieren und gerne mal angucken :)
+
+.Screen{
+  max-height: 100vh;
+  max-width: 200vh;
+  overflow: hidden;
+}
+
+*/
+
 .Title{  
   text-align: center;
   font-size: 35px;

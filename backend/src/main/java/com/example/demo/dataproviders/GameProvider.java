@@ -16,13 +16,13 @@ public class GameProvider {
     }
 
 
-    public Game createGame() {
+    public Game createGame(int roundCount, int moviesPerRound) {
         List<Movie> movieList = movieProvider.getAllMovies();
 
         List<Round> rounds = new ArrayList<>();
 
-        for (int i = 0; i < 3; i++) {
-            List<Movie> movies = choose(3, movieList);
+        for (int i = 0; i < roundCount; i++) {
+            List<Movie> movies = choose(moviesPerRound, movieList);
             rounds.add(new Round(movies, 0, ""));
         }
 
@@ -34,7 +34,10 @@ public class GameProvider {
         Random rand = new Random();
 
         for (int i = 0; i < n; i++) {
-            chosen.add(movies.remove(rand.nextInt(movies.size())));
+
+            if(!movies.isEmpty()) {
+                chosen.add(movies.remove(rand.nextInt(movies.size())));
+            }
         }
         return chosen;
     }

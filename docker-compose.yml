@@ -1,0 +1,16 @@
+version: "3.8"
+services: 
+  client:
+    build: 
+      context: ./frontend
+    ports:
+      - "80:80"
+  server:
+    build:
+      context: ./backend
+    ports:
+      - "8081:8081"
+  db:
+    image: mariadb
+    ports: 
+      - "8001:5432"
