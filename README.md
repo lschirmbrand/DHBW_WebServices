@@ -1,5 +1,24 @@
 # DHBW_WebServices
 
+## Setup for Development
+
+### Build and Start DB-Container
+
+To build and start the MariaDB Container for the first time
+
+```bash
+cd database
+docker build . -t db
+docker run --name db -p 3306:3306 -d db
+```
+
+After that you can always stop and start the database with
+
+```bash
+docker stop db
+docker start db
+```
+
 ## Run and build with Docker Compose
 
 To build and start containers run
