@@ -7,17 +7,17 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class MovieSpotifyDBEntity {
+public class MatchEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @NotNull
-    private String spotifyURI;
+    private String spotifyID;
     @NotNull
     private int tmdbID;
 
-    public MovieSpotifyDBEntity() {
+    public MatchEntity() {
     }
 
     public Integer getId() {
@@ -28,12 +28,12 @@ public class MovieSpotifyDBEntity {
         this.id = id;
     }
 
-    public String getSpotifyURI() {
-        return spotifyURI;
+    public String getSpotifyID() {
+        return spotifyID;
     }
 
-    public void setSpotifyURI(String spotifyURI) {
-        this.spotifyURI = spotifyURI;
+    public void setspotifyID(String spotifyID) {
+        this.spotifyID = spotifyID;
     }
 
     public int getTmdbID() {

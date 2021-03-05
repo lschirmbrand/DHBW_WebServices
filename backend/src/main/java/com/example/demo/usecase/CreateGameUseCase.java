@@ -1,31 +1,45 @@
 package com.example.demo.usecase;
 
 import com.example.demo.dataproviders.movies.MovieProvider;
-import com.example.demo.models.Game;
-import com.example.demo.models.Movie;
-import com.example.demo.models.Round;
+import com.example.demo.models.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class CreateGameUseCase {
     MovieProvider movieProvider;
     MovieListUseCase movieListUsecase;
+    MatchUseCase matchUseCase;
 
-    public CreateGameUseCase(MovieProvider movieProvider, MovieListUseCase movieListUsecase) {
+
+    public CreateGameUseCase(MovieProvider movieProvider, MovieListUseCase movieListUsecase, MatchUseCase matchUseCase) {
         this.movieProvider = movieProvider;
         this.movieListUsecase = movieListUsecase;
+        this.matchUseCase = matchUseCase;
     }
 
     public Game create(int roundCount, int moviesPerRound) {
-        List<Movie> movieList = movieListUsecase.getAllMovies();
+        List<Match> matches = matchUseCase.getAll();
+
+        List<Movie> movieList = matches.stream().map(Match::getMovie).collect(Collectors.toList());
 
         List<Round> rounds = new ArrayList<>();
 
         for (int i = 0; i < roundCount; i++) {
             List<Movie> movies = choose(moviesPerRound, movieList);
-            rounds.add(new Round(movies, 0, ""));
+//            int correctIndex = new Random().nextInt(moviesPerRound);
+            int correctIndex = 0;
+            Track track = null;
+
+            for (Match match : matches) {
+                if (match.getMovie() == movies.get(correctIndex)) {
+                    track = match.getTrack();
+                }
+            }
+
+            rounds.add(new Round(movies, 0, track));
         }
 
         return new Game(rounds);
@@ -37,7 +51,7 @@ public class CreateGameUseCase {
 
         for (int i = 0; i < n; i++) {
 
-            if(!movies.isEmpty()) {
+            if (!movies.isEmpty()) {
                 chosen.add(movies.remove(rand.nextInt(movies.size())));
             }
         }

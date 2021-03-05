@@ -1,9 +1,9 @@
 package com.example.demo.usecase;
 
 import com.example.demo.dataproviders.movies.MovieProvider;
-import com.example.demo.entities.MovieSpotifyDBEntity;
+import com.example.demo.entities.MatchEntity;
 import com.example.demo.models.Movie;
-import com.example.demo.dataproviders.database.MovieSpotifyRepository;
+import com.example.demo.dataproviders.database.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.stream.StreamSupport;
 public class MovieListUseCase {
 
     @Autowired
-    MovieSpotifyRepository movieSpotifyRepository;
+    MatchRepository matchRepository;
 
     @Autowired
     MovieProvider movieProvider;
@@ -22,7 +22,7 @@ public class MovieListUseCase {
 
         // get movieIDs from DB
 
-        Iterable<MovieSpotifyDBEntity> movieSpotifyDBEntities = movieSpotifyRepository.findAll();
+        Iterable<MatchEntity> movieSpotifyDBEntities = matchRepository.findAll();
 
         // fetch all Movies form tmdb
 
