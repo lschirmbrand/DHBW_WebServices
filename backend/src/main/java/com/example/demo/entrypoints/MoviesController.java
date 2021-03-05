@@ -2,7 +2,7 @@ package com.example.demo.entrypoints;
 
 import com.example.demo.dataproviders.movies.MovieProvider;
 import com.example.demo.models.Movie;
-import com.example.demo.usecase.MovieListUsecase;
+import com.example.demo.usecase.MovieListUseCase;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +15,9 @@ import java.util.List;
 public class MoviesController {
 
     MovieProvider movieProvider;
-    MovieListUsecase movieListUsecase;
+    MovieListUseCase movieListUsecase;
 
-    public MoviesController(MovieProvider movieProvider, MovieListUsecase movieListUsecase) {
+    public MoviesController(MovieProvider movieProvider, MovieListUseCase movieListUsecase) {
         this.movieProvider = movieProvider;
         this.movieListUsecase = movieListUsecase;
     }

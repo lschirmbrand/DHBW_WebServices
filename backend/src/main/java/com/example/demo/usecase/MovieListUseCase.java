@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-public class MovieListUsecase {
+public class MovieListUseCase {
 
     @Autowired
     MovieSpotifyRepository movieSpotifyRepository;

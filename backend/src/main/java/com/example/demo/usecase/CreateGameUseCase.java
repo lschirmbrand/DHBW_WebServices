@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class CreateGameUsecase {
+public class CreateGameUseCase {
     MovieProvider movieProvider;
-    MovieListUsecase movieListUsecase;
+    MovieListUseCase movieListUsecase;
 
-    public CreateGameUsecase(MovieProvider movieProvider, MovieListUsecase movieListUsecase) {
+    public CreateGameUseCase(MovieProvider movieProvider, MovieListUseCase movieListUsecase) {
         this.movieProvider = movieProvider;
         this.movieListUsecase = movieListUsecase;
     }
