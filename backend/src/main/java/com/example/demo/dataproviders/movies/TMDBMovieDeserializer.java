@@ -1,4 +1,4 @@
-package com.example.demo.dataproviders;
+package com.example.demo.dataproviders.movies;
 
 import com.example.demo.models.Movie;
 import com.fasterxml.jackson.core.JsonParser;
@@ -22,7 +22,7 @@ public class TMDBMovieDeserializer extends StdDeserializer<Movie> {
     }
 
     @Override
-    public Movie deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public Movie deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         JsonNode node = p.getCodec().readTree(p);
 
         int id = node.get("id").asInt();

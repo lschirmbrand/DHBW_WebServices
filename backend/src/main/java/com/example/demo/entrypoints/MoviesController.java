@@ -1,7 +1,8 @@
 package com.example.demo.entrypoints;
 
-import com.example.demo.dataproviders.MovieProvider;
+import com.example.demo.dataproviders.movies.MovieProvider;
 import com.example.demo.models.Movie;
+import com.example.demo.usecase.MovieListUsecase;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,21 +15,21 @@ import java.util.List;
 public class MoviesController {
 
     MovieProvider movieProvider;
+    MovieListUsecase movieListUsecase;
 
-    public MoviesController(MovieProvider movieProvider) {
+    public MoviesController(MovieProvider movieProvider, MovieListUsecase movieListUsecase) {
         this.movieProvider = movieProvider;
+        this.movieListUsecase = movieListUsecase;
     }
 
     @GetMapping("")
     public List<Movie> getAllMovies() {
-        // TODO return all movies after frontend uses /game endpoint
-//        return movieProvider.getAllMovies();
-        return movieProvider.getAllMovies().subList(0, 3);
+        return movieListUsecase.getAllMovies();
     }
 
     @GetMapping("/{id}")
     public Movie getMovieById(@PathVariable int id) {
-        return movieProvider.getMovieById(id);
+        return movieListUsecase.getMovieById(id);
     }
 
     @GetMapping("/search/{title}")

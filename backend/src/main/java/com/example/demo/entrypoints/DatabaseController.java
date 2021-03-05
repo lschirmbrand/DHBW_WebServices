@@ -2,8 +2,8 @@ package com.example.demo.entrypoints;
 
 import com.example.demo.entities.MovieSpotifyDBEntity;
 import com.example.demo.entities.User;
-import com.example.demo.repositories.MovieSpotifyRepository;
-import com.example.demo.repositories.UserRepository;
+import com.example.demo.dataproviders.database.MovieSpotifyRepository;
+import com.example.demo.dataproviders.database.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

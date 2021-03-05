@@ -1,6 +1,6 @@
 package com.example.demo.models;
 
-import com.example.demo.dataproviders.TMDBMovieDeserializer;
+import com.example.demo.dataproviders.movies.TMDBMovieDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.List;

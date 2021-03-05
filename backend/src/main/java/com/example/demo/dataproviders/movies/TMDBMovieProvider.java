@@ -1,4 +1,4 @@
-package com.example.demo.dataproviders;
+package com.example.demo.dataproviders.movies;
 
 import com.example.demo.models.Movie;
 import com.example.demo.models.TMDBSearchResponse;
@@ -32,10 +32,7 @@ public class TMDBMovieProvider implements MovieProvider {
     }
 
     @Override
-    public List<Movie> getAllMovies() {
-
-        // hard coded for now, should be stored in db
-        List<Integer> movieIDs = List.of(120, 278, 680, 13, 16869,155, 27205, 603, 85, 68718);
+    public List<Movie> getMovies(List<Integer> movieIDs) {
 
         // perform async request for each ID
         return movieIDs.parallelStream().map(this::getMovieById).collect(Collectors.toList());

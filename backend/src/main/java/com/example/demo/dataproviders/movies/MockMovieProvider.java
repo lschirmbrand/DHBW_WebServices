@@ -1,4 +1,4 @@
-package com.example.demo.dataproviders;
+package com.example.demo.dataproviders.movies;
 
 import com.example.demo.models.Movie;
 
@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MockMovieProvider implements MovieProvider {
     @Override
-    public List<Movie> getAllMovies() {
+    public List<Movie> getMovies(List<Integer> movieIDs)  {
         return List.of(
                 new Movie(
                         120,
@@ -44,6 +44,7 @@ public class MockMovieProvider implements MovieProvider {
                 )
         );
     }
+
 
     @Override
     public Movie getMovieById(int id) {

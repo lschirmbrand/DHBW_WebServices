@@ -1,11 +1,11 @@
-package com.example.demo.dataproviders;
+package com.example.demo.dataproviders.movies;
 
 import com.example.demo.models.Movie;
 
 import java.util.List;
 
 public interface MovieProvider {
-    List<Movie> getAllMovies();
+    List<Movie> getMovies(List<Integer> movieIDs);
 
     Movie getMovieById(int id);
 

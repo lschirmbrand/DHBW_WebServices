@@ -1,9 +1,9 @@
 package com.example.demo;
 
-import com.example.demo.dataproviders.GameProvider;
-import com.example.demo.dataproviders.MovieProvider;
-import com.example.demo.dataproviders.TMDBMovieProvider;
-import com.example.demo.models.Game;
+import com.example.demo.dataproviders.movies.MovieProvider;
+import com.example.demo.dataproviders.movies.TMDBMovieProvider;
+import com.example.demo.usecase.CreateGameUsecase;
+import com.example.demo.usecase.MovieListUsecase;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +33,13 @@ public class Configuration {
     }
 
     @Bean
-    GameProvider gameProvider() {
-        return new GameProvider(movieProvider());
+    MovieListUsecase movieListUseCase() {
+        return new MovieListUsecase();
+    }
+
+
+    @Bean
+    CreateGameUsecase createGameUsecase() {
+        return new CreateGameUsecase(movieProvider(), movieListUseCase());
     }
 }

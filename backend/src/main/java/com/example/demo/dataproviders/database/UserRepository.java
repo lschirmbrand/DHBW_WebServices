@@ -1,4 +1,4 @@
-package com.example.demo.repositories;
+package com.example.demo.dataproviders.database;
 
 import com.example.demo.entities.User;
 import org.springframework.data.repository.CrudRepository;

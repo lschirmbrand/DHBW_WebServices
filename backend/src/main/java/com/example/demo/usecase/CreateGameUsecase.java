@@ -1,5 +1,6 @@
-package com.example.demo.dataproviders;
+package com.example.demo.usecase;
 
+import com.example.demo.dataproviders.movies.MovieProvider;
 import com.example.demo.models.Game;
 import com.example.demo.models.Movie;
 import com.example.demo.models.Round;
@@ -8,16 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class GameProvider {
-    private final MovieProvider movieProvider;
+public class CreateGameUsecase {
+    MovieProvider movieProvider;
+    MovieListUsecase movieListUsecase;
 
-    public GameProvider(MovieProvider movieProvider) {
+    public CreateGameUsecase(MovieProvider movieProvider, MovieListUsecase movieListUsecase) {
         this.movieProvider = movieProvider;
+        this.movieListUsecase = movieListUsecase;
     }
 
-
-    public Game createGame(int roundCount, int moviesPerRound) {
-        List<Movie> movieList = movieProvider.getAllMovies();
+    public Game create(int roundCount, int moviesPerRound) {
+        List<Movie> movieList = movieListUsecase.getAllMovies();
 
         List<Round> rounds = new ArrayList<>();
 
