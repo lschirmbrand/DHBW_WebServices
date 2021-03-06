@@ -2,6 +2,7 @@ package com.example.demo;
 
 import com.example.demo.dataproviders.movies.MovieProvider;
 import com.example.demo.dataproviders.movies.TMDBMovieProvider;
+import com.example.demo.dataproviders.spotify.SpotifyAccessTokenProvider;
 import com.example.demo.dataproviders.spotify.SpotifyProvider;
 import com.example.demo.usecase.CreateGameUseCase;
 import com.example.demo.usecase.MatchUseCase;
@@ -9,6 +10,8 @@ import com.example.demo.usecase.MovieListUseCase;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
+
+import java.beans.BeanProperty;
 
 @org.springframework.context.annotation.Configuration
 public class Configuration {
@@ -25,7 +28,12 @@ public class Configuration {
 
     @Bean
     SpotifyProvider spotifyProvider() {
-        return new SpotifyProvider(new RestTemplateBuilder(), spotifyBearerToken);
+        return new SpotifyProvider(new RestTemplateBuilder(), spotifyAccessTokenProvider());
+    }
+
+    @Bean
+    SpotifyAccessTokenProvider spotifyAccessTokenProvider() {
+        return new SpotifyAccessTokenProvider(new RestTemplateBuilder());
     }
 
     @Bean
