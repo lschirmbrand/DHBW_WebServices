@@ -1,38 +1,49 @@
 package com.example.demo.entrypoints;
 
-import com.example.demo.entities.MovieSpotifyDBEntity;
+import com.example.demo.dataproviders.movies.MovieProvider;
+import com.example.demo.dataproviders.movies.TMDBMovieProvider;
+import com.example.demo.dataproviders.spotify.SpotifyProvider;
+import com.example.demo.entities.MatchEntity;
+import com.example.demo.models.Match;
+import com.example.demo.models.Movie;
+import com.example.demo.models.Track;
 import com.example.demo.usecase.MatchUseCase;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/match")
 public class MatchController {
 
     private final MatchUseCase matchUseCase;
+    private final MovieProvider movieProvider;
+    private final SpotifyProvider spotifyProvider;
 
-    public MatchController(MatchUseCase matchUseCase) {
+    public MatchController(MatchUseCase matchUseCase, MovieProvider movieProvider, SpotifyProvider spotifyProvider) {
         this.matchUseCase = matchUseCase;
+        this.movieProvider = movieProvider;
+        this.spotifyProvider = spotifyProvider;
     }
 
     @GetMapping()
-    public List<MovieSpotifyDBEntity> getAllMatches() {
+    public List<Match> getAllMatches() {
         return matchUseCase.getAll();
     }
 
     @PostMapping()
-    public MovieSpotifyDBEntity addMatch(@RequestBody MovieSpotifyDBEntity match) {
-        return matchUseCase.addMatch(match);
+    public Match addMatch(@RequestBody MatchEntity matchEntity) {
+        return matchUseCase.addMatch(matchEntity);
     }
 
     @PatchMapping()
-    public MovieSpotifyDBEntity updateMatch(@RequestBody MovieSpotifyDBEntity match) {
-        return matchUseCase.editMatch(match);
+    public MatchEntity updateMatch(@RequestBody MatchEntity matchEntity) {
+        return matchUseCase.editMatch(matchEntity);
     }
 
-    @DeleteMapping()
-    public void deleteMatch(@RequestBody MovieSpotifyDBEntity match) {
-        matchUseCase.deleteMatch(match);
+    @DeleteMapping("/{id}")
+    public void deleteMatch(@PathVariable int id) {
+        matchUseCase.deleteMatch(id);
     }
 }

@@ -5,12 +5,12 @@ import java.util.List;
 public class Round {
     private final List<Movie> movies;
     private final int correctIndex;
-    private final String soundTrackUrl;
+    private final Track soundTrack;
 
-    public Round(List<Movie> movies, int correctIndex, String soundTrackUrl) {
+    public Round(List<Movie> movies, int correctIndex, Track soundTrack) {
         this.movies = movies;
         this.correctIndex = correctIndex;
-        this.soundTrackUrl = soundTrackUrl;
+        this.soundTrack = soundTrack;
     }
 
     public List<Movie> getMovies() {
@@ -21,7 +21,7 @@ public class Round {
         return correctIndex;
     }
 
-    public String getSoundTrackUrl() {
-        return soundTrackUrl;
+    public Track getSoundTrack() {
+        return soundTrack;
     }
 }

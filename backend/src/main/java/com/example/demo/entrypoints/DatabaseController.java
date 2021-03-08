@@ -1,10 +1,8 @@
 package com.example.demo.entrypoints;
 
-import com.example.demo.entities.MovieSpotifyDBEntity;
 import com.example.demo.entities.User;
-import com.example.demo.dataproviders.database.MovieSpotifyRepository;
+import com.example.demo.dataproviders.database.MatchRepository;
 import com.example.demo.dataproviders.database.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,11 +11,11 @@ public class DatabaseController {
 
     private final UserRepository userRepository;
 
-    private final MovieSpotifyRepository movieSpotifyRepository;
+    private final MatchRepository matchRepository;
 
-    public DatabaseController(UserRepository userRepository, MovieSpotifyRepository movieSpotifyRepository) {
+    public DatabaseController(UserRepository userRepository, MatchRepository matchRepository) {
         this.userRepository = userRepository;
-        this.movieSpotifyRepository = movieSpotifyRepository;
+        this.matchRepository = matchRepository;
     }
 
     @PostMapping(path = "/user/add") // Map ONLY POST Requests

@@ -1,7 +1,12 @@
 package com.example.demo.usecase;
 
-import com.example.demo.dataproviders.database.MovieSpotifyRepository;
-import com.example.demo.entities.MovieSpotifyDBEntity;
+import com.example.demo.dataproviders.database.MatchRepository;
+import com.example.demo.dataproviders.movies.MovieProvider;
+import com.example.demo.dataproviders.spotify.SpotifyProvider;
+import com.example.demo.entities.MatchEntity;
+import com.example.demo.models.Match;
+import com.example.demo.models.Movie;
+import com.example.demo.models.Track;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,44 +15,57 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-@Service
+
 public class MatchUseCase {
-    private MovieSpotifyRepository movieSpotifyRepository;
-
     @Autowired
-    public MatchUseCase(MovieSpotifyRepository movieSpotifyRepository) {
-        this.movieSpotifyRepository = movieSpotifyRepository;
+    private MatchRepository matchRepository;
+    private MovieProvider movieProvider;
+    private SpotifyProvider spotifyProvider;
+
+
+    public MatchUseCase(MovieProvider movieProvider, SpotifyProvider spotifyProvider) {
+        this.spotifyProvider = spotifyProvider;
+        this.movieProvider = movieProvider;
     }
 
-    public List<MovieSpotifyDBEntity> getAll() {
-        return StreamSupport.stream(movieSpotifyRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+    public List<Match> getAll() {
+        return StreamSupport.stream(matchRepository.findAll().spliterator(), false)
+                .map(matchEntity -> {
+                    Movie movie = movieProvider.getMovieById(matchEntity.getTmdbID());
+                    Track track = spotifyProvider.getTrack(matchEntity.getSpotifyID());
+
+                    return new Match(matchEntity.getId(), movie, track);
+                }).collect(Collectors.toList());
     }
 
-    public MovieSpotifyDBEntity addMatch(MovieSpotifyDBEntity match) {
-        return this.movieSpotifyRepository.save(match);
+    public Match addMatch(MatchEntity matchEntity) {
+        MatchEntity entity = this.matchRepository.save(matchEntity);
+        Movie movie = movieProvider.getMovieById(entity.getTmdbID());
+        Track track = spotifyProvider.getTrack(entity.getSpotifyID());
+
+        return new Match(entity.getId(), movie, track);
     }
 
-    public MovieSpotifyDBEntity editMatch(MovieSpotifyDBEntity match) {
-        Optional<MovieSpotifyDBEntity> entityOptional = this.movieSpotifyRepository.findById(match.getId());
+    public MatchEntity editMatch(MatchEntity matchEntity) {
+        Optional<MatchEntity> entityOptional = this.matchRepository.findById(matchEntity.getId());
         if (entityOptional.isPresent()) {
-            MovieSpotifyDBEntity entity = entityOptional.get();
-            entity.setTmdbID(match.getTmdbID());
-            entity.setSpotifyURI(match.getSpotifyURI());
-            movieSpotifyRepository.save(entity);
+            MatchEntity entity = entityOptional.get();
+            entity.setTmdbID(matchEntity.getTmdbID());
+            entity.setspotifyID(matchEntity.getSpotifyID());
+            matchRepository.save(entity);
 
             return entity;
         }
-        throw new RuntimeException("Could not find entity with id " + match.getId());
+        throw new RuntimeException("Could not find entity with id " + matchEntity.getId());
     }
 
-    public void deleteMatch(MovieSpotifyDBEntity match) {
-        Optional<MovieSpotifyDBEntity> entityOptional = this.movieSpotifyRepository.findById(match.getId());
+    public void deleteMatch(int id) {
+        Optional<MatchEntity> entityOptional = this.matchRepository.findById(id);
 
         if (entityOptional.isPresent()) {
-            movieSpotifyRepository.delete(entityOptional.get());
+            matchRepository.delete(entityOptional.get());
             return;
         }
-        throw new RuntimeException("Could not find entity with id " + match.getId());
+        throw new RuntimeException("Could not find entity with id " + id);
     }
 }

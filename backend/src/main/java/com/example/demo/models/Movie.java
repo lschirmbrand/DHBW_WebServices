@@ -22,7 +22,7 @@ public class Movie {
     public Movie(int id, String title, String posterPath, List<String> genres, String overview) {
         this.id = id;
         this.title = title;
-        this.posterURL = posterURLPrefix + posterPath;
+        this.posterURL = posterPath == "null" ? "" : posterURLPrefix + posterPath;
         this.genres = genres;
         this.overview = overview;
     }
