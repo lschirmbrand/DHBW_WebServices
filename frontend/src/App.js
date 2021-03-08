@@ -33,7 +33,8 @@ class App extends React.Component {
       <div className="Screen">
         <script src="https://cdn.jsdelivr.net/gh/PiethonCoder/wave.js/wave.js"></script>
         <Header />
-        <Navbar />
+        <Admin/>
+        {/* <Navbar />
         <div id={"HeadlineAndClock"}>
           <div className={"HeadlineBig"}>
             <span>Guess the movie!</span>
@@ -49,7 +50,8 @@ class App extends React.Component {
         <div>
           <canvas id="wave">Canvas</canvas>
           <audio id="audio" src="https://p.scdn.co/mp3-preview/f6ab4a4ae33450c4edb89bb5711e8486d367d257?cid=6b05de1c165548d485b84df3bccc9965%22"></audio>
-        </div>
+        </div> */}
+
         <Footer />
       </div>
     )
