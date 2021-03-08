@@ -4,7 +4,7 @@ import React, { useEffect } from "react"
 import Header from "./components/Header"
 import Navbar from "./components/Navbar"
 import Game from "./components/Game";
-import Admin from './components/Admin'
+import Admin from './components/admin/Admin'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 class App extends React.Component {
