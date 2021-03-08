@@ -33,7 +33,7 @@ public class MatchController {
     }
 
     @PostMapping()
-    public MatchEntity addMatch(@RequestBody MatchEntity matchEntity) {
+    public Match addMatch(@RequestBody MatchEntity matchEntity) {
         return matchUseCase.addMatch(matchEntity);
     }
 

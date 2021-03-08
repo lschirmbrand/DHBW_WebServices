@@ -19,7 +19,7 @@ class Admin extends React.Component {
             tracks: [],
             selectedTrack: {
                 name: '',
-                id: '6ZFbXIJkuI1dVNWvzJzown'
+                id: ''
             }
         }
     }
@@ -30,7 +30,7 @@ class Admin extends React.Component {
             .then(data => { this.setState({ matches: data }) })
     }
 
-    handleOnInputChange = (event) => {
+    handleMovieInputChange = (event) => {
         const query = event.target.value;
         this.setState({ selectedMovie: { title: query, id: 0 } })
         this.searchMovies(query);
@@ -42,9 +42,10 @@ class Admin extends React.Component {
             return;
         }
         this.setState({ loadingMovies: true });
-        const res = await fetch('http://localhost:8081/movies/search/' + query);
+        const url = encodeURI('http://localhost:8081/movies/search/' + query);
+        const res = await fetch(url);
         const movies = await res.json();
-        this.setState({ loadingMovies: false, movies: movies || [] })
+        this.setState({ loadingMovies: false, movies: movies || [] });
     }
 
     selectMovie = (movie) => {
@@ -53,6 +54,34 @@ class Admin extends React.Component {
                 title: movie.title,
                 id: movie.id
             }, movies: []
+        })
+    }
+
+    handleTrackInputChange = (event) => {
+        const query = event.target.value;
+        this.setState({ selectedTrack: { name: query, id: 0 } })
+        this.searchTracks(query);
+    };
+
+    searchTracks = async (query) => {
+        if (query.trim() == '') {
+            this.setState({ tracks: [] });
+            return;
+        }
+        this.setState({ loadingTracks: true });
+        const url = 'http://localhost:8081/spotify/search/' + query.replaceAll(' ', '+');
+        console.log(url)
+        const res = await fetch(url);
+        const tracks = await res.json();
+        this.setState({ loadingTracks: false, tracks: tracks || [] });
+    }
+
+    selectTrack = (track) => {
+        this.setState({
+            selectedTrack: {
+                name: track.name,
+                id: track.id
+            }, tracks: []
         })
     }
 
@@ -70,7 +99,7 @@ class Admin extends React.Component {
             body: JSON.stringify(body)
         })
         const data = await res.json();
-        console.log(data);
+        this.setState({ matches: [...this.state.matches, data] })
     }
 
     render() {
@@ -100,7 +129,7 @@ class Admin extends React.Component {
                         <input
                             id="movie"
                             placeholder="movie"
-                            onChange={this.handleOnInputChange}
+                            onChange={this.handleMovieInputChange}
                             className="movie-search"
                             value={this.state.selectedMovie.title}
                         />
@@ -123,9 +152,24 @@ class Admin extends React.Component {
                         <input
                             id="track"
                             placeholder="soundtrack"
+                            onChange={this.handleTrackInputChange}
                             className="track-search"
+                            value={this.state.selectedTrack.name}
                         />
-                        <div className="result-list track-result"></div>
+                        <div className="result-list track-result">
+                            {this.state.tracks.map(track =>
+                                <div
+                                    className="result"
+                                    key={track.id}
+                                >
+                                    <Track track={track} />
+                                    <button
+                                        onClick={e => this.selectTrack(track)}
+                                    >✓</button>
+                                </div>
+
+                            )}
+                        </div>
                     </div>
                     <button
                         className="submit-btn"

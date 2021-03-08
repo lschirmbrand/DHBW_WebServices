@@ -38,8 +38,12 @@ public class MatchUseCase {
                 }).collect(Collectors.toList());
     }
 
-    public MatchEntity addMatch(MatchEntity matchEntity) {
-        return this.matchRepository.save(matchEntity);
+    public Match addMatch(MatchEntity matchEntity) {
+        MatchEntity entity = this.matchRepository.save(matchEntity);
+        Movie movie = movieProvider.getMovieById(entity.getTmdbID());
+        Track track = spotifyProvider.getTrack(entity.getSpotifyID());
+
+        return new Match(entity.getId(), movie, track);
     }
 
     public MatchEntity editMatch(MatchEntity matchEntity) {

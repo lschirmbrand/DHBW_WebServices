@@ -29,8 +29,7 @@ public class CreateGameUseCase {
 
         for (int i = 0; i < roundCount; i++) {
             List<Movie> movies = choose(moviesPerRound, movieList);
-//            int correctIndex = new Random().nextInt(moviesPerRound);
-            int correctIndex = 0;
+            int correctIndex = new Random().nextInt(moviesPerRound);
             Track track = null;
 
             for (Match match : matches) {
