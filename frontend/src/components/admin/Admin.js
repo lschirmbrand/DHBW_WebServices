@@ -14,6 +14,12 @@ class Admin extends React.Component {
             selectedMovie: {
                 title: '',
                 id: 0
+            },
+            loadingTracks: false,
+            tracks: [],
+            selectedTrack: {
+                name: '',
+                id: '6ZFbXIJkuI1dVNWvzJzown'
             }
         }
     }
@@ -48,6 +54,23 @@ class Admin extends React.Component {
                 id: movie.id
             }, movies: []
         })
+    }
+
+    submit = async () => {
+        console.log(this.state);
+        const body = {
+            tmdbID: this.state.selectedMovie.id,
+            spotifyID: this.state.selectedTrack.id
+        }
+
+        console.log(body)
+        const res = await fetch('http://localhost:8081/match', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        })
+        const data = await res.json();
+        console.log(data);
     }
 
     render() {
@@ -106,6 +129,7 @@ class Admin extends React.Component {
                     </div>
                     <button
                         className="submit-btn"
+                        onClick={this.submit}
                     >Submit</button>
                 </div >
             </div >
