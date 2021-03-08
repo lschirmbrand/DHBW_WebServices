@@ -14,8 +14,7 @@ class Admin extends React.Component {
     }
 
     componentDidMount() {
-        const moviesData = []
-        fetch('http://localhost:8081/movies')
+        fetch('http://localhost:8081/match')
             .then(response => response.json())
             .then(data => { this.setState({ moviesData: data }) })
     }
@@ -28,7 +27,7 @@ class Admin extends React.Component {
         return (
             <div>
                 <div id="table">
-                    <table class="content-table">
+                    <table className="content-table">
                         <thead>
                             <tr>
                                 <th>id</th>
@@ -38,7 +37,7 @@ class Admin extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {movies}
+                            { }
                         </tbody>
                     </table>
                 </div>
