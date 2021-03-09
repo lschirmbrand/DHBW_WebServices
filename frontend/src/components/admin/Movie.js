@@ -1,16 +1,20 @@
 import React from 'react';
+import '../../styles/admin/Movie.css';
 
 function Movie({ movie }) {
     return (
-        <a
-            className={'movie'}
-            href={'https://www.themoviedb.org/movie/' + movie.id}
-            target="_blank"
-            rel="noreferrer"
-        >
-            {movie.posterURL != '' && <img src={movie.posterURL}></img>}
-            <span>{movie.title}</span>
-        </a>
+        <div className={'movie'}>
+            {movie.posterURL !== '' && (
+                <img src={movie.posterURL} alt={movie.title}></img>
+            )}
+            <a
+                href={'https://www.themoviedb.org/movie/' + movie.id}
+                target="_blank"
+                rel="noreferrer"
+            >
+                {movie.title}
+            </a>
+        </div>
     );
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
+import { FaCheck } from 'react-icons/fa';
 import { Redirect } from 'react-router-dom';
 import Movie from './Movie';
 import Track from './Track';
@@ -27,26 +28,31 @@ export default class NewMatchForm extends Component {
 
     componentDidMount() {
         this.setState(this.props.location.state);
-        console.log(this.state);
-        console.log(this.props);
     }
 
     handleMovieInputChange = (event) => {
         const query = event.target.value;
         this.setState({ selectedMovie: { title: query, id: 0 } });
+        console.log(this.state);
         this.searchMovies(query);
     };
 
-    searchMovies = async (query) => {
+    searchMovies = (query) => {
         if (query.trim() === '') {
             this.setState({ movies: [] });
             return;
         }
         this.setState({ loadingMovies: true });
         const url = encodeURI('http://localhost:8081/movies/search/' + query);
-        const res = await fetch(url);
-        const movies = await res.json();
-        this.setState({ loadingMovies: false, movies: movies || [] });
+        fetch(url)
+            .then((res) => {
+                return res.json();
+            })
+            .then((movies) => {
+                this.setState({ loadingMovies: false, movies: movies || [] });
+                console.log(this.state);
+            })
+            .catch((err) => console.error(err));
     };
 
     selectMovie = (movie) => {
@@ -65,7 +71,7 @@ export default class NewMatchForm extends Component {
         this.searchTracks(query);
     };
 
-    searchTracks = async (query) => {
+    searchTracks = (query) => {
         if (query.trim() == '') {
             this.setState({ tracks: [] });
             return;
@@ -74,9 +80,12 @@ export default class NewMatchForm extends Component {
         const url =
             'http://localhost:8081/spotify/search/' +
             query.replaceAll(' ', '+');
-        const res = await fetch(url);
-        const tracks = await res.json();
-        this.setState({ loadingTracks: false, tracks: tracks || [] });
+        fetch(url)
+            .then((res) => res.json())
+            .then((tracks) =>
+                this.setState({ loadingTracks: false, tracks: tracks || [] })
+            )
+            .catch((err) => console.error(err));
     };
 
     selectTrack = (track) => {
@@ -89,23 +98,26 @@ export default class NewMatchForm extends Component {
         });
     };
 
-    submit = async () => {
+    submit = () => {
         const body = {
             tmdbID: this.state.selectedMovie.id,
             spotifyID: this.state.selectedTrack.id,
         };
-        const res = await fetch('http://localhost:8081/match', {
+        fetch('http://localhost:8081/match', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body),
-        });
-        const data = await res.json();
-        this.setState({
-            matches: [...this.state.matches, data],
-            selectedMovie: { id: 0, title: '' },
-            selectedTrack: { id: '', name: '' },
-            redirect: true,
-        });
+        })
+            .then((res) => res.json())
+            .then((data) =>
+                this.setState({
+                    matches: [...this.state.matches, data],
+                    selectedMovie: { id: 0, title: '' },
+                    selectedTrack: { id: '', name: '' },
+                    redirect: true,
+                })
+            )
+            .catch((err) => console.error(err));
     };
 
     render() {
@@ -131,11 +143,11 @@ export default class NewMatchForm extends Component {
                         {this.state.movies.map((movie) => (
                             <div className="result" key={movie.id}>
                                 <Movie movie={movie} />
-                                <button
+                                <Button
                                     onClick={(e) => this.selectMovie(movie)}
                                 >
-                                    ✓
-                                </button>
+                                    <FaCheck />
+                                </Button>
                             </div>
                         ))}
                     </div>
@@ -152,11 +164,11 @@ export default class NewMatchForm extends Component {
                         {this.state.tracks.map((track) => (
                             <div className="result" key={track.id}>
                                 <Track track={track} />
-                                <button
+                                <Button
                                     onClick={(e) => this.selectTrack(track)}
                                 >
-                                    ✓
-                                </button>
+                                    <FaCheck />
+                                </Button>
                             </div>
                         ))}
                     </div>
