@@ -16,12 +16,14 @@ import java.util.List;
 public class SpotifyProvider {
     private final RestTemplate restTemplate;
     private final SpotifyAccessTokenProvider spotifyAccessTokenProvider;
+    private final SpotifyWebScraper spotifyWebScraper;
     private final String SPOTIFY_BASE_URL = "https://api.spotify.com/v1/";
     private String access_token;
 
     public SpotifyProvider(RestTemplateBuilder restTemplateBuilder, SpotifyAccessTokenProvider spotifyAccessTokenProvider) {
         this.restTemplate = restTemplateBuilder.build();
         this.spotifyAccessTokenProvider = spotifyAccessTokenProvider;
+        this.spotifyWebScraper = new SpotifyWebScraper();
     }
 
     private HttpEntity httpEntity(String bearerToken) {
@@ -33,15 +35,24 @@ public class SpotifyProvider {
 
     public Track getTrack(String id) {
         String uri = SPOTIFY_BASE_URL + "tracks/" + id;
+        Track track;
         try {
             HttpEntity httpEntity = httpEntity(access_token);
             ResponseEntity<Track> response = this.restTemplate.exchange(URI.create(uri), HttpMethod.GET, httpEntity, Track.class);
-            return response.getBody();
+            track = response.getBody();
         } catch (HttpClientErrorException e) {
             SpotifyAuth spotifyAuth = spotifyAccessTokenProvider.getAuth();
             access_token = spotifyAuth.getAccess_token();
-            return getTrack(id);
+            track = getTrack(id);
         }
+
+        assert track != null;
+        if (track.getPreviewURL().equals("null")) {
+            String previewURL = spotifyWebScraper.scrapeForPreviewURL(track.getId());
+            track.setPreviewURL(previewURL);
+        }
+
+        return track;
     }
 
     public List<Track> searchTrack(String query) {
