@@ -11,11 +11,6 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
 public class SpotifyWebScraper {
-
-    public static void main(String[] args) {
-        new SpotifyWebScraper().scrapeForPreviewURL("5SXsXjVJCWeJuf7FHvgBYR");
-    }
-
     public String scrapeForPreviewURL(String trackID) {
         String json;
         try {
