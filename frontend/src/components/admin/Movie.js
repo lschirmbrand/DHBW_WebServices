@@ -1,13 +1,17 @@
-import React from 'react'
+import React from 'react';
 
 function Movie({ movie }) {
     return (
-        <a className="movie" href={"https://www.themoviedb.org/movie/" + movie.id} target="_blank">
+        <a
+            className={'movie'}
+            href={'https://www.themoviedb.org/movie/' + movie.id}
+            target="_blank"
+            rel="noreferrer"
+        >
             {movie.posterURL != '' && <img src={movie.posterURL}></img>}
             <span>{movie.title}</span>
-        </a >
-    )
+        </a>
+    );
 }
 
-export default Movie
-
+export default Movie;

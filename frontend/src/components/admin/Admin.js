@@ -77,7 +77,6 @@ class Admin extends React.Component {
         const url =
             'http://localhost:8081/spotify/search/' +
             query.replaceAll(' ', '+');
-        console.log(url);
         const res = await fetch(url);
         const tracks = await res.json();
         this.setState({ loadingTracks: false, tracks: tracks || [] });
@@ -94,20 +93,22 @@ class Admin extends React.Component {
     };
 
     submit = async () => {
-        console.log(this.state);
         const body = {
             tmdbID: this.state.selectedMovie.id,
             spotifyID: this.state.selectedTrack.id,
         };
-
-        console.log(body);
         const res = await fetch('http://localhost:8081/match', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body),
         });
         const data = await res.json();
-        this.setState({ matches: [...this.state.matches, data] });
+        this.setState({
+            matches: [...this.state.matches, data],
+            selectedMovie: { id: 0, title: '' },
+            selectedTrack: { id: '', name: '' },
+        });
+        console.log(this.state);
     };
 
     render() {
