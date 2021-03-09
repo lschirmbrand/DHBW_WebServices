@@ -31,6 +31,18 @@ class Admin extends React.Component {
 
     setRedirect = () => this.setState({ redirect: true });
 
+    removeClick = (matchID) =>
+        fetch('http://localhost:8081/match/' + matchID, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+        }).then((res) =>
+            this.setState({
+                matches: this.state.matches.filter(
+                    (match) => match.id !== matchID
+                ),
+            })
+        );
+
     render() {
         return (
             <div className="admin">
@@ -48,6 +60,7 @@ class Admin extends React.Component {
                             <tr>
                                 <th>Movie</th>
                                 <th>Soundtrack</th>
+                                <th>Remove</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -58,6 +71,15 @@ class Admin extends React.Component {
                                     </td>
                                     <td>
                                         <Track track={match.track} />
+                                    </td>
+                                    <td>
+                                        <Button
+                                            onClick={(e) =>
+                                                this.removeClick(match.id)
+                                            }
+                                        >
+                                            Remove
+                                        </Button>
                                     </td>
                                 </tr>
                             ))}
