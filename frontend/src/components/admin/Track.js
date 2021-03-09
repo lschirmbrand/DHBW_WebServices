@@ -1,13 +1,21 @@
-import React from 'react'
+import React from 'react';
+import '../../styles/admin/Track.css';
 
 export default function Track({ track }) {
     return (
-        <a className="track" href={track.spotifyURL} target="_blank">
-            <img src={track.coverURL}></img>
+        <div className={'track'}>
+            <img src={track.coverURL} alt={track.name}></img>
             <div className="track-desc">
-                <span className="track-name">{track.name}</span>
+                <a
+                    className="track-name"
+                    href={track.spotifyURL}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    {track.name}
+                </a>
                 <span className="track-artist">{track.artistName}</span>
             </div>
-        </a>
-    )
+        </div>
+    );
 }

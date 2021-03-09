@@ -1,184 +1,169 @@
-import React from "react"
-import "../../styles/Admin.css"
-import Movie from "./Movie"
-import Track from "./Track"
+import React from 'react';
+import '../../styles/Admin.css';
+import Movie from './Movie';
+import Track from './Track';
 
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
+
+import { Redirect } from 'react-router-dom';
+import { FaFileExport, FaFileImport, FaPlus, FaTrash } from 'react-icons/fa';
 
 class Admin extends React.Component {
-    constructor() {
-        super()
+    constructor({ matches }) {
+        super();
         this.state = {
-            matches: [],
-            loadingMovies: false,
-            movies: [],
-            selectedMovie: {
-                title: '',
-                id: 0
-            },
-            loadingTracks: false,
-            tracks: [],
-            selectedTrack: {
-                name: '',
-                id: ''
-            }
-        }
+            matches: matches || [],
+            redirect: false,
+            fileDownloadUrl: '',
+        };
+        this.upload = React.createRef();
     }
 
     componentDidMount() {
-        fetch('http://localhost:8081/match')
-            .then(response => response.json())
-            .then(data => { this.setState({ matches: data }) })
-    }
-
-    handleMovieInputChange = (event) => {
-        const query = event.target.value;
-        this.setState({ selectedMovie: { title: query, id: 0 } })
-        this.searchMovies(query);
-    };
-
-    searchMovies = async (query) => {
-        if (query.trim() === '') {
-            this.setState({ movies: [] });
-            return;
+        if (this.props.location.state) {
+            this.setState(this.props.location.state);
+        } else {
+            fetch('http://localhost:8081/match')
+                .then((response) => response.json())
+                .then((data) => this.setState({ matches: data }));
         }
-        this.setState({ loadingMovies: true });
-        const url = encodeURI('http://localhost:8081/movies/search/' + query);
-        const res = await fetch(url);
-        const movies = await res.json();
-        this.setState({ loadingMovies: false, movies: movies || [] });
     }
 
-    selectMovie = (movie) => {
-        this.setState({
-            selectedMovie: {
-                title: movie.title,
-                id: movie.id
-            }, movies: []
-        })
-    }
+    setRedirect = () => this.setState({ redirect: true });
 
-    handleTrackInputChange = (event) => {
-        const query = event.target.value;
-        this.setState({ selectedTrack: { name: query, id: 0 } })
-        this.searchTracks(query);
-    };
-
-    searchTracks = async (query) => {
-        if (query.trim() == '') {
-            this.setState({ tracks: [] });
-            return;
-        }
-        this.setState({ loadingTracks: true });
-        const url = 'http://localhost:8081/spotify/search/' + query.replaceAll(' ', '+');
-        console.log(url)
-        const res = await fetch(url);
-        const tracks = await res.json();
-        this.setState({ loadingTracks: false, tracks: tracks || [] });
-    }
-
-    selectTrack = (track) => {
-        this.setState({
-            selectedTrack: {
-                name: track.name,
-                id: track.id
-            }, tracks: []
-        })
-    }
-
-    submit = async () => {
-        console.log(this.state);
-        const body = {
-            tmdbID: this.state.selectedMovie.id,
-            spotifyID: this.state.selectedTrack.id
-        }
-
-        console.log(body)
-        const res = await fetch('http://localhost:8081/match', {
-            method: 'POST',
+    removeClick = (matchID) => {
+        fetch('http://localhost:8081/match/' + matchID, {
+            method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        })
-        const data = await res.json();
-        this.setState({ matches: [...this.state.matches, data] })
-    }
+        }).then((res) =>
+            this.setState({
+                matches: this.state.matches.filter(
+                    (match) => match.id !== matchID
+                ),
+            })
+        );
+    };
+
+    clickExport = () => {
+        const matches = this.state.matches.map((match) => ({
+            spotifyID: match.track.id,
+            tmdbID: match.movie.id,
+        }));
+
+        const blob = new Blob([JSON.stringify({ matches })]);
+        const fileDownloadUrl = URL.createObjectURL(blob);
+        this.setState({ fileDownloadUrl: fileDownloadUrl }, () => {
+            this.dofileDownload.click();
+            URL.revokeObjectURL(fileDownloadUrl);
+            console.log(this.state);
+            this.setState({ fileDownloadUrl: '' });
+        });
+    };
+
+    clickImport = () => {};
+    importFile = (file) => {
+        const fileReader = new FileReader();
+        fileReader.onloadend = () => {
+            const content = fileReader.result;
+            JSON.parse(content).matches.forEach((match) =>
+                fetch('http://localhost:8081/match', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(match),
+                })
+                    .then((res) => res.json())
+                    .then((data) =>
+                        this.setState({
+                            matches: [...this.state.matches, data],
+                        })
+                    )
+            );
+        };
+        fileReader.readAsText(file);
+    };
 
     render() {
         return (
             <div className="admin">
+                {this.state.redirect && (
+                    <Redirect
+                        to={{
+                            pathname: '/admin/new',
+                            state: { matches: this.state.matches },
+                        }}
+                    />
+                )}
                 <div id="table">
-                    <table className="content-table">
+                    <Table striped bordered hover>
                         <thead>
                             <tr>
                                 <th>Movie</th>
                                 <th>Soundtrack</th>
+                                <th>Remove</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.matches.map(match => (
+                            {this.state.matches.map((match) => (
                                 <tr key={match.id}>
-                                    <td><Movie movie={match.movie} /></td>
-                                    <td><Track track={match.track} /></td>
+                                    <td>
+                                        <Movie movie={match.movie} />
+                                    </td>
+                                    <td>
+                                        <Track track={match.track} />
+                                    </td>
+                                    <td>
+                                        <Button
+                                            variant="danger"
+                                            onClick={(e) =>
+                                                this.removeClick(match.id)
+                                            }
+                                        >
+                                            <FaTrash />
+                                        </Button>
+                                    </td>
                                 </tr>
                             ))}
+                            <tr>
+                                <td colSpan="3">
+                                    <Button onClick={this.setRedirect}>
+                                        <FaPlus />
+                                    </Button>
+                                    <Button onClick={this.clickExport}>
+                                        <FaFileExport />
+                                    </Button>
+                                    <Button
+                                        onClick={() =>
+                                            this.upload.current.click()
+                                        }
+                                    >
+                                        <FaFileImport />
+                                    </Button>
+                                    <input
+                                        type="file"
+                                        id="importFile"
+                                        style={{ display: 'none' }}
+                                        ref={this.upload}
+                                        onChange={(e) =>
+                                            this.importFile(e.target.files[0])
+                                        }
+                                    />
+                                </td>
+                            </tr>
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
-
-                <div className="new-form">
-                    <div className="holder">
-                        <input
-                            id="movie"
-                            placeholder="movie"
-                            onChange={this.handleMovieInputChange}
-                            className="movie-search"
-                            value={this.state.selectedMovie.title}
-                        />
-                        <div className="result-list movie-result">
-                            {this.state.movies.map(movie =>
-                                <div
-                                    className="result"
-                                    key={movie.id}
-                                >
-                                    <Movie movie={movie} />
-                                    <button
-                                        onClick={e => this.selectMovie(movie)}
-                                    >✓</button>
-                                </div>
-                            )}
-
-                        </div>
-                    </div>
-                    <div className="holder">
-                        <input
-                            id="track"
-                            placeholder="soundtrack"
-                            onChange={this.handleTrackInputChange}
-                            className="track-search"
-                            value={this.state.selectedTrack.name}
-                        />
-                        <div className="result-list track-result">
-                            {this.state.tracks.map(track =>
-                                <div
-                                    className="result"
-                                    key={track.id}
-                                >
-                                    <Track track={track} />
-                                    <button
-                                        onClick={e => this.selectTrack(track)}
-                                    >✓</button>
-                                </div>
-
-                            )}
-                        </div>
-                    </div>
-                    <button
-                        className="submit-btn"
-                        onClick={this.submit}
-                    >Submit</button>
-                </div >
-            </div >
-        )
+                <a
+                    style={{ display: 'none' }}
+                    download="matches.json"
+                    href={this.state.fileDownloadUrl}
+                    ref={(e) => (this.dofileDownload = e)}
+                >
+                    download it
+                </a>
+            </div>
+        );
     }
 }
 
-export default Admin
+export default Admin;

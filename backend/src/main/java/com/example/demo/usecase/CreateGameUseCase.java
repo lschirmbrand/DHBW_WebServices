@@ -21,7 +21,7 @@ public class CreateGameUseCase {
     }
 
     public Game create(int roundCount, int moviesPerRound) {
-        List<Match> matches = matchUseCase.getAll();
+        List<Match> matches = matchUseCase.getAll(true);
 
         List<Movie> movieList = matches.stream().map(Match::getMovie).collect(Collectors.toList());
 

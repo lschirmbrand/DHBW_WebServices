@@ -16,12 +16,14 @@ import java.util.List;
 public class SpotifyProvider {
     private final RestTemplate restTemplate;
     private final SpotifyAccessTokenProvider spotifyAccessTokenProvider;
+    private final SpotifyWebScraper spotifyWebScraper;
     private final String SPOTIFY_BASE_URL = "https://api.spotify.com/v1/";
     private String access_token;
 
     public SpotifyProvider(RestTemplateBuilder restTemplateBuilder, SpotifyAccessTokenProvider spotifyAccessTokenProvider) {
         this.restTemplate = restTemplateBuilder.build();
         this.spotifyAccessTokenProvider = spotifyAccessTokenProvider;
+        this.spotifyWebScraper = new SpotifyWebScraper();
     }
 
     private HttpEntity httpEntity(String bearerToken) {
@@ -31,17 +33,26 @@ public class SpotifyProvider {
         return new HttpEntity(headers);
     }
 
-    public Track getTrack(String id) {
+    public Track getTrack(String id, boolean forcePreviewURL) {
         String uri = SPOTIFY_BASE_URL + "tracks/" + id;
+        Track track;
         try {
             HttpEntity httpEntity = httpEntity(access_token);
             ResponseEntity<Track> response = this.restTemplate.exchange(URI.create(uri), HttpMethod.GET, httpEntity, Track.class);
-            return response.getBody();
+            track = response.getBody();
         } catch (HttpClientErrorException e) {
             SpotifyAuth spotifyAuth = spotifyAccessTokenProvider.getAuth();
             access_token = spotifyAuth.getAccess_token();
-            return getTrack(id);
+            track = getTrack(id, forcePreviewURL);
         }
+
+        assert track != null;
+        if (forcePreviewURL && track.getPreviewURL().equals("null")) {
+            String previewURL = spotifyWebScraper.scrapeForPreviewURL(track.getId());
+            track.setPreviewURL(previewURL);
+        }
+
+        return track;
     }
 
     public List<Track> searchTrack(String query) {
@@ -50,7 +61,7 @@ public class SpotifyProvider {
             HttpEntity httpEntity = httpEntity(access_token);
             ResponseEntity<SpotifySearchResponse> response =  this.restTemplate.exchange(URI.create(uri), HttpMethod.GET, httpEntity, SpotifySearchResponse.class);
             return response.getBody().getTracks().getItems();
-        } catch (HttpClientErrorException e) {
+        } catch (HttpClientErrorException.Unauthorized e) {
             SpotifyAuth spotifyAuth = spotifyAccessTokenProvider.getAuth();
             access_token = spotifyAuth.getAccess_token();
             return searchTrack(query);

@@ -3,65 +3,33 @@
     margin: 0 auto;
 }
 
-#table{
-    display: flex;
-    justify-content: center;
-}
-.content-table{
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size:1.25em;
-    min-width: 80%;
-    border-radius: 5px 5px 0 0;
-    overflow: hidden;
-}
-.content-table thead tr{
-    background-color: #009879;
-    /*color: white;*/
-    text-align: left;
-    font-weight: bold;
-}
-
-.content-table th, .content-table td{
-    padding: 12px, 15px;
-}
-
-.content-table tbody tr{
-    border-bottom: 1px solid white; 
-}
-
-.content-table tbody tr:nth-of-type(even){
-    background-color: #f3f3f3;
-}
-
-.content-table tbody tr:last-of-type{
-    border-bottom: 2px solid #009879;
-}
-
-.movie, .track {
+/* .movie,
+.track {
     text-decoration: none;
     color: initial;
     display: flex;
     flex-direction: row;
 }
 
-.movie:visited, .track:visited {
+.movie:visited,
+.track:visited {
     color: initial;
 }
 
-.movie img, .track img{
+.movie img,
+.track img {
     height: 100px;
-    margin-right:0.5rem;
+    margin-right: 0.5rem;
 }
 
 .movie span {
     font-size: 1.5rem;
     align-self: center;
     font-weight: bold;
-}
-
+} */
+/* 
 .track-desc {
-    display:flex;
+    display: flex;
     flex-direction: column;
     align-self: center;
 }
@@ -69,7 +37,7 @@
 .track-name {
     font-weight: bold;
     font-size: 1.5rem;
-}
+} */
 
 .holder {
     position: relative;
@@ -82,7 +50,7 @@
     width: 100%;
 }
 
-.result:nth-child(2n +1) {
+.result:nth-child(2n + 1) {
     background-color: white;
 }
 
@@ -103,7 +71,7 @@
 }
 
 .result {
-    display: flex ;
+    display: flex;
     flex-direction: row;
 }
 
@@ -111,7 +79,6 @@
     width: 40px;
     min-width: 40px;
     height: 40px;
-    font-size: 1.5rem;
     align-self: center;
     margin-left: auto;
 }
