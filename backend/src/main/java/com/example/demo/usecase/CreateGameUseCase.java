@@ -38,7 +38,7 @@ public class CreateGameUseCase {
                 }
             }
 
-            rounds.add(new Round(movies, 0, track));
+            rounds.add(new Round(movies, correctIndex, track));
         }
 
         return new Game(rounds);

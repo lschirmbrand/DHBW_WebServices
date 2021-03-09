@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/Admin.css';
+import './Admin.css';
 import Movie from './Movie';
 import Track from './Track';
 
@@ -8,11 +8,13 @@ import Button from 'react-bootstrap/Button';
 
 import { Redirect } from 'react-router-dom';
 import { FaFileExport, FaFileImport, FaPlus, FaTrash } from 'react-icons/fa';
+import Spinner from 'react-bootstrap/esm/Spinner';
 
 class Admin extends React.Component {
     constructor({ matches }) {
         super();
         this.state = {
+            loading: true,
             matches: matches || [],
             redirect: false,
             fileDownloadUrl: '',
@@ -26,7 +28,9 @@ class Admin extends React.Component {
         } else {
             fetch('http://localhost:8081/match')
                 .then((response) => response.json())
-                .then((data) => this.setState({ matches: data }));
+                .then((data) =>
+                    this.setState({ matches: data, loading: false })
+                );
         }
     }
 
@@ -84,7 +88,9 @@ class Admin extends React.Component {
     };
 
     render() {
-        return (
+        return this.state.loading ? (
+            <Spinner animation="border" />
+        ) : (
             <div className="admin">
                 {this.state.redirect && (
                     <Redirect

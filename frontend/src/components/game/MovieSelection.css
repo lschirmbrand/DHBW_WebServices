@@ -1,0 +1,21 @@
+.movies {
+    display: flex;
+    flex-direction: row;
+}
+
+.movie-select {
+    display: flex;
+    flex-direction: column;
+}
+
+.movie-select * {
+    align-self: center;
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.poster:hover {
+    opacity: 0.5;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/admin/Track.css';
+import './Track.css';
 
 export default function Track({ track }) {
     return (
