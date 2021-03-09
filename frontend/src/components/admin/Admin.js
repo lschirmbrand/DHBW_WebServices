@@ -126,18 +126,25 @@ class Admin extends React.Component {
                             ))}
                             <tr>
                                 <td colSpan="3">
-                                    <Button onClick={this.setRedirect}>
-                                        <FaPlus />
-                                    </Button>
-                                    <Button onClick={this.clickExport}>
-                                        <FaFileExport />
-                                    </Button>
+                                    <Button
+                                        onClick={this.setRedirect}
+                                        variant="success"
+                                    >
+                                        <FaPlus /> Add
+                                    </Button>{' '}
+                                    <Button
+                                        onClick={this.clickExport}
+                                        variant="secondary"
+                                    >
+                                        <FaFileExport /> Export
+                                    </Button>{' '}
                                     <Button
                                         onClick={() =>
                                             this.upload.current.click()
                                         }
+                                        variant="secondary"
                                     >
-                                        <FaFileImport />
+                                        <FaFileImport /> Import
                                     </Button>
                                     <input
                                         type="file"
