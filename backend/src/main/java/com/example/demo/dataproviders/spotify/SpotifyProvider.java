@@ -50,7 +50,7 @@ public class SpotifyProvider {
             HttpEntity httpEntity = httpEntity(access_token);
             ResponseEntity<SpotifySearchResponse> response =  this.restTemplate.exchange(URI.create(uri), HttpMethod.GET, httpEntity, SpotifySearchResponse.class);
             return response.getBody().getTracks().getItems();
-        } catch (HttpClientErrorException e) {
+        } catch (HttpClientErrorException.Unauthorized e) {
             SpotifyAuth spotifyAuth = spotifyAccessTokenProvider.getAuth();
             access_token = spotifyAuth.getAccess_token();
             return searchTrack(query);

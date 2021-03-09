@@ -2,7 +2,6 @@ package com.example.demo.dataproviders.spotify;
 
 import com.example.demo.models.Track;
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
@@ -37,7 +36,9 @@ public class SpotifyTrackDeserializer extends StdDeserializer<Track> {
         String previewURL = node.get("preview_url").asText();
         String spotifyURL = node.get("external_urls").get("spotify").asText();
         String albumName = node.get("album").get("name").asText();
-        String coverURL = node.get("album").get("images").get(0).get("url").asText();
+
+        JsonNode imagesNode = node.get("album").get("images");
+        String coverURL = imagesNode.isEmpty() ? "" : imagesNode.get(0).get("url").asText();
 
         return new Track(id, name, String.join(", ", artists), previewURL, spotifyURL, albumName, coverURL);
     }
