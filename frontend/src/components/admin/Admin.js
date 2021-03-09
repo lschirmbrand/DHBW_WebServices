@@ -5,7 +5,6 @@ import Track from './Track';
 
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 
 import { Redirect } from 'react-router-dom';
 import { FaFileExport, FaFileImport, FaPlus, FaTrash } from 'react-icons/fa';
@@ -18,6 +17,7 @@ class Admin extends React.Component {
             redirect: false,
             fileDownloadUrl: '',
         };
+        this.upload = React.createRef();
     }
 
     componentDidMount() {
@@ -132,19 +132,22 @@ class Admin extends React.Component {
                                     <Button onClick={this.clickExport}>
                                         <FaFileExport />
                                     </Button>
-                                    <Button onClick={this.export}>
+                                    <Button
+                                        onClick={() =>
+                                            this.upload.current.click()
+                                        }
+                                    >
                                         <FaFileImport />
                                     </Button>
-                                    <Form>
-                                        <Form.File
-                                            id="importFile"
-                                            onChange={(e) =>
-                                                this.importFile(
-                                                    e.target.files[0]
-                                                )
-                                            }
-                                        />
-                                    </Form>
+                                    <input
+                                        type="file"
+                                        id="importFile"
+                                        style={{ display: 'none' }}
+                                        ref={this.upload}
+                                        onChange={(e) =>
+                                            this.importFile(e.target.files[0])
+                                        }
+                                    />
                                 </td>
                             </tr>
                         </tbody>
