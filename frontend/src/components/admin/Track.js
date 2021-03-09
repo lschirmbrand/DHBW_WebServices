@@ -3,9 +3,7 @@ import React from 'react';
 export default function Track({ track }) {
     return (
         <a
-            className={
-                'track' + (track.previewURL == 'null' ? ' no-preview' : '')
-            }
+            className={'track'}
             href={track.spotifyURL}
             target="_blank"
             rel="noreferrer"

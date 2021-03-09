@@ -39,10 +39,6 @@
     border-bottom: 2px solid #009879;
 } */
 
-.no-preview {
-    background-color: red;
-}
-
 .movie,
 .track {
     text-decoration: none;
