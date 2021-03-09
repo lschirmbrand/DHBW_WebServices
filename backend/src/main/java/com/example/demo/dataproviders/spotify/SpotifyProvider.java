@@ -33,7 +33,7 @@ public class SpotifyProvider {
         return new HttpEntity(headers);
     }
 
-    public Track getTrack(String id) {
+    public Track getTrack(String id, boolean forcePreviewURL) {
         String uri = SPOTIFY_BASE_URL + "tracks/" + id;
         Track track;
         try {
@@ -43,11 +43,11 @@ public class SpotifyProvider {
         } catch (HttpClientErrorException e) {
             SpotifyAuth spotifyAuth = spotifyAccessTokenProvider.getAuth();
             access_token = spotifyAuth.getAccess_token();
-            track = getTrack(id);
+            track = getTrack(id, forcePreviewURL);
         }
 
         assert track != null;
-        if (track.getPreviewURL().equals("null")) {
+        if (forcePreviewURL && track.getPreviewURL().equals("null")) {
             String previewURL = spotifyWebScraper.scrapeForPreviewURL(track.getId());
             track.setPreviewURL(previewURL);
         }

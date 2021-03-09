@@ -30,7 +30,7 @@ public class SpotifyController {
 
     @GetMapping("/{id}")
     public Track getMovieById(@PathVariable String id) {
-        return spotifyProvider.getTrack(id);
+        return spotifyProvider.getTrack(id, true);
     }
 
     @GetMapping("/search/{query}")

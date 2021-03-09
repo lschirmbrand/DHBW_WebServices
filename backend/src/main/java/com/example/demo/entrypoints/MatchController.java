@@ -1,17 +1,13 @@
 package com.example.demo.entrypoints;
 
 import com.example.demo.dataproviders.movies.MovieProvider;
-import com.example.demo.dataproviders.movies.TMDBMovieProvider;
 import com.example.demo.dataproviders.spotify.SpotifyProvider;
 import com.example.demo.entities.MatchEntity;
 import com.example.demo.models.Match;
-import com.example.demo.models.Movie;
-import com.example.demo.models.Track;
 import com.example.demo.usecase.MatchUseCase;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/match")
@@ -29,7 +25,7 @@ public class MatchController {
 
     @GetMapping()
     public List<Match> getAllMatches() {
-        return matchUseCase.getAll();
+        return matchUseCase.getAll(false);
     }
 
     @PostMapping()
