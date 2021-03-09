@@ -72,7 +72,7 @@ export default class NewMatchForm extends Component {
     };
 
     searchTracks = (query) => {
-        if (query.trim() == '') {
+        if (query.trim() === '') {
             this.setState({ tracks: [] });
             return;
         }
