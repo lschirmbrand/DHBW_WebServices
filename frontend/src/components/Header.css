@@ -1,0 +1,21 @@
+.header {
+    text-align: center;
+    font-size: 35px;
+    font-weight: bold;
+    color: #ddd;
+    margin: 0px;
+    padding-top: 20px;
+    height: 100px;
+    width: 100%;
+    background-color: var(--backColor);
+}
+
+.header a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.header a:hover {
+    text-decoration: none;
+    color: inherit;
+}

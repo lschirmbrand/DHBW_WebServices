@@ -5,6 +5,8 @@ import { Redirect } from 'react-router-dom';
 import Movie from './Movie';
 import Track from './Track';
 
+import './NewMatchForm.css';
+
 export default class NewMatchForm extends Component {
     constructor() {
         super();

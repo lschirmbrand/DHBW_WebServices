@@ -6,6 +6,7 @@ import com.example.demo.models.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public class CreateGameUseCase {
@@ -29,7 +30,7 @@ public class CreateGameUseCase {
 
         for (int i = 0; i < roundCount; i++) {
             List<Movie> movies = choose(moviesPerRound, movieList);
-            int correctIndex = new Random().nextInt(moviesPerRound);
+            int correctIndex = ThreadLocalRandom.current().nextInt(moviesPerRound);
             Track track = null;
 
             for (Match match : matches) {
@@ -46,7 +47,7 @@ public class CreateGameUseCase {
 
     private List<Movie> choose(int n, List<Movie> movies) {
         List<Movie> chosen = new ArrayList<>();
-        Random rand = new Random();
+        Random rand = ThreadLocalRandom.current();
 
         for (int i = 0; i < n; i++) {
 

@@ -1,5 +1,3 @@
-import './styles/App.css';
-import './styles/AnswerBoxElement.css';
 import React from 'react';
 import Header from './components/Header';
 import Game from './components/game/Game';
@@ -8,11 +6,12 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NewMatchForm from './components/admin/NewMatchForm';
 import Results from './components/Results';
 
+import './App.css';
 class App extends React.Component {
     render() {
         return (
             <Router>
-                <div className="Screen">
+                <div className="app">
                     <Header />
                     <Switch>
                         <Route

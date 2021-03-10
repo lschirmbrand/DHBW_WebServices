@@ -39,7 +39,7 @@ export default class Game extends Component {
             if (this.state.timer)
                 this.setState({ secondsLeft: this.state.secondsLeft - 1 });
             if (this.state.secondsLeft === 0) {
-                this.clickMovie(3);
+                // this.clickMovie(3);
             }
         }, 1000);
     }
@@ -70,7 +70,7 @@ export default class Game extends Component {
         return this.state.loading ? (
             <Spinner animation="border" />
         ) : (
-            <div>
+            <div className="game">
                 <Sound
                     url={
                         this.state.game.rounds[this.state.round].soundTrack
@@ -88,20 +88,18 @@ export default class Game extends Component {
                     />
                 )}
 
-                <div>
-                    <div className="game-info">
-                        <span>Round {this.state.round}/10</span>
-                        <span>Score: {this.state.score}</span>
-                        <ProgressBar
-                            now={(this.state.secondsLeft * 100) / 30}
-                            label={`${this.state.secondsLeft}s`}
-                        />
-                    </div>
-                    <MovieSelection
-                        movies={this.state.game.rounds[this.state.round].movies}
-                        clickMovie={this.clickMovie}
+                <div className="game-info">
+                    <span>Round {this.state.round}/10</span>
+                    <span>Score: {this.state.score}</span>
+                    <ProgressBar
+                        now={(this.state.secondsLeft * 100) / 30}
+                        label={`${this.state.secondsLeft}s`}
                     />
                 </div>
+                <MovieSelection
+                    movies={this.state.game.rounds[this.state.round].movies}
+                    clickMovie={this.clickMovie}
+                />
             </div>
         );
     }
