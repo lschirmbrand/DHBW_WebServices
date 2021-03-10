@@ -30,7 +30,6 @@ class Admin extends React.Component {
                 .then((response) => response.json())
                 .then((data) => {
                     this.setState({ matches: data, loading: false });
-                    console.log(data);
                 });
         }
     }
@@ -61,7 +60,6 @@ class Admin extends React.Component {
         this.setState({ fileDownloadUrl: fileDownloadUrl }, () => {
             this.dofileDownload.click();
             URL.revokeObjectURL(fileDownloadUrl);
-            console.log(this.state);
             this.setState({ fileDownloadUrl: '' });
         });
     };

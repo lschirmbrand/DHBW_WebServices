@@ -35,7 +35,6 @@ export default class NewMatchForm extends Component {
     handleMovieInputChange = (event) => {
         const query = event.target.value;
         this.setState({ selectedMovie: { title: query, id: 0 } });
-        console.log(this.state);
         this.searchMovies(query);
     };
 
@@ -52,7 +51,6 @@ export default class NewMatchForm extends Component {
             })
             .then((movies) => {
                 this.setState({ loadingMovies: false, movies: movies || [] });
-                console.log(this.state);
             })
             .catch((err) => console.error(err));
     };

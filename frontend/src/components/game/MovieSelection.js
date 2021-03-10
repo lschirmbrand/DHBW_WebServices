@@ -7,8 +7,6 @@ export default function MovieSelection(props) {
         if (props.selected === index) return 'wrong';
         else return '';
     });
-    console.log(props);
-    console.log(classes);
 
     return (
         <div className="movies">
