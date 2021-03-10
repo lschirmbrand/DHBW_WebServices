@@ -17,13 +17,12 @@ export default class Game extends Component {
             loading: true,
             score: 0,
             redirect: false,
-            timer: false,
-            secondsLeft: 30,
-            play: false,
+            timer: null,
+            timeLeft: 300,
+            playing: false,
+            selected: 3,
+            correct: 3,
         };
-        this.audio = new Audio(
-            'https://open.spotify.com/track/1p791U7Bx5PmvCwucN4PQN'
-        );
     }
 
     componentDidMount() {
@@ -31,40 +30,56 @@ export default class Game extends Component {
             .then((res) => res.json())
             .then((data) => {
                 this.setState({ game: data, loading: false, timer: true });
-                this.play();
+                this.start();
             })
             .catch((err) => console.error(err));
-
-        setInterval(() => {
-            if (this.state.timer)
-                this.setState({ secondsLeft: this.state.secondsLeft - 1 });
-            if (this.state.secondsLeft === 0) {
-                // this.clickMovie(3);
-            }
-        }, 1000);
     }
+
+    start = () => {
+        this.setState({ playing: true });
+        const timer = setInterval(() => {
+            this.setState({ timeLeft: this.state.timeLeft - 1 });
+        }, 100);
+        this.setState({ timer });
+    };
 
     clickMovie = (index) => {
         const { game, round, score } = this.state;
 
+        clearInterval(this.state.timer);
+        this.setState({
+            selected: index,
+            correct: game.rounds[round].correctIndex,
+            playing: false,
+        });
+
         if (index === game.rounds[round].correctIndex) {
             this.setState({ score: score + 1 });
+        } else {
+            this.setState({ selected: index });
         }
+
+        setTimeout(() => {
+            this.next();
+        }, 1500);
+    };
+
+    next = () => {
+        const { round } = this.state;
 
         if (round === 9) {
             this.setState({ redirect: true });
         } else {
-            this.setState({ round: round + 1, secondsLeft: 30 });
+            this.setState({
+                round: round + 1,
+                secondsLeft: 30,
+                correct: 3,
+                selected: 3,
+                timeLeft: 300,
+            });
+            this.start();
         }
     };
-
-    play() {
-        // this.audio = new Audio(
-        //     this.state.game.rounds[this.state.round].soundtrack.previewURL
-        // );
-        this.setState({ play: true });
-        this.audio.play();
-    }
 
     render() {
         return this.state.loading ? (
@@ -76,7 +91,7 @@ export default class Game extends Component {
                         this.state.game.rounds[this.state.round].soundTrack
                             .previewURL
                     }
-                    playStatus={Sound.status.PLAYING}
+                    playStatus={this.state.playing ? 'PLAYING' : 'STOPPED'}
                 />
 
                 {this.state.redirect && (
@@ -89,16 +104,19 @@ export default class Game extends Component {
                 )}
 
                 <div className="game-info">
-                    <span>Round {this.state.round}/10</span>
-                    <span>Score: {this.state.score}</span>
+                    <span className="score">{this.state.score}</span>
+                    <span>Points</span>
+                    <span>Round {this.state.round + 1}/10</span>
                     <ProgressBar
-                        now={(this.state.secondsLeft * 100) / 30}
-                        label={`${this.state.secondsLeft}s`}
+                        now={(this.state.timeLeft * 100) / 300}
+                        label={`${(this.state.timeLeft / 10).toFixed(1)}s`}
                     />
                 </div>
                 <MovieSelection
                     movies={this.state.game.rounds[this.state.round].movies}
                     clickMovie={this.clickMovie}
+                    correct={this.state.correct}
+                    selected={this.state.selected}
                 />
             </div>
         );
