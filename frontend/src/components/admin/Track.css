@@ -1,0 +1,32 @@
+.track {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.track img {
+    height: 100px;
+}
+
+.track-desc {
+    display: flex;
+    flex-direction: column;
+}
+
+.track a {
+    font-weight: bold;
+    color: inherit;
+}
+
+.track a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.track a:visited {
+    color: inherit;
+}
+
+.red {
+    color: red;
+}

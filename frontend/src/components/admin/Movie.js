@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/admin/Movie.css';
+import './Movie.css';
 
 function Movie({ movie }) {
     return (

@@ -1,20 +1,18 @@
-import './styles/App.css';
-import './styles/AnswerBoxElement.css';
 import React from 'react';
 import Header from './components/Header';
-import Navbar from './components/Navbar';
-import Game from './components/Game';
+import Game from './components/game/Game';
 import Admin from './components/admin/Admin';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NewMatchForm from './components/admin/NewMatchForm';
+import Results from './components/Results';
 
+import './App.css';
 class App extends React.Component {
     render() {
         return (
             <Router>
-                <div className="Screen">
+                <div className="app">
                     <Header />
-                    <Navbar />
                     <Switch>
                         <Route
                             path="/admin/new"
@@ -23,6 +21,10 @@ class App extends React.Component {
                         <Route
                             path="/admin"
                             render={(props) => <Admin {...props} />}
+                        />
+                        <Route
+                            path="/results"
+                            render={(props) => <Results {...props} />}
                         />
                         <Route path="/">
                             <Game />

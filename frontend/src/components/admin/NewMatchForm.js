@@ -5,6 +5,8 @@ import { Redirect } from 'react-router-dom';
 import Movie from './Movie';
 import Track from './Track';
 
+import './NewMatchForm.css';
+
 export default class NewMatchForm extends Component {
     constructor() {
         super();
@@ -127,7 +129,10 @@ export default class NewMatchForm extends Component {
                     <Redirect
                         to={{
                             pathname: '/admin',
-                            state: { matches: this.state.matches },
+                            state: {
+                                matches: this.state.matches,
+                                loading: false,
+                            },
                         }}
                     />
                 )}

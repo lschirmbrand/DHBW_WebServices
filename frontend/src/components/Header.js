@@ -1,15 +1,15 @@
-import React from "react"
+import React from 'react';
 
-import Title from "./Title"
+import './Header.css';
 
-class Header extends React.Component{
-    render(){
-        return(
-            <div className={"Header"}>
-                <Title />                
+class Header extends React.Component {
+    render() {
+        return (
+            <div className={'header'}>
+                <a href="/">Soundtrack Guesser</a>
             </div>
-        )
+        );
     }
 }
 
-export default Header
+export default Header;

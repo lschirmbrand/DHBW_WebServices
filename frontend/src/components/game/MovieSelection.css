@@ -1,0 +1,40 @@
+.movies {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.movie-select {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.movie-select div {
+    align-self: center;
+    text-align: center;
+    width: 100%;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.poster {
+    max-width: 100%;
+    max-height: 100%;
+    align-self: center;
+}
+
+.poster:hover {
+    opacity: 0.5;
+}
+
+.correct {
+    border: 5px solid limegreen;
+}
+
+.wrong {
+    border: 5px solid red;
+}

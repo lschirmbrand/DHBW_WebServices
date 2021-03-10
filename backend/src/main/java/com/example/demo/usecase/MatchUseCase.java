@@ -8,6 +8,8 @@ import com.example.demo.models.Match;
 import com.example.demo.models.Movie;
 import com.example.demo.models.Track;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,11 +29,23 @@ public class MatchUseCase {
         this.movieProvider = movieProvider;
     }
 
-    public List<Match> getAll(boolean forcePreviewURL) {
+    public Match getMatch(int id) {
+        Optional<MatchEntity> entityOptional = matchRepository.findById(id);
+        if (entityOptional.isPresent()) {
+            MatchEntity entity = entityOptional.get();
+            Movie movie = movieProvider.getMovieById(entity.getTmdbID());
+            Track track = spotifyProvider.getTrack(entity.getSpotifyID());
+
+            return new Match(entity.getId(), movie, track);
+        }
+        return null;
+    }
+
+    public List<Match> getAll() {
         return StreamSupport.stream(matchRepository.findAll().spliterator(), false)
                 .map(matchEntity -> {
                     Movie movie = movieProvider.getMovieById(matchEntity.getTmdbID());
-                    Track track = spotifyProvider.getTrack(matchEntity.getSpotifyID(), forcePreviewURL);
+                    Track track = spotifyProvider.getTrack(matchEntity.getSpotifyID());
 
                     return new Match(matchEntity.getId(), movie, track);
                 }).collect(Collectors.toList());
@@ -40,7 +54,7 @@ public class MatchUseCase {
     public Match addMatch(MatchEntity matchEntity) {
         MatchEntity entity = this.matchRepository.save(matchEntity);
         Movie movie = movieProvider.getMovieById(entity.getTmdbID());
-        Track track = spotifyProvider.getTrack(entity.getSpotifyID(), false);
+        Track track = spotifyProvider.getTrack(entity.getSpotifyID());
 
         return new Match(entity.getId(), movie, track);
     }
