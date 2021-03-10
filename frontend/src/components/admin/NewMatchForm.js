@@ -127,7 +127,10 @@ export default class NewMatchForm extends Component {
                     <Redirect
                         to={{
                             pathname: '/admin',
-                            state: { matches: this.state.matches },
+                            state: {
+                                matches: this.state.matches,
+                                loading: false,
+                            },
                         }}
                     />
                 )}

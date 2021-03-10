@@ -4,12 +4,13 @@ import Spinner from 'react-bootstrap/Spinner';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { Redirect } from 'react-router-dom';
 import MovieSelection from './MovieSelection';
+import Sound from 'react-sound';
 
 import './Game.css';
 
 export default class Game extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             round: 0,
             game: {},
@@ -18,15 +19,20 @@ export default class Game extends Component {
             redirect: false,
             timer: false,
             secondsLeft: 30,
+            play: false,
         };
+        this.audio = new Audio(
+            'https://open.spotify.com/track/1p791U7Bx5PmvCwucN4PQN'
+        );
     }
 
     componentDidMount() {
         fetch('http://localhost:8081/game')
             .then((res) => res.json())
-            .then((data) =>
-                this.setState({ game: data, loading: false, timer: true })
-            )
+            .then((data) => {
+                this.setState({ game: data, loading: false, timer: true });
+                this.play();
+            })
             .catch((err) => console.error(err));
 
         setInterval(() => {
@@ -52,11 +58,27 @@ export default class Game extends Component {
         }
     };
 
+    play() {
+        // this.audio = new Audio(
+        //     this.state.game.rounds[this.state.round].soundtrack.previewURL
+        // );
+        this.setState({ play: true });
+        this.audio.play();
+    }
+
     render() {
         return this.state.loading ? (
             <Spinner animation="border" />
         ) : (
             <div>
+                <Sound
+                    url={
+                        this.state.game.rounds[this.state.round].soundTrack
+                            .previewURL
+                    }
+                    playStatus={Sound.status.PLAYING}
+                />
+
                 {this.state.redirect && (
                     <Redirect
                         to={{
@@ -68,15 +90,8 @@ export default class Game extends Component {
 
                 <div>
                     <div className="game-info">
-                        <span>Soundtrack {this.state.round}/10</span>
+                        <span>Round {this.state.round}/10</span>
                         <span>Score: {this.state.score}</span>
-                        <span>
-                            playing:{' '}
-                            {
-                                this.state.game.rounds[this.state.round]
-                                    .soundTrack.name
-                            }
-                        </span>
                         <ProgressBar
                             now={(this.state.secondsLeft * 100) / 30}
                             label={`${this.state.secondsLeft}s`}

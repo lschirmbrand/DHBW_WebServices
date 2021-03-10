@@ -28,9 +28,10 @@ class Admin extends React.Component {
         } else {
             fetch('http://localhost:8081/match')
                 .then((response) => response.json())
-                .then((data) =>
-                    this.setState({ matches: data, loading: false })
-                );
+                .then((data) => {
+                    this.setState({ matches: data, loading: false });
+                    console.log(data);
+                });
         }
     }
 
@@ -110,26 +111,6 @@ class Admin extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.matches.map((match) => (
-                                <tr key={match.id}>
-                                    <td>
-                                        <Movie movie={match.movie} />
-                                    </td>
-                                    <td>
-                                        <Track track={match.track} />
-                                    </td>
-                                    <td>
-                                        <Button
-                                            variant="danger"
-                                            onClick={(e) =>
-                                                this.removeClick(match.id)
-                                            }
-                                        >
-                                            <FaTrash />
-                                        </Button>
-                                    </td>
-                                </tr>
-                            ))}
                             <tr>
                                 <td colSpan="3">
                                     <Button
@@ -163,6 +144,26 @@ class Admin extends React.Component {
                                     />
                                 </td>
                             </tr>
+                            {this.state.matches.map((match) => (
+                                <tr key={match.id}>
+                                    <td>
+                                        <Movie movie={match.movie} />
+                                    </td>
+                                    <td>
+                                        <Track track={match.track} />
+                                    </td>
+                                    <td>
+                                        <Button
+                                            variant="danger"
+                                            onClick={(e) =>
+                                                this.removeClick(match.id)
+                                            }
+                                        >
+                                            <FaTrash />
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </Table>
                 </div>
