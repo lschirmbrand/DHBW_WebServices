@@ -25,7 +25,7 @@ public class MatchController {
 
     @GetMapping()
     public List<Match> getAllMatches() {
-        return matchUseCase.getAll(false);
+        return matchUseCase.getAll();
     }
 
     @PostMapping()

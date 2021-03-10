@@ -3,6 +3,7 @@ package com.example.demo.dataproviders.movies;
 import com.example.demo.models.Movie;
 import com.example.demo.models.TMDBSearchResponse;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -39,6 +40,7 @@ public class TMDBMovieProvider implements MovieProvider {
     }
 
     @Override
+    @Cacheable("movie")
     public Movie getMovieById(int id) {
         String uri = TMDB_BASE_URL + "/movie/" + id;
         return this.restTemplate.exchange(URI.create(uri), HttpMethod.GET, httpEntity, Movie.class).getBody();

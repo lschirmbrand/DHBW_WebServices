@@ -5,6 +5,7 @@ import com.example.demo.models.SpotifyAuth;
 import com.example.demo.models.SpotifySearchResponse;
 import com.example.demo.models.Track;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
@@ -33,7 +34,8 @@ public class SpotifyProvider {
         return new HttpEntity(headers);
     }
 
-    public Track getTrack(String id, boolean forcePreviewURL) {
+    @Cacheable("track")
+    public Track getTrack(String id) {
         String uri = SPOTIFY_BASE_URL + "tracks/" + id;
         Track track;
         try {
@@ -43,11 +45,11 @@ public class SpotifyProvider {
         } catch (HttpClientErrorException e) {
             SpotifyAuth spotifyAuth = spotifyAccessTokenProvider.getAuth();
             access_token = spotifyAuth.getAccess_token();
-            track = getTrack(id, forcePreviewURL);
+            track = getTrack(id);
         }
 
         assert track != null;
-        if (forcePreviewURL && track.getPreviewURL().equals("null")) {
+        if (track.getPreviewURL().equals("null")) {
             String previewURL = spotifyWebScraper.scrapeForPreviewURL(track.getId());
             track.setPreviewURL(previewURL);
         }
