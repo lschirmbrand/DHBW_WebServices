@@ -1,4 +1,4 @@
-package com.example.demo.entities;
+package com.example.demo.dataproviders.database.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

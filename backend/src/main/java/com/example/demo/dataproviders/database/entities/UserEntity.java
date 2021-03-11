@@ -1,4 +1,4 @@
-package com.example.demo.entities;
+package com.example.demo.dataproviders.database.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +8,7 @@ import javax.persistence.Id;
 //Default database example from SpringBoot, maybe useful for login
 
 @Entity // This tells Hibernate to make a table out of this class
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

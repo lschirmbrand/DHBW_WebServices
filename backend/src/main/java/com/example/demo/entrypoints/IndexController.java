@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/hello")
-public class HelloWorldController {
+@RequestMapping("/")
+public class IndexController {
 
     @GetMapping()
     public String getHelloWorld() {
-        return "<h1>Hello World!</h1>";
+        return "api works";
     }
 }

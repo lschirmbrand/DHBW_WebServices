@@ -1,7 +1,7 @@
 package com.example.demo.usecase;
 
 import com.example.demo.dataproviders.movies.MovieProvider;
-import com.example.demo.entities.MatchEntity;
+import com.example.demo.dataproviders.database.entities.MatchEntity;
 import com.example.demo.models.Movie;
 import com.example.demo.dataproviders.database.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;

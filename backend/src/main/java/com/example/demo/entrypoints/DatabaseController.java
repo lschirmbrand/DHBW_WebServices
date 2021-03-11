@@ -1,6 +1,6 @@
 package com.example.demo.entrypoints;
 
-import com.example.demo.entities.User;
+import com.example.demo.dataproviders.database.entities.UserEntity;
 import com.example.demo.dataproviders.database.MatchRepository;
 import com.example.demo.dataproviders.database.UserRepository;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +25,7 @@ public class DatabaseController {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
-        User n = new User();
+        UserEntity n = new UserEntity();
         n.setName(name);
         n.setEmail(email);
         userRepository.save(n);
@@ -34,7 +34,7 @@ public class DatabaseController {
 
     @GetMapping(path = "user/all")
     public @ResponseBody
-    Iterable<User> getAllUsers() {
+    Iterable<UserEntity> getAllUsers() {
         // This returns a JSON or XML with the users
         return userRepository.findAll();
     }

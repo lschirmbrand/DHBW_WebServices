@@ -1,27 +1,26 @@
 package com.example.demo.usecase;
 
 import com.example.demo.dataproviders.database.MatchRepository;
+import com.example.demo.dataproviders.database.entities.MatchEntity;
 import com.example.demo.dataproviders.movies.MovieProvider;
 import com.example.demo.dataproviders.spotify.SpotifyProvider;
-import com.example.demo.entities.MatchEntity;
 import com.example.demo.models.Match;
 import com.example.demo.models.Movie;
 import com.example.demo.models.Track;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 
 public class MatchUseCase {
     @Autowired
     private MatchRepository matchRepository;
-    private MovieProvider movieProvider;
-    private SpotifyProvider spotifyProvider;
+    private final MovieProvider movieProvider;
+    private final SpotifyProvider spotifyProvider;
 
 
     public MatchUseCase(MovieProvider movieProvider, SpotifyProvider spotifyProvider) {
@@ -31,24 +30,27 @@ public class MatchUseCase {
 
     public Match getMatch(int id) {
         Optional<MatchEntity> entityOptional = matchRepository.findById(id);
-        if (entityOptional.isPresent()) {
-            MatchEntity entity = entityOptional.get();
-            Movie movie = movieProvider.getMovieById(entity.getTmdbID());
-            Track track = spotifyProvider.getTrack(entity.getSpotifyID());
-
-            return new Match(entity.getId(), movie, track);
-        }
-        return null;
+        return entityOptional.map(this::entityToMatch).orElse(null);
     }
 
     public List<Match> getAll() {
         return StreamSupport.stream(matchRepository.findAll().spliterator(), false)
-                .map(matchEntity -> {
-                    Movie movie = movieProvider.getMovieById(matchEntity.getTmdbID());
-                    Track track = spotifyProvider.getTrack(matchEntity.getSpotifyID());
+                .map(this::entityToMatch)
+                .collect(Collectors.toList());
+    }
 
-                    return new Match(matchEntity.getId(), movie, track);
-                }).collect(Collectors.toList());
+    public List<Track> getTracksForMovie(int movieID) {
+        return StreamSupport.stream(matchRepository.findAll().spliterator(), false)
+                .filter(entity -> entity.getTmdbID() == movieID)
+                .map(entity -> spotifyProvider.getTrack(entity.getSpotifyID()))
+                .collect(Collectors.toList());
+    }
+
+    public Movie getMovieForTrack(String trackID) {
+        return StreamSupport.stream(matchRepository.findAll().spliterator(), false)
+                .filter(entity -> entity.getSpotifyID().equals(trackID))
+                .map(entity -> movieProvider.getMovieById(entity.getTmdbID()))
+                .findFirst().orElse(null);
     }
 
     public Match addMatch(MatchEntity matchEntity) {
@@ -81,4 +83,12 @@ public class MatchUseCase {
         }
         throw new RuntimeException("Could not find entity with id " + id);
     }
+
+    private Match entityToMatch(MatchEntity entity) {
+        Movie movie = movieProvider.getMovieById(entity.getTmdbID());
+        Track track = spotifyProvider.getTrack(entity.getSpotifyID());
+
+        return new Match(entity.getId(), movie, track);
+    }
+
 }
