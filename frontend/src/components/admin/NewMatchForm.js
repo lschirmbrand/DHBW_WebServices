@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
-import { FaCheck } from 'react-icons/fa';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 import { Redirect } from 'react-router-dom';
 import Movie from './Movie';
 import Track from './Track';
@@ -120,9 +120,14 @@ export default class NewMatchForm extends Component {
             .catch((err) => console.error(err));
     };
 
+    abort = () => {
+        this.setState({ redirect: true });
+    };
+
     render() {
         return (
-            <div className="new-form">
+            <div className="new-match">
+                <h1>Add new Match</h1>
                 {this.state.redirect && (
                     <Redirect
                         to={{
@@ -134,55 +139,79 @@ export default class NewMatchForm extends Component {
                         }}
                     />
                 )}
-                <div className="holder">
-                    <input
-                        id="movie"
-                        placeholder="movie"
-                        onChange={this.handleMovieInputChange}
-                        className="movie-search"
-                        value={this.state.selectedMovie.title}
-                    />
-                    <div className="result-list movie-result">
-                        {this.state.movies.map((movie) => (
-                            <div className="result" key={movie.id}>
-                                <Movie movie={movie} />
-                                <Button
-                                    onClick={(e) => this.selectMovie(movie)}
-                                >
-                                    <FaCheck />
-                                </Button>
-                            </div>
-                        ))}
+
+                <div className="new-form">
+                    <div className="holder">
+                        <input
+                            id="movie"
+                            placeholder="Movie"
+                            onChange={this.handleMovieInputChange}
+                            className="movie-search"
+                            value={this.state.selectedMovie.title}
+                        />
+                        <div
+                            className={
+                                'result-list movie-result' +
+                                (this.state.movies.length === 0
+                                    ? ' hidden'
+                                    : '')
+                            }
+                        >
+                            {this.state.movies.map((movie) => (
+                                <div className="result" key={movie.id}>
+                                    <Movie movie={movie} />
+                                    <Button
+                                        onClick={(e) => this.selectMovie(movie)}
+                                    >
+                                        <FaCheck />
+                                    </Button>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
-                <div className="holder">
-                    <input
-                        id="track"
-                        placeholder="soundtrack"
-                        onChange={this.handleTrackInputChange}
-                        className="track-search"
-                        value={this.state.selectedTrack.name}
-                    />
-                    <div className="result-list track-result">
-                        {this.state.tracks.map((track) => (
-                            <div className="result" key={track.id}>
-                                <Track track={track} />
-                                <Button
-                                    onClick={(e) => this.selectTrack(track)}
-                                >
-                                    <FaCheck />
-                                </Button>
-                            </div>
-                        ))}
+                    <div className="holder">
+                        <input
+                            id="track"
+                            placeholder="Soundtrack"
+                            onChange={this.handleTrackInputChange}
+                            className="track-search"
+                            value={this.state.selectedTrack.name}
+                        />
+                        <div
+                            className={
+                                'result-list track-result' +
+                                (this.state.tracks.length === 0
+                                    ? ' hidden'
+                                    : '')
+                            }
+                        >
+                            {this.state.tracks.map((track) => (
+                                <div className="result" key={track.id}>
+                                    <Track track={track} />
+                                    <Button
+                                        onClick={(e) => this.selectTrack(track)}
+                                    >
+                                        <FaCheck />
+                                    </Button>
+                                </div>
+                            ))}
+                        </div>
                     </div>
+                    <Button
+                        variant="primary"
+                        className="submit-btn"
+                        onClick={this.submit}
+                    >
+                        <FaCheck /> Submit
+                    </Button>
+                    <Button
+                        variant="danger"
+                        className="submit-btn"
+                        onClick={this.abort}
+                    >
+                        <FaTimes /> Abort
+                    </Button>
                 </div>
-                <Button
-                    variant="primary"
-                    className="submit-btn"
-                    onClick={this.submit}
-                >
-                    Submit
-                </Button>
             </div>
         );
     }

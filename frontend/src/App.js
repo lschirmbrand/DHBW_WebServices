@@ -7,6 +7,7 @@ import NewMatchForm from './components/admin/NewMatchForm';
 import Results from './components/Results';
 
 import './App.css';
+import Home from './Home';
 class App extends React.Component {
     render() {
         return (
@@ -26,8 +27,11 @@ class App extends React.Component {
                             path="/results"
                             render={(props) => <Results {...props} />}
                         />
-                        <Route path="/">
+                        <Route path="/game">
                             <Game />
+                        </Route>
+                        <Route path="/">
+                            <Home />
                         </Route>
                     </Switch>
                 </div>

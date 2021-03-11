@@ -39,6 +39,9 @@ export default class Game extends Component {
         this.setState({ playing: true });
         const timer = setInterval(() => {
             this.setState({ timeLeft: this.state.timeLeft - 1 });
+            if (this.state.timeLeft === 0) {
+                this.clickMovie(3);
+            }
         }, 100);
         this.setState({ timer });
     };
@@ -51,6 +54,7 @@ export default class Game extends Component {
             selected: index,
             correct: game.rounds[round].correctIndex,
             playing: false,
+            timeLeft: 300,
         });
 
         if (index === game.rounds[round].correctIndex) {
@@ -75,7 +79,6 @@ export default class Game extends Component {
                 secondsLeft: 30,
                 correct: 3,
                 selected: 3,
-                timeLeft: 300,
             });
             this.start();
         }
