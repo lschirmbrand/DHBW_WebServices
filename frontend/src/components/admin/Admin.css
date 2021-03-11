@@ -3,3 +3,12 @@
     height: 100%;
     overflow: auto;
 }
+
+.delete-cell {
+    vertical-align: middle !important;
+}
+
+.delete-btn {
+    margin: auto;
+    display: block;
+}

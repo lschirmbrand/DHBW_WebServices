@@ -1,7 +1,5 @@
 import React from 'react';
 import './Admin.css';
-import Movie from './Movie';
-import Track from './Track';
 
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
@@ -9,6 +7,10 @@ import Button from 'react-bootstrap/Button';
 import { Redirect } from 'react-router-dom';
 import { FaFileExport, FaFileImport, FaPlus, FaTrash } from 'react-icons/fa';
 import Spinner from 'react-bootstrap/esm/Spinner';
+import Sound from 'react-sound';
+
+import Movie from './Movie';
+import Track from './Track';
 
 class Admin extends React.Component {
     constructor({ matches }) {
@@ -18,6 +20,8 @@ class Admin extends React.Component {
             matches: matches || [],
             redirect: false,
             fileDownloadUrl: '',
+            playingIndex: -1,
+            mp3url: '',
         };
         this.upload = React.createRef();
     }
@@ -86,6 +90,14 @@ class Admin extends React.Component {
         fileReader.readAsText(file);
     };
 
+    play = (url, index) => {
+        if (this.state.playingIndex === index) {
+            this.setState({ playingIndex: -1, url: '' });
+        } else {
+            this.setState({ mp3url: url, playingIndex: index });
+        }
+    };
+
     render() {
         return this.state.loading ? (
             <Spinner animation="border" />
@@ -99,6 +111,13 @@ class Admin extends React.Component {
                         }}
                     />
                 )}
+
+                <Sound
+                    url={this.state.mp3url}
+                    playStatus={
+                        this.state.playingIndex >= 0 ? 'PLAYING' : 'STOPPED'
+                    }
+                />
                 <div id="table">
                     <Table striped bordered hover>
                         <thead>
@@ -142,16 +161,29 @@ class Admin extends React.Component {
                                     />
                                 </td>
                             </tr>
-                            {this.state.matches.map((match) => (
+                            {this.state.matches.map((match, index) => (
                                 <tr key={match.id}>
                                     <td>
                                         <Movie movie={match.movie} />
                                     </td>
                                     <td>
-                                        <Track track={match.track} />
+                                        <Track
+                                            track={match.track}
+                                            play={() =>
+                                                this.play(
+                                                    match.track.previewURL,
+                                                    index
+                                                )
+                                            }
+                                            playing={
+                                                this.state.playingIndex ===
+                                                index
+                                            }
+                                        />
                                     </td>
-                                    <td>
+                                    <td className="delete-cell">
                                         <Button
+                                            className="delete-btn"
                                             variant="danger"
                                             onClick={(e) =>
                                                 this.removeClick(match.id)
