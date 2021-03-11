@@ -1,7 +1,5 @@
 package com.example.demo.models;
 
-import org.springframework.beans.factory.annotation.Value;
-
 public class SpotifyAuth {
     private String access_token;
     private String token_type;

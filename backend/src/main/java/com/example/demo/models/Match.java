@@ -1,9 +1,9 @@
 package com.example.demo.models;
 
 public class Match {
-    private int id;
-    private Movie movie;
-    private Track track;
+    private final int id;
+    private final Movie movie;
+    private final Track track;
 
     public Match(int id, Movie movie, Track track) {
         this.id = id;

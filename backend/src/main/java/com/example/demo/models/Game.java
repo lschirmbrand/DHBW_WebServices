@@ -3,7 +3,7 @@ package com.example.demo.models;
 import java.util.List;
 
 public class Game {
-    private List<Round> rounds;
+    private final List<Round> rounds;
 
     public Game(List<Round> rounds) {
         this.rounds = rounds;

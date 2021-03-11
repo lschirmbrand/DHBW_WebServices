@@ -15,8 +15,8 @@ import java.util.List;
 @RequestMapping("/spotify")
 public class SpotifyController {
 
-    SpotifyProvider spotifyProvider;
-    SpotifyAccessTokenProvider spotifyAccessTokenProvider;
+    private final  SpotifyProvider spotifyProvider;
+    private final  SpotifyAccessTokenProvider spotifyAccessTokenProvider;
 
     public SpotifyController(SpotifyProvider spotifyProvider, SpotifyAccessTokenProvider spotifyAccessTokenProvider) {
         this.spotifyProvider = spotifyProvider;

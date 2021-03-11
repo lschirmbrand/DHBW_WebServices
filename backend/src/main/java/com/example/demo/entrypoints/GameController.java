@@ -1,7 +1,6 @@
 package com.example.demo.entrypoints;
 
 import com.example.demo.models.Game;
-
 import com.example.demo.usecase.CreateGameUseCase;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

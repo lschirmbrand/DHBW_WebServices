@@ -1,9 +1,9 @@
 package com.example.demo.usecase;
 
-import com.example.demo.dataproviders.movies.MovieProvider;
-import com.example.demo.dataproviders.database.entities.MatchEntity;
-import com.example.demo.models.Movie;
 import com.example.demo.dataproviders.database.MatchRepository;
+import com.example.demo.dataproviders.database.entities.MatchEntity;
+import com.example.demo.dataproviders.movies.MovieProvider;
+import com.example.demo.models.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

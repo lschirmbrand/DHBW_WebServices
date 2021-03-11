@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MockMovieProvider implements MovieProvider {
     @Override
-    public List<Movie> getMovies(List<Integer> movieIDs)  {
+    public List<Movie> getMovies(List<Integer> movieIDs) {
         return List.of(
                 new Movie(
                         120,

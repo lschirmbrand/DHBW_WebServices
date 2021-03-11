@@ -14,8 +14,8 @@ import java.util.List;
 @RequestMapping("/movies")
 public class MoviesController {
 
-    MovieProvider movieProvider;
-    MovieListUseCase movieListUsecase;
+    private final  MovieProvider movieProvider;
+    private final  MovieListUseCase movieListUsecase;
 
     public MoviesController(MovieProvider movieProvider, MovieListUseCase movieListUsecase) {
         this.movieProvider = movieProvider;

@@ -1,8 +1,8 @@
 package com.example.demo.entrypoints;
 
-import com.example.demo.dataproviders.database.entities.UserEntity;
 import com.example.demo.dataproviders.database.MatchRepository;
 import com.example.demo.dataproviders.database.UserRepository;
+import com.example.demo.dataproviders.database.entities.UserEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,11 +11,8 @@ public class DatabaseController {
 
     private final UserRepository userRepository;
 
-    private final MatchRepository matchRepository;
-
-    public DatabaseController(UserRepository userRepository, MatchRepository matchRepository) {
+    public DatabaseController(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.matchRepository = matchRepository;
     }
 
     @PostMapping(path = "/user/add") // Map ONLY POST Requests

@@ -11,15 +11,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 
-import java.beans.BeanProperty;
-
 @org.springframework.context.annotation.Configuration
 public class Configuration {
 
     @Value("${tmdb.bearerToken}")
     String tmdbBearerToken;
-    @Value("${spotify.bearerToken}")
-    String spotifyBearerToken;
+    @Value("${spotify.basicToken}")
+    String spotifyBasicToken;
 
     @Bean
     MovieProvider movieProvider() {
@@ -33,7 +31,7 @@ public class Configuration {
 
     @Bean
     SpotifyAccessTokenProvider spotifyAccessTokenProvider() {
-        return new SpotifyAccessTokenProvider(new RestTemplateBuilder());
+        return new SpotifyAccessTokenProvider(new RestTemplateBuilder(), spotifyBasicToken);
     }
 
     @Bean
@@ -45,7 +43,6 @@ public class Configuration {
     MatchUseCase matchUseCase() {
         return new MatchUseCase(movieProvider(), spotifyProvider());
     }
-
 
 
     @Bean

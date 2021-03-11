@@ -2,8 +2,8 @@ package com.example.demo.entrypoints;
 
 import com.example.demo.dataproviders.database.entities.MatchEntity;
 import com.example.demo.entrypoints.exceptions.DuplicateTrackException;
-import com.example.demo.entrypoints.exceptions.TracksNotFoundException;
 import com.example.demo.entrypoints.exceptions.MovieNotFound;
+import com.example.demo.entrypoints.exceptions.TracksNotFoundException;
 import com.example.demo.models.Match;
 import com.example.demo.models.Movie;
 import com.example.demo.models.Track;

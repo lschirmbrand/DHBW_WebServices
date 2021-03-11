@@ -10,14 +10,10 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public class CreateGameUseCase {
-    MovieProvider movieProvider;
-    MovieListUseCase movieListUsecase;
-    MatchUseCase matchUseCase;
+    private final MatchUseCase matchUseCase;
 
 
     public CreateGameUseCase(MovieProvider movieProvider, MovieListUseCase movieListUsecase, MatchUseCase matchUseCase) {
-        this.movieProvider = movieProvider;
-        this.movieListUsecase = movieListUsecase;
         this.matchUseCase = matchUseCase;
     }
 

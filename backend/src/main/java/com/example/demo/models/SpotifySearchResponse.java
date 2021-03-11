@@ -16,7 +16,7 @@ public class SpotifySearchResponse {
         this.tracks = tracks;
     }
 
-    public class Tracks {
+    public static class Tracks {
         private List<Track> items;
 
         public Tracks() {

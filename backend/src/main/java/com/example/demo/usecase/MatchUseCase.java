@@ -12,15 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 
 public class MatchUseCase {
-    @Autowired
-    private MatchRepository matchRepository;
     private final MovieProvider movieProvider;
     private final SpotifyProvider spotifyProvider;
+    @Autowired
+    private MatchRepository matchRepository;
 
 
     public MatchUseCase(MovieProvider movieProvider, SpotifyProvider spotifyProvider) {
