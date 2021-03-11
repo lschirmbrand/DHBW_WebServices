@@ -141,6 +141,7 @@ export default class NewMatchForm extends Component {
                 )}
 
                 <div className="new-form">
+                    {/* Moive input */}
                     <div className="holder">
                         <input
                             id="movie"
@@ -169,6 +170,7 @@ export default class NewMatchForm extends Component {
                             ))}
                         </div>
                     </div>
+                    {/* Soundtrack input */}
                     <div className="holder">
                         <input
                             id="track"
@@ -197,21 +199,22 @@ export default class NewMatchForm extends Component {
                             ))}
                         </div>
                     </div>
-                    <Button
-                        variant="primary"
-                        className="submit-btn"
-                        onClick={this.submit}
-                    >
-                        <FaCheck /> Submit
-                    </Button>
-                    <Button
-                        variant="danger"
-                        className="submit-btn"
-                        onClick={this.abort}
-                    >
-                        <FaTimes /> Abort
-                    </Button>
                 </div>
+                <Button
+                    variant="primary"
+                    className="submit-btn"
+                    onClick={this.submit}
+                >
+                    <FaCheck /> Submit
+                </Button>
+                {' '}
+                <Button
+                    variant="danger"
+                    className="submit-btn"
+                    onClick={this.abort}
+                >
+                    <FaTimes /> Abort
+                </Button>
             </div>
         );
     }
