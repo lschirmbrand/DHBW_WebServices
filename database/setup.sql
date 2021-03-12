@@ -19,3 +19,6 @@ CREATE TABLE users (
     password_hash text NOT NULL,
     PRIMARY KEY(id)
 );
+
+INSERT INTO users (username, password_hash) 
+VALUES ("root", SHA2("root"))
