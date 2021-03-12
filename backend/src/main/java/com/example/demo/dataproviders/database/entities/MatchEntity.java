@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-@Entity
+@Entity(name = "matches")
 public class MatchEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
