@@ -8,6 +8,10 @@ RUN npm install
 
 COPY . ./
 
+ARG REACT_APP_SERVER_PORT
+
+ENV REACT_APP_SERVER_PORT=${REACT_APP_SERVER_PORT}
+
 RUN npm run build
 
 FROM nginx:stable-alpine

@@ -15,6 +15,7 @@ import Track from './Track';
 class Admin extends React.Component {
     constructor({ matches }) {
         super();
+        this.serverURL = 'http://' + process.env.REACT_APP_SERVER_HOST + ':' + process.env.REACT_APP_SERVER_PORT;
         this.state = {
             loading: true,
             matches: matches || [],
@@ -30,7 +31,7 @@ class Admin extends React.Component {
         if (this.props.location.state) {
             this.setState(this.props.location.state);
         } else {
-            fetch('http://localhost:8081/match')
+            fetch(this.serverURL + '/match')
                 .then((response) => response.json())
                 .then((data) => {
                     this.setState({ matches: data, loading: false });
@@ -41,7 +42,7 @@ class Admin extends React.Component {
     setRedirect = () => this.setState({ redirect: true });
 
     removeClick = (matchID) => {
-        fetch('http://localhost:8081/match/' + matchID, {
+        fetch(this.serverURL + '/match/' + matchID, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
         }).then((res) =>
@@ -74,7 +75,7 @@ class Admin extends React.Component {
         fileReader.onloadend = () => {
             const content = fileReader.result;
             JSON.parse(content).matches.forEach((match) =>
-                fetch('http://localhost:8081/match', {
+                fetch(this.serverURL + '/match', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(match),

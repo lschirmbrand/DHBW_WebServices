@@ -11,6 +11,9 @@ import './Game.css';
 export default class Game extends Component {
     constructor(props) {
         super(props);
+
+        this.serverURL = 'http://' + process.env.REACT_APP_SERVER_HOST + ':' + process.env.REACT_APP_SERVER_PORT;
+
         this.state = {
             round: 0,
             game: {},
@@ -26,7 +29,7 @@ export default class Game extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8081/game')
+        fetch(this.serverURL + '/game')
             .then((res) => res.json())
             .then((data) => {
                 this.setState({ game: data, loading: false, timer: true });

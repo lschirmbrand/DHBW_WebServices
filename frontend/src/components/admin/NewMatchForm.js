@@ -12,6 +12,7 @@ import './NewMatchForm.css';
 export default class NewMatchForm extends Component {
     constructor() {
         super();
+        this.serverURL = 'http://' + process.env.REACT_APP_SERVER_HOST + ':' + process.env.REACT_APP_SERVER_PORT;
         this.state = {
             matches: [],
             loadingMovies: false,
@@ -48,7 +49,7 @@ export default class NewMatchForm extends Component {
             return;
         }
         this.setState({ loadingMovies: true });
-        const url = encodeURI('http://localhost:8081/movies/search/' + query);
+        const url = encodeURI(this.serverURL + '/movies/search/' + query);
         fetch(url)
             .then((res) => {
                 return res.json();
@@ -85,8 +86,8 @@ export default class NewMatchForm extends Component {
             return;
         }
         this.setState({ loadingTracks: true });
-        const url =
-            'http://localhost:8081/spotify/search/' +
+        const url = this.serverURL
+            +'/spotify/search/' +
             query.replaceAll(' ', '+');
         fetch(url)
             .then((res) => res.json())
@@ -119,7 +120,7 @@ export default class NewMatchForm extends Component {
             tmdbID: this.state.selectedMovie.id,
             spotifyID: this.state.selectedTrack.id,
         };
-        fetch('http://localhost:8081/match', {
+        fetch(this.serverURL + '/match', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body),
