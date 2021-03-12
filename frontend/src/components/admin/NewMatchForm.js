@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { Redirect } from 'react-router-dom';
+import Sound from 'react-sound';
+
 import Movie from './Movie';
 import Track from './Track';
 
@@ -25,6 +27,8 @@ export default class NewMatchForm extends Component {
                 id: '',
             },
             redirect: false,
+            playingIndex: -1,
+            url: '',
         };
     }
 
@@ -67,7 +71,11 @@ export default class NewMatchForm extends Component {
 
     handleTrackInputChange = (event) => {
         const query = event.target.value;
-        this.setState({ selectedTrack: { name: query, id: 0 } });
+        this.setState({
+            selectedTrack: { name: query, id: 0 },
+            url: '',
+            playingIndex: -1,
+        });
         this.searchTracks(query);
     };
 
@@ -96,6 +104,14 @@ export default class NewMatchForm extends Component {
             },
             tracks: [],
         });
+    };
+
+    play = (url, index) => {
+        if (this.state.playingIndex === index) {
+            this.setState({ playingIndex: -1, url: '' });
+        } else {
+            this.setState({ mp3url: url, playingIndex: index });
+        }
     };
 
     submit = () => {
@@ -127,6 +143,12 @@ export default class NewMatchForm extends Component {
     render() {
         return (
             <div className="new-match">
+                <Sound
+                    url={this.state.mp3url}
+                    playStatus={
+                        this.state.playingIndex >= 0 ? 'PLAYING' : 'STOPPED'
+                    }
+                />
                 <h1>Add new Match</h1>
                 {this.state.redirect && (
                     <Redirect
@@ -139,7 +161,6 @@ export default class NewMatchForm extends Component {
                         }}
                     />
                 )}
-
                 <div className="new-form">
                     {/* Moive input */}
                     <div className="holder">
@@ -187,9 +208,17 @@ export default class NewMatchForm extends Component {
                                     : '')
                             }
                         >
-                            {this.state.tracks.map((track) => (
+                            {this.state.tracks.map((track, index) => (
                                 <div className="result" key={track.id}>
-                                    <Track track={track} />
+                                    <Track
+                                        track={track}
+                                        play={() =>
+                                            this.play(track.previewURL, index)
+                                        }
+                                        playing={
+                                            this.state.playingIndex === index
+                                        }
+                                    />
                                     <Button
                                         onClick={(e) => this.selectTrack(track)}
                                     >
@@ -206,8 +235,7 @@ export default class NewMatchForm extends Component {
                     onClick={this.submit}
                 >
                     <FaCheck /> Submit
-                </Button>
-                {' '}
+                </Button>{' '}
                 <Button
                     variant="danger"
                     className="submit-btn"
