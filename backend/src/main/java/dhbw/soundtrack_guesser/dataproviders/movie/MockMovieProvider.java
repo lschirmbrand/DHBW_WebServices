@@ -1,4 +1,4 @@
-package dhbw.soundtrack_guesser.dataproviders.movies;
+package dhbw.soundtrack_guesser.dataproviders.movie;
 
 import dhbw.soundtrack_guesser.models.Movie;
 

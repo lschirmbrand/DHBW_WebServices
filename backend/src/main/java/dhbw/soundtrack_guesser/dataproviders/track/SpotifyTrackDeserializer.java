@@ -1,4 +1,4 @@
-package dhbw.soundtrack_guesser.dataproviders.spotify;
+package dhbw.soundtrack_guesser.dataproviders.track;
 
 import dhbw.soundtrack_guesser.models.Track;
 import com.fasterxml.jackson.core.JsonParser;

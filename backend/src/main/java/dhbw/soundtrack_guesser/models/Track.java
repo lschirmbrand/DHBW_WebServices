@@ -1,6 +1,6 @@
 package dhbw.soundtrack_guesser.models;
 
-import dhbw.soundtrack_guesser.dataproviders.spotify.SpotifyTrackDeserializer;
+import dhbw.soundtrack_guesser.dataproviders.track.SpotifyTrackDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonDeserialize(using = SpotifyTrackDeserializer.class)

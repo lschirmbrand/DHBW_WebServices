@@ -1,9 +1,9 @@
-package dhbw.soundtrack_guesser.usecase;
+package dhbw.soundtrack_guesser.service;
 
-import dhbw.soundtrack_guesser.dataproviders.database.MatchRepository;
-import dhbw.soundtrack_guesser.dataproviders.database.entities.MatchEntity;
-import dhbw.soundtrack_guesser.dataproviders.movies.MovieProvider;
-import dhbw.soundtrack_guesser.dataproviders.spotify.SpotifyProvider;
+import dhbw.soundtrack_guesser.dataproviders.match.MatchRepository;
+import dhbw.soundtrack_guesser.dataproviders.match.MatchEntity;
+import dhbw.soundtrack_guesser.dataproviders.movie.MovieProvider;
+import dhbw.soundtrack_guesser.dataproviders.track.TrackProvider;
 import dhbw.soundtrack_guesser.models.Match;
 import dhbw.soundtrack_guesser.models.Movie;
 import dhbw.soundtrack_guesser.models.Track;
@@ -15,15 +15,15 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 
-public class MatchUseCase {
+public class MatchService {
     private final MovieProvider movieProvider;
-    private final SpotifyProvider spotifyProvider;
+    private final TrackProvider trackProvider;
     @Autowired
     private MatchRepository matchRepository;
 
 
-    public MatchUseCase(MovieProvider movieProvider, SpotifyProvider spotifyProvider) {
-        this.spotifyProvider = spotifyProvider;
+    public MatchService(MovieProvider movieProvider, TrackProvider trackProvider) {
+        this.trackProvider = trackProvider;
         this.movieProvider = movieProvider;
     }
 
@@ -38,24 +38,10 @@ public class MatchUseCase {
                 .collect(Collectors.toList());
     }
 
-    public List<Track> getTracksForMovie(int movieID) {
-        return StreamSupport.stream(matchRepository.findAll().spliterator(), false)
-                .filter(entity -> entity.getTmdbID() == movieID)
-                .map(entity -> spotifyProvider.getTrack(entity.getSpotifyID()))
-                .collect(Collectors.toList());
-    }
-
-    public Movie getMovieForTrack(String trackID) {
-        return StreamSupport.stream(matchRepository.findAll().spliterator(), false)
-                .filter(entity -> entity.getSpotifyID().equals(trackID))
-                .map(entity -> movieProvider.getMovieById(entity.getTmdbID()))
-                .findFirst().orElse(null);
-    }
-
     public Match addMatch(MatchEntity matchEntity) {
         MatchEntity entity = this.matchRepository.save(matchEntity);
         Movie movie = movieProvider.getMovieById(entity.getTmdbID());
-        Track track = spotifyProvider.getTrack(entity.getSpotifyID());
+        Track track = trackProvider.getTrack(entity.getSpotifyID());
 
         return new Match(entity.getId(), movie, track);
     }
@@ -85,9 +71,8 @@ public class MatchUseCase {
 
     private Match entityToMatch(MatchEntity entity) {
         Movie movie = movieProvider.getMovieById(entity.getTmdbID());
-        Track track = spotifyProvider.getTrack(entity.getSpotifyID());
+        Track track = trackProvider.getTrack(entity.getSpotifyID());
 
         return new Match(entity.getId(), movie, track);
     }
-
 }

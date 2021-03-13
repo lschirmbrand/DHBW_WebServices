@@ -1,6 +1,6 @@
-package dhbw.soundtrack_guesser.usecase;
+package dhbw.soundtrack_guesser.service;
 
-import dhbw.soundtrack_guesser.dataproviders.movies.MovieProvider;
+import dhbw.soundtrack_guesser.dataproviders.movie.MovieProvider;
 import dhbw.soundtrack_guesser.models.*;
 
 import java.util.ArrayList;
@@ -9,20 +9,20 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
-public class CreateGameUseCase {
-    private final MatchUseCase matchUseCase;
+public class GameService {
+    private final MatchService matchService;
 
 
-    public CreateGameUseCase(MovieProvider movieProvider, MovieListUseCase movieListUsecase, MatchUseCase matchUseCase) {
-        this.matchUseCase = matchUseCase;
+    public GameService(MovieProvider movieProvider, MovieService movieListUsecase, MatchService matchService) {
+        this.matchService = matchService;
     }
 
     public Game create(int roundCount, int moviesPerRound) {
-        List<Match> matches = matchUseCase.getAll();
+        List<Match> matches = matchService.getAll();
 
         List<Movie> movieList = matches.stream().map(Match::getMovie).collect(Collectors.toList());
 
-        List<Round> rounds = new ArrayList<>();
+        List<Game.Round> rounds = new ArrayList<>();
 
         for (int i = 0; i < roundCount; i++) {
             List<Movie> movies = choose(moviesPerRound, movieList);
@@ -35,7 +35,7 @@ public class CreateGameUseCase {
                 }
             }
 
-            rounds.add(new Round(movies, correctIndex, track));
+            rounds.add(new Game.Round(movies, correctIndex, track));
         }
 
         return new Game(rounds);

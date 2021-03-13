@@ -1,4 +1,4 @@
-package dhbw.soundtrack_guesser.dataproviders.spotify;
+package dhbw.soundtrack_guesser.dataproviders.track;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;

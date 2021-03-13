@@ -1,8 +1,8 @@
 package dhbw.soundtrack_guesser.entrypoints;
 
-import dhbw.soundtrack_guesser.dataproviders.movies.MovieProvider;
+import dhbw.soundtrack_guesser.entrypoints.exceptions.MovieNotFoundException;
 import dhbw.soundtrack_guesser.models.Movie;
-import dhbw.soundtrack_guesser.usecase.MovieListUseCase;
+import dhbw.soundtrack_guesser.service.MovieService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,27 +14,30 @@ import java.util.List;
 @RequestMapping("/movies")
 public class MoviesController {
 
-    private final MovieProvider movieProvider;
-    private final MovieListUseCase movieListUsecase;
+    private final MovieService movieService;
 
-    public MoviesController(MovieProvider movieProvider, MovieListUseCase movieListUsecase) {
-        this.movieProvider = movieProvider;
-        this.movieListUsecase = movieListUsecase;
+    public MoviesController( MovieService movieService) {
+        this.movieService = movieService;
     }
 
     @GetMapping("")
     public List<Movie> getAllMovies() {
-        return movieListUsecase.getAllMovies();
+        return movieService.getAllMovies();
     }
 
     @GetMapping("/{id}")
     public Movie getMovieById(@PathVariable int id) {
-        return movieListUsecase.getMovieById(id);
+        return movieService.getMovieById(id);
+    }
+
+    @GetMapping("/for/{trackID}")
+    public Movie getMovieForTrack(@PathVariable String trackID) {
+        return movieService.findForTrack(trackID).orElseThrow(MovieNotFoundException::new);
     }
 
     @GetMapping("/search/{title}")
     public List<Movie> getSearch(@PathVariable String title) {
-        return movieProvider.search(title);
+        return movieService.search(title);
     }
 
 }

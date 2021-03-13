@@ -1,4 +1,4 @@
-package dhbw.soundtrack_guesser.dataproviders.spotify;
+package dhbw.soundtrack_guesser.dataproviders.track;
 
 import dhbw.soundtrack_guesser.models.SpotifyAuth;
 import dhbw.soundtrack_guesser.models.SpotifySearchResponse;
@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
-public class SpotifyProvider {
+public class SpotifyProvider implements TrackProvider {
     private final RestTemplate restTemplate;
     private final SpotifyAccessTokenProvider spotifyAccessTokenProvider;
     private final SpotifyWebScraper spotifyWebScraper;
@@ -33,6 +33,7 @@ public class SpotifyProvider {
         return new HttpEntity(headers);
     }
 
+    @Override
     @Cacheable("track")
     public Track getTrack(String id) {
         String uri = SPOTIFY_BASE_URL + "tracks/" + id;
@@ -56,6 +57,7 @@ public class SpotifyProvider {
         return track;
     }
 
+    @Override
     public List<Track> searchTrack(String query) {
         String uri = SPOTIFY_BASE_URL + "search?type=track&q=" + query;
         try {

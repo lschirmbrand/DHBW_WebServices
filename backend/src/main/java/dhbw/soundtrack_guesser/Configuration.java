@@ -1,12 +1,11 @@
 package dhbw.soundtrack_guesser;
 
-import dhbw.soundtrack_guesser.dataproviders.movies.MovieProvider;
-import dhbw.soundtrack_guesser.dataproviders.movies.TMDBMovieProvider;
-import dhbw.soundtrack_guesser.dataproviders.spotify.SpotifyAccessTokenProvider;
-import dhbw.soundtrack_guesser.dataproviders.spotify.SpotifyProvider;
-import dhbw.soundtrack_guesser.usecase.CreateGameUseCase;
-import dhbw.soundtrack_guesser.usecase.MatchUseCase;
-import dhbw.soundtrack_guesser.usecase.MovieListUseCase;
+import dhbw.soundtrack_guesser.dataproviders.movie.MovieProvider;
+import dhbw.soundtrack_guesser.dataproviders.movie.TMDBMovieProvider;
+import dhbw.soundtrack_guesser.dataproviders.track.SpotifyAccessTokenProvider;
+import dhbw.soundtrack_guesser.dataproviders.track.SpotifyProvider;
+import dhbw.soundtrack_guesser.dataproviders.track.TrackProvider;
+import dhbw.soundtrack_guesser.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +24,7 @@ public class Configuration {
     }
 
     @Bean
-    SpotifyProvider spotifyProvider() {
+    TrackProvider trackProvider() {
         return new SpotifyProvider(new RestTemplateBuilder(), spotifyAccessTokenProvider());
     }
 
@@ -35,18 +34,23 @@ public class Configuration {
     }
 
     @Bean
-    MovieListUseCase movieListUseCase() {
-        return new MovieListUseCase();
+    MovieService movieListUseCase() {
+        return new MovieService(movieProvider());
     }
 
     @Bean
-    MatchUseCase matchUseCase() {
-        return new MatchUseCase(movieProvider(), spotifyProvider());
+    MatchService matchUseCase() {
+        return new MatchService(movieProvider(), trackProvider());
     }
 
 
     @Bean
-    CreateGameUseCase createGameUsecase() {
-        return new CreateGameUseCase(movieProvider(), movieListUseCase(), matchUseCase());
+    GameService createGameUsecase() {
+        return new GameService(movieProvider(), movieListUseCase(), matchUseCase());
+    }
+
+    @Bean
+    TrackService trackService() {
+        return new TrackService(trackProvider());
     }
 }

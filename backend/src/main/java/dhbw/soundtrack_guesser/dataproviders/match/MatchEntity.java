@@ -1,4 +1,4 @@
-package dhbw.soundtrack_guesser.dataproviders.database.entities;
+package dhbw.soundtrack_guesser.dataproviders.match;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
