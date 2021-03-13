@@ -14,11 +14,10 @@ CREATE TABLE matches (
 );
 
 CREATE TABLE users (
-    id int NOT NULL AUTO_INCREMENT,
-    username text NOT NULL,
-    password_hash text NOT NULL,
-    PRIMARY KEY(id)
+    username varchar(255) NOT NULL,
+    password_hash varchar(255) NOT NULL,
+    PRIMARY KEY(username)
 );
 
 INSERT INTO users (username, password_hash) 
-VALUES ("root", SHA2("root"))
+VALUES ("admin", "$2a$12$Y6.JQvFcdsy.3y.pV9WZuukJHyqfjQHTRthPtSkPbf9Hvv7NUthae");

@@ -1,5 +1,7 @@
 package dhbw.soundtrack_guesser.dataproviders.database.entities;
 
+import org.springframework.context.annotation.Primary;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,21 +11,11 @@ import javax.persistence.Id;
 
 @Entity(name = "users") // This tells Hibernate to make a table out of this class
 public class UserEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
 
+    @Id
     private String username;
 
     private String passwordHash;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
