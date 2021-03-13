@@ -1,7 +1,7 @@
 package dhbw.soundtrack_guesser.models;
 
-import dhbw.soundtrack_guesser.dataproviders.movie.TMDBMovieDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import dhbw.soundtrack_guesser.dataproviders.movie.TMDBMovieDeserializer;
 
 import java.util.List;
 

@@ -5,7 +5,10 @@ import dhbw.soundtrack_guesser.dataproviders.movie.TMDBMovieProvider;
 import dhbw.soundtrack_guesser.dataproviders.track.SpotifyAccessTokenProvider;
 import dhbw.soundtrack_guesser.dataproviders.track.SpotifyProvider;
 import dhbw.soundtrack_guesser.dataproviders.track.TrackProvider;
-import dhbw.soundtrack_guesser.service.*;
+import dhbw.soundtrack_guesser.service.GameService;
+import dhbw.soundtrack_guesser.service.MatchService;
+import dhbw.soundtrack_guesser.service.MovieService;
+import dhbw.soundtrack_guesser.service.TrackService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -34,19 +37,18 @@ public class Configuration {
     }
 
     @Bean
-    MovieService movieListUseCase() {
+    MovieService movieService() {
         return new MovieService(movieProvider());
     }
 
     @Bean
-    MatchService matchUseCase() {
+    MatchService matchService() {
         return new MatchService(movieProvider(), trackProvider());
     }
 
-
     @Bean
-    GameService createGameUsecase() {
-        return new GameService(movieProvider(), movieListUseCase(), matchUseCase());
+    GameService gameService() {
+        return new GameService(matchService());
     }
 
     @Bean

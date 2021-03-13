@@ -1,7 +1,10 @@
 package dhbw.soundtrack_guesser.service;
 
 import dhbw.soundtrack_guesser.dataproviders.movie.MovieProvider;
-import dhbw.soundtrack_guesser.models.*;
+import dhbw.soundtrack_guesser.models.Game;
+import dhbw.soundtrack_guesser.models.Match;
+import dhbw.soundtrack_guesser.models.Movie;
+import dhbw.soundtrack_guesser.models.Track;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +15,7 @@ import java.util.stream.Collectors;
 public class GameService {
     private final MatchService matchService;
 
-
-    public GameService(MovieProvider movieProvider, MovieService movieListUsecase, MatchService matchService) {
+    public GameService(MatchService matchService) {
         this.matchService = matchService;
     }
 

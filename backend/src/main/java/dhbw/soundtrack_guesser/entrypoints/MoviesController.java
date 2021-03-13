@@ -16,7 +16,7 @@ public class MoviesController {
 
     private final MovieService movieService;
 
-    public MoviesController( MovieService movieService) {
+    public MoviesController(MovieService movieService) {
         this.movieService = movieService;
     }
 

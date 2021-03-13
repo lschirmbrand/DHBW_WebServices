@@ -1,10 +1,10 @@
 package dhbw.soundtrack_guesser.dataproviders.movie;
 
-import dhbw.soundtrack_guesser.models.Movie;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import dhbw.soundtrack_guesser.models.Movie;
 
 import java.io.IOException;
 import java.util.ArrayList;
