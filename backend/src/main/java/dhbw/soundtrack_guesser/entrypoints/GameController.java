@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/game")
 public class GameController {
 
-    private final GameService gameUsecase;
+    private final GameService gameService;
 
-    public GameController(GameService gameUsecase) {
-        this.gameUsecase = gameUsecase;
+    public GameController(GameService gameService) {
+        this.gameService = gameService;
     }
 
     @GetMapping("")
     public Game getNewGame(
             @RequestParam(name = "roundCount", defaultValue = "10") int roundCount,
             @RequestParam(name = "moviesPerRound", defaultValue = "3") int moviesPerRound) {
-        return gameUsecase.create(roundCount, moviesPerRound);
+        return gameService.create(roundCount, moviesPerRound);
     }
 }

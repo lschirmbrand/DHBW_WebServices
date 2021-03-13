@@ -6,8 +6,8 @@ RUN ["sed", "-i", "s/exec \"$@\"/echo \"not running $@\"/", "/usr/local/bin/dock
 # needed for intialization
 ENV MYSQL_ROOT_PASSWORD=root
 
-ENV MYSQL_USER=SongGuesser
-ENV MYSQL_PASSWORD=songguesser
+ENV MYSQL_USER=SoundTrackGuesser
+ENV MYSQL_PASSWORD=soundtrackguesser
 
 COPY setup.sql /docker-entrypoint-initdb.d/
 

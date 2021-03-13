@@ -31,7 +31,7 @@ public class TrackController {
     }
 
     @GetMapping("/for/{movieID}")
-    public List<Track> getTracksforMovie(@PathVariable int movieID) {
+    public List<Track> getTracksForMovie(@PathVariable int movieID) {
         List<Track> movies = trackService.findForMovie(movieID);
         if (movies.isEmpty()) {
             throw new TracksNotFoundException();

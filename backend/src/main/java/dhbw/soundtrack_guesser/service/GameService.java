@@ -1,6 +1,5 @@
 package dhbw.soundtrack_guesser.service;
 
-import dhbw.soundtrack_guesser.dataproviders.movie.MovieProvider;
 import dhbw.soundtrack_guesser.models.Game;
 import dhbw.soundtrack_guesser.models.Match;
 import dhbw.soundtrack_guesser.models.Movie;

@@ -21,7 +21,7 @@ public class SpotifyTrackDeserializer extends StdDeserializer<Track> {
     }
 
     @Override
-    public Track deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+    public Track deserialize(JsonParser p, DeserializationContext ctx) throws IOException {
         JsonNode node = p.getCodec().readTree(p);
 
         String id = node.get("id").asText();

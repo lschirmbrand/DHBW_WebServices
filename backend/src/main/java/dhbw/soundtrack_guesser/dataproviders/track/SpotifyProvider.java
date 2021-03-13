@@ -26,11 +26,11 @@ public class SpotifyProvider implements TrackProvider {
         this.spotifyWebScraper = new SpotifyWebScraper();
     }
 
-    private HttpEntity httpEntity(String bearerToken) {
+    private <T> HttpEntity<T> httpEntity(String bearerToken) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(bearerToken);
-        return new HttpEntity(headers);
+        return new HttpEntity<>(headers);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class SpotifyProvider implements TrackProvider {
         String uri = SPOTIFY_BASE_URL + "tracks/" + id;
         Track track;
         try {
-            HttpEntity httpEntity = httpEntity(access_token);
+            HttpEntity<Track> httpEntity = httpEntity(access_token);
             ResponseEntity<Track> response = this.restTemplate.exchange(URI.create(uri), HttpMethod.GET, httpEntity, Track.class);
             track = response.getBody();
         } catch (HttpClientErrorException e) {
@@ -61,7 +61,7 @@ public class SpotifyProvider implements TrackProvider {
     public List<Track> searchTrack(String query) {
         String uri = SPOTIFY_BASE_URL + "search?type=track&q=" + query;
         try {
-            HttpEntity httpEntity = httpEntity(access_token);
+            HttpEntity<List<Track>> httpEntity = httpEntity(access_token);
             ResponseEntity<SpotifySearchResponse> response = this.restTemplate.exchange(URI.create(uri), HttpMethod.GET, httpEntity, SpotifySearchResponse.class);
             return Objects.requireNonNull(response.getBody()).getTracks().getItems();
         } catch (HttpClientErrorException.Unauthorized e) {

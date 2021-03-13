@@ -10,16 +10,16 @@ public class Track {
     private String name;
     private String artistName;
     private String previewURL;
-    private String spotifyURL;
+    private String url;
     private String albumName;
     private String coverURL;
 
-    public Track(String id, String name, String artistName, String previewURL, String spotifyURL, String albumName, String coverURL) {
+    public Track(String id, String name, String artistName, String previewURL, String url, String albumName, String coverURL) {
         this.id = id;
         this.name = name;
         this.artistName = artistName;
         this.previewURL = previewURL;
-        this.spotifyURL = spotifyURL;
+        this.url = url;
         this.albumName = albumName;
         this.coverURL = coverURL;
     }
@@ -56,12 +56,12 @@ public class Track {
         this.previewURL = previewURL;
     }
 
-    public String getSpotifyURL() {
-        return spotifyURL;
+    public String getUrl() {
+        return url;
     }
 
-    public void setSpotifyURL(String spotifyURL) {
-        this.spotifyURL = spotifyURL;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getAlbumName() {

@@ -40,8 +40,8 @@ public class MatchService {
 
     public Match addMatch(MatchEntity matchEntity) {
         MatchEntity entity = this.matchRepository.save(matchEntity);
-        Movie movie = movieProvider.getMovieById(entity.getTmdbID());
-        Track track = trackProvider.getTrack(entity.getSpotifyID());
+        Movie movie = movieProvider.getMovieById(entity.getMovieID());
+        Track track = trackProvider.getTrack(entity.getTrackID());
 
         return new Match(entity.getId(), movie, track);
     }
@@ -50,8 +50,8 @@ public class MatchService {
         Optional<MatchEntity> entityOptional = this.matchRepository.findById(matchEntity.getId());
         if (entityOptional.isPresent()) {
             MatchEntity entity = entityOptional.get();
-            entity.setTmdbID(matchEntity.getTmdbID());
-            entity.setspotifyID(matchEntity.getSpotifyID());
+            entity.setMovieID(matchEntity.getMovieID());
+            entity.setTrackID(matchEntity.getTrackID());
             matchRepository.save(entity);
 
             return entity;
@@ -70,8 +70,8 @@ public class MatchService {
     }
 
     private Match entityToMatch(MatchEntity entity) {
-        Movie movie = movieProvider.getMovieById(entity.getTmdbID());
-        Track track = trackProvider.getTrack(entity.getSpotifyID());
+        Movie movie = movieProvider.getMovieById(entity.getMovieID());
+        Track track = trackProvider.getTrack(entity.getTrackID());
 
         return new Match(entity.getId(), movie, track);
     }

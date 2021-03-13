@@ -16,9 +16,9 @@ import org.springframework.context.annotation.Bean;
 @org.springframework.context.annotation.Configuration
 public class Configuration {
 
-    @Value("${tmdb.bearerToken}")
+    @Value("${soundtrack_guesser.tmdbBearerToken}")
     String tmdbBearerToken;
-    @Value("${spotify.basicToken}")
+    @Value("${soundtrack_guesser.spotifyBasicToken}")
     String spotifyBasicToken;
 
     @Bean

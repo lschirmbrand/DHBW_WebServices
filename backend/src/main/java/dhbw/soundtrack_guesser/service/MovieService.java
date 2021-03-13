@@ -29,7 +29,7 @@ public class MovieService {
 
         // fetch all Movies from tmdb
         return StreamSupport.stream(matches.spliterator(), true)
-                .map(MatchEntity::getTmdbID)
+                .map(MatchEntity::getMovieID)
                 .map(movieProvider::getMovieById)
                 .collect(Collectors.toList());
     }
@@ -38,9 +38,9 @@ public class MovieService {
         return movieProvider.getMovieById(id);
     }
 
-    public Optional<Movie> findForTrack(String spotifyID) {
-        return StreamSupport.stream(matchRepository.findAllByTrack(spotifyID).spliterator(), false)
-                .map(MatchEntity::getTmdbID)
+    public Optional<Movie> findForTrack(String trackID) {
+        return StreamSupport.stream(matchRepository.findAllByTrack(trackID).spliterator(), false)
+                .map(MatchEntity::getMovieID)
                 .map(movieProvider::getMovieById)
                 .findFirst();
     }

@@ -21,7 +21,7 @@ public class TrackService {
 
     public List<Track> getAllTracks() {
         return StreamSupport.stream(matchRepository.findAll().spliterator(), true)
-                .map(MatchEntity::getSpotifyID)
+                .map(MatchEntity::getTrackID)
                 .map(trackProvider::getTrack)
                 .collect(Collectors.toList());
     }
@@ -32,7 +32,7 @@ public class TrackService {
 
     public List<Track> findForMovie(int movieID) {
         return StreamSupport.stream(matchRepository.findAllByMovie(movieID).spliterator(), true)
-                .map(MatchEntity::getSpotifyID)
+                .map(MatchEntity::getTrackID)
                 .map(trackProvider::getTrack)
                 .collect(Collectors.toList());
     }

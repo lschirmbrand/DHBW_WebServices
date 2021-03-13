@@ -1,9 +1,6 @@
 package dhbw.soundtrack_guesser.dataproviders.match;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity(name = "matches")
@@ -13,9 +10,9 @@ public class MatchEntity {
     private Integer id;
 
     @NotNull
-    private String spotifyID;
+    private String trackID;
     @NotNull
-    private int tmdbID;
+    private int movieID;
 
     public MatchEntity() {
     }
@@ -28,19 +25,19 @@ public class MatchEntity {
         this.id = id;
     }
 
-    public String getSpotifyID() {
-        return spotifyID;
+    public String getTrackID() {
+        return trackID;
     }
 
-    public void setspotifyID(String spotifyID) {
-        this.spotifyID = spotifyID;
+    public void setTrackID(String trackID) {
+        this.trackID = trackID;
     }
 
-    public int getTmdbID() {
-        return tmdbID;
+    public int getMovieID() {
+        return movieID;
     }
 
-    public void setTmdbID(int tmdbID) {
-        this.tmdbID = tmdbID;
+    public void setMovieID(int movieID) {
+        this.movieID = movieID;
     }
 }

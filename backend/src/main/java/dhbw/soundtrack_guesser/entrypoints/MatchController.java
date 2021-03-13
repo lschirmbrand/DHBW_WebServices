@@ -32,7 +32,7 @@ public class MatchController {
     @PostMapping()
     public Match addMatch(@RequestBody MatchEntity matchEntity) {
         List<String> trackIds = matchService.getAll().stream().map(match -> match.getTrack().getId()).collect(Collectors.toList());
-        if (trackIds.contains(matchEntity.getSpotifyID())) {
+        if (trackIds.contains(matchEntity.getTrackID())) {
             throw new DuplicateTrackException();
         }
         return matchService.addMatch(matchEntity);

@@ -21,7 +21,7 @@ public class TMDBMovieDeserializer extends StdDeserializer<Movie> {
     }
 
     @Override
-    public Movie deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+    public Movie deserialize(JsonParser p, DeserializationContext ctx) throws IOException {
         JsonNode node = p.getCodec().readTree(p);
 
         int id = node.get("id").asInt();

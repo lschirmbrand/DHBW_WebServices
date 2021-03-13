@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "soundtrack_guesser.spotifyBasicToken",
+      "type": "java.lang.String",
+      "description": "Basic token for Spotify API."
+    },
+    {
+      "name": "soundtrack_guesser.tmdbBearerToken",
+      "type": "java.lang.String",
+      "description": "Bearer token for tmdb API."
+    }
+  ] }
