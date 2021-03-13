@@ -17,6 +17,6 @@ services:
     ports:
       - '$SERVER_PORT:8081'
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/songguesser
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/soundtrack_guesser
     links:
       - 'db'

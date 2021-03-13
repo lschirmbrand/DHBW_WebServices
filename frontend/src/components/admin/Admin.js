@@ -15,7 +15,11 @@ import Track from './Track';
 class Admin extends React.Component {
     constructor({ matches }) {
         super();
-        this.serverURL = 'http://' + process.env.REACT_APP_SERVER_HOST + ':' + process.env.REACT_APP_SERVER_PORT;
+        this.serverURL =
+            'http://' +
+            process.env.REACT_APP_SERVER_HOST +
+            ':' +
+            process.env.REACT_APP_SERVER_PORT;
         this.state = {
             loading: true,
             matches: matches || [],
@@ -80,12 +84,16 @@ class Admin extends React.Component {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(match),
                 })
-                    .then((res) => res.json())
+                    .then((res) => {
+                        if (!res.ok) throw new Error(res.status);
+                        return res.json();
+                    })
                     .then((data) =>
                         this.setState({
                             matches: [...this.state.matches, data],
                         })
                     )
+                    .catch((err) => console.error(err))
             );
         };
         fileReader.readAsText(file);

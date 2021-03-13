@@ -9,7 +9,7 @@ export default function Track({ track, playing, play }) {
         <div className={'track' + (track.previewURL === 'null' ? ' red' : '')}>
             <img src={track.coverURL} alt={track.name}></img>
             <div className="track-desc">
-                <a href={track.spotifyURL} target="_blank" rel="noreferrer">
+                <a href={track.url} target="_blank" rel="noreferrer">
                     {track.name}
                 </a>
                 <span className="track-artist">{track.artistName}</span>

@@ -12,7 +12,11 @@ import './NewMatchForm.css';
 export default class NewMatchForm extends Component {
     constructor() {
         super();
-        this.serverURL = 'http://' + process.env.REACT_APP_SERVER_HOST + ':' + process.env.REACT_APP_SERVER_PORT;
+        this.serverURL =
+            'http://' +
+            process.env.REACT_APP_SERVER_HOST +
+            ':' +
+            process.env.REACT_APP_SERVER_PORT;
         this.state = {
             matches: [],
             loadingMovies: false,
@@ -86,9 +90,8 @@ export default class NewMatchForm extends Component {
             return;
         }
         this.setState({ loadingTracks: true });
-        const url = this.serverURL
-            +'/spotify/search/' +
-            query.replaceAll(' ', '+');
+        const url =
+            this.serverURL + '/track/search/' + query.replaceAll(' ', '+');
         fetch(url)
             .then((res) => res.json())
             .then((tracks) =>
@@ -117,21 +120,26 @@ export default class NewMatchForm extends Component {
 
     submit = () => {
         const body = {
-            tmdbID: this.state.selectedMovie.id,
-            spotifyID: this.state.selectedTrack.id,
+            movieID: this.state.selectedMovie.id,
+            trackID: this.state.selectedTrack.id,
         };
         fetch(this.serverURL + '/match', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body),
         })
-            .then((res) => res.json())
-            .then((data) =>
+            .then((res) => {
                 this.setState({
-                    matches: [...this.state.matches, data],
                     selectedMovie: { id: 0, title: '' },
                     selectedTrack: { id: '', name: '' },
                     redirect: true,
+                });
+                if (!res.ok) throw new Error(res.status);
+                return res.json();
+            })
+            .then((data) =>
+                this.setState({
+                    matches: [...this.state.matches, data],
                 })
             )
             .catch((err) => console.error(err));
