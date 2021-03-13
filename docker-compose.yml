@@ -4,6 +4,8 @@ services:
     build: ./database
     ports:
       - '3306:3306'
+    volumes: 
+      - data:/var/lib/mysql
   client:
     build:
       context: ./frontend
@@ -20,3 +22,6 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/soundtrack_guesser
     links:
       - 'db'
+volumes: 
+  data:
+
