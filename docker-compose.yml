@@ -10,12 +10,12 @@ services:
       args:
         REACT_APP_SERVER_PORT: 8082
     ports:
-      - '82:80'
+      - '83:80'
   server:
     build:
       context: ./backend
     ports:
-      - '8082:8081'
+      - '8083:8081'
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/soundtrack_guesser
     links:
