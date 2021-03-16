@@ -2,7 +2,7 @@ CREATE DATABASE soundtrack_guesser;
 
 USE soundtrack_guesser;
 
-CREATE USER SoundTrackGuesser@localhost IDENTIFIED BY 'soundtrackguesser';
+CREATE USER SoundTrackGuesser IDENTIFIED BY 'soundtrackguesser';
 
 GRANT ALL privileges ON `soundtrack_guesser`.* TO 'SoundTrackGuesser';
 
