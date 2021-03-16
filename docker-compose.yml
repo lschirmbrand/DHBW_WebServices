@@ -2,8 +2,8 @@ version: '2'
 services:
   db:
     build: ./database
-    ports:
-      - '3306:3306'
+#    ports:
+ #     - '3306:3306'
   client:
     build:
       context: ./frontend
