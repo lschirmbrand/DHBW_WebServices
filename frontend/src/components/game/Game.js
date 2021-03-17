@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-
-import Spinner from 'react-bootstrap/Spinner';
-import ProgressBar from 'react-bootstrap/ProgressBar';
 import { Redirect } from 'react-router-dom';
-import MovieSelection from './MovieSelection';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 import Sound from 'react-sound';
+
+import MovieSelection from './MovieSelection';
+import LoadingSpinner from '../LoadingSpinner';
 
 import './Game.css';
 
@@ -12,7 +12,11 @@ export default class Game extends Component {
     constructor(props) {
         super(props);
 
-        this.serverURL = 'http://' + process.env.REACT_APP_SERVER_HOST + ':' + process.env.REACT_APP_SERVER_PORT;
+        this.serverURL =
+            'http://' +
+            process.env.REACT_APP_SERVER_HOST +
+            ':' +
+            process.env.REACT_APP_SERVER_PORT;
 
         this.state = {
             round: 0,
@@ -25,12 +29,20 @@ export default class Game extends Component {
             playing: false,
             selected: 3,
             correct: 3,
+            error: false
         };
     }
 
     componentDidMount() {
         fetch(this.serverURL + '/game')
-            .then((res) => res.json())
+            .then((res) =>{
+                if(!res.ok) {
+                    this.setState({error: true, loading: false})
+                    throw new Error(res.status + " " + res.statusText);
+                }
+
+                return res.json()
+            })
             .then((data) => {
                 this.setState({ game: data, loading: false, timer: true });
                 this.start();
@@ -88,9 +100,30 @@ export default class Game extends Component {
     };
 
     render() {
-        return this.state.loading ? (
-            <Spinner animation="border" />
-        ) : (
+        if (this.state.loading) {
+            return <LoadingSpinner />;
+        }
+
+        if (this.state.redirect) {
+          return <Redirect
+                to={{
+                    pathname: '/results',
+                    state: { score: this.state.score },
+                }}
+            />;
+        }
+
+        if (this.state.error) {
+            return (
+                <div className="game">
+                    <p>
+                        There are not enough matches stored. Go to the <a href="/admin">Admin-Page</a> and create some!
+                    </p>
+                </div>
+            )
+        }
+
+        return (
             <div className="game">
                 <Sound
                     url={
@@ -99,15 +132,6 @@ export default class Game extends Component {
                     }
                     playStatus={this.state.playing ? 'PLAYING' : 'STOPPED'}
                 />
-
-                {this.state.redirect && (
-                    <Redirect
-                        to={{
-                            pathname: '/results',
-                            state: { score: this.state.score },
-                        }}
-                    />
-                )}
 
                 <div className="game-info">
                     <span className="score">{this.state.score}</span>

@@ -11,6 +11,7 @@ import Sound from 'react-sound';
 
 import Movie from './Movie';
 import Track from './Track';
+import LoadingSpinner from '../LoadingSpinner';
 
 class Admin extends React.Component {
     constructor({ matches }) {
@@ -60,8 +61,8 @@ class Admin extends React.Component {
 
     clickExport = () => {
         const matches = this.state.matches.map((match) => ({
-            spotifyID: match.track.id,
-            tmdbID: match.movie.id,
+            trackID: match.track.id,
+            movieID: match.movie.id,
         }));
 
         const blob = new Blob([JSON.stringify({ matches })]);
@@ -109,7 +110,7 @@ class Admin extends React.Component {
 
     render() {
         return this.state.loading ? (
-            <Spinner animation="border" />
+            <LoadingSpinner />
         ) : (
             <div className="admin">
                 {this.state.redirect && (

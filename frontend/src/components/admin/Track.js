@@ -6,7 +6,7 @@ import './Track.css';
 
 export default function Track({ track, playing, play }) {
     return (
-        <div className={'track' + (track.previewURL === 'null' ? ' red' : '')}>
+        <div className={'track'}>
             <img src={track.coverURL} alt={track.name}></img>
             <div className="track-desc">
                 <a href={track.url} target="_blank" rel="noreferrer">

@@ -1,5 +1,6 @@
 package dhbw.soundtrack_guesser.service;
 
+import dhbw.soundtrack_guesser.entrypoints.exceptions.NotEnoughMatches;
 import dhbw.soundtrack_guesser.models.Game;
 import dhbw.soundtrack_guesser.models.Match;
 import dhbw.soundtrack_guesser.models.Movie;
@@ -20,6 +21,10 @@ public class GameService {
 
     public Game create(int roundCount, int moviesPerRound) {
         List<Match> matches = matchService.getAll();
+
+        if (matches.size() < roundCount * moviesPerRound) {
+            throw new NotEnoughMatches();
+        }
 
         List<Movie> movieList = matches.stream().map(Match::getMovie).collect(Collectors.toList());
 

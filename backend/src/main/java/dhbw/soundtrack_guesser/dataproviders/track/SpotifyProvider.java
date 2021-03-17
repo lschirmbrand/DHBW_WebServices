@@ -63,7 +63,16 @@ public class SpotifyProvider implements TrackProvider {
         try {
             HttpEntity<List<Track>> httpEntity = httpEntity(access_token);
             ResponseEntity<SpotifySearchResponse> response = this.restTemplate.exchange(URI.create(uri), HttpMethod.GET, httpEntity, SpotifySearchResponse.class);
-            return Objects.requireNonNull(response.getBody()).getTracks().getItems();
+            List<Track> tracks = Objects.requireNonNull(response.getBody()).getTracks().getItems();
+
+            for (Track track : tracks) {
+                if (track.getPreviewURL().equals("null")) {
+                    String previewURL = spotifyWebScraper.scrapeForPreviewURL(track.getId());
+                    track.setPreviewURL(previewURL);
+                }
+            }
+
+            return tracks;
         } catch (HttpClientErrorException.Unauthorized e) {
             SpotifyAuth spotifyAuth = spotifyAccessTokenProvider.getAuth();
             access_token = spotifyAuth.getAccess_token();
