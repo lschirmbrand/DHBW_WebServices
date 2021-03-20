@@ -10,6 +10,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
 
@@ -59,7 +61,7 @@ public class SpotifyProvider implements TrackProvider {
 
     @Override
     public List<Track> searchTrack(String query) {
-        String uri = SPOTIFY_BASE_URL + "search?type=track&q=" + query;
+        String uri = SPOTIFY_BASE_URL + "search?type=track&q=" + URLEncoder.encode(query, StandardCharsets.UTF_8);
         try {
             HttpEntity<List<Track>> httpEntity = httpEntity(access_token);
             ResponseEntity<SpotifySearchResponse> response = this.restTemplate.exchange(URI.create(uri), HttpMethod.GET, httpEntity, SpotifySearchResponse.class);
