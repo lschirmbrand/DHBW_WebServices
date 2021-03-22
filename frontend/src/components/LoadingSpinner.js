@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 import Spinner from 'react-bootstrap/esm/Spinner';
 
-import './LoadingSpinner.css'
+import './LoadingSpinner.css';
 
-export default function LoadingSpinner () {
+export default function LoadingSpinner() {
     return (
         <div className="spinner">
             <Spinner animation="border" />
         </div>
-    )
+    );
 }

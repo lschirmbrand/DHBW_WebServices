@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { Redirect } from 'react-router-dom';
@@ -13,11 +13,8 @@ export default function NewMatchForm() {
     const serverURL =
         'http://' + window._env_.SERVER_HOST + ':' + window._env_.SERVER_PORT;
 
-    const [matches, setMatches] = useState([]);
-    const [loadingMovies, setLoadingMovies] = useState(false);
     const [movies, setMovies] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState({ title: '', id: 0 });
-    const [loadingTracks, setLoadingTracks] = useState(false);
     const [tracks, setTracks] = useState([]);
     const [selectedTrack, setSelectedTrack] = useState({ name: '', id: '' });
     const [redirect, setRedirect] = useState(false);
@@ -35,16 +32,12 @@ export default function NewMatchForm() {
             setMovies([]);
             return;
         }
-        setLoadingMovies(true);
         const url = encodeURI(serverURL + '/movies/search/' + query);
         fetch(url)
             .then((res) => {
                 return res.json();
             })
-            .then((data) => {
-                setLoadingMovies(false);
-                setMovies(data || []);
-            })
+            .then((data) => setMovies(data || []))
             .catch((err) => console.error(err));
     };
 
@@ -71,14 +64,10 @@ export default function NewMatchForm() {
             setTracks([]);
             return;
         }
-        setLoadingTracks(true);
         const url = serverURL + '/track/search/' + query.replaceAll(' ', '+');
         fetch(url)
             .then((res) => res.json())
-            .then((data) => {
-                setLoadingTracks(false);
-                setTracks(data || []);
-            })
+            .then((data) => setTracks(data || []))
             .catch((err) => console.error(err));
     };
 
@@ -152,7 +141,7 @@ export default function NewMatchForm() {
                         {movies.map((movie) => (
                             <div className="result" key={movie.id}>
                                 <Movie movie={movie} />
-                                <Button onClick={(e) => selectMovie(movie)}>
+                                <Button onClick={() => selectMovie(movie)}>
                                     <FaCheck />
                                 </Button>
                             </div>
@@ -181,7 +170,7 @@ export default function NewMatchForm() {
                                     play={() => play(track.previewURL, index)}
                                     playing={playingIndex === index}
                                 />
-                                <Button onClick={(e) => selectTrack(track)}>
+                                <Button onClick={() => selectTrack(track)}>
                                     <FaCheck />
                                 </Button>
                             </div>

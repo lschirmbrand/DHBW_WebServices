@@ -39,7 +39,7 @@ export default function Admin() {
         fetch(serverURL + '/match/' + matchID, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
-        }).then((res) =>
+        }).then(() =>
             setMatches(matches.filter((match) => match.id !== matchID))
         );
     };
@@ -65,7 +65,6 @@ export default function Admin() {
         }
     }, []);
 
-    const clickImport = () => {};
     const importFile = (file) => {
         const fileReader = new FileReader();
         fileReader.onloadend = () => {
@@ -174,7 +173,7 @@ export default function Admin() {
                                     <Button
                                         className="delete-btn"
                                         variant="danger"
-                                        onClick={(e) => removeClick(match.id)}
+                                        onClick={() => removeClick(match.id)}
                                     >
                                         <FaTrash />
                                     </Button>

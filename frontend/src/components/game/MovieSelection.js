@@ -11,7 +11,7 @@ export default function MovieSelection(props) {
     return (
         <div className="movies">
             {props.movies.map((movie, index) => (
-                <div className="movie-select">
+                <div className="movie-select" key={movie.id}>
                     <img
                         className={'poster ' + classes[index]}
                         src={movie.posterURL}
