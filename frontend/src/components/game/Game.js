@@ -12,13 +12,16 @@ export default function Game() {
     const serverURL =
         'http://' + window._env_.SERVER_HOST + ':' + window._env_.SERVER_PORT;
 
+    const secondsToPlay = 30;
+    const intervall = 100;
+
     const [game, setGame] = useState({});
     const [round, setRound] = useState(0);
     const [loading, setLoading] = useState(true);
     const [score, setScore] = useState(0);
     const [redirect, setRedirect] = useState(false);
     const [timer, setTimer] = useState(null);
-    const [timeLeft, setTimeLeft] = useState(300);
+    const [timeLeft, setTimeLeft] = useState(secondsToPlay);
     const [playing, setPlaying] = useState(false);
     const [selected, setSelected] = useState(3);
     const [correct, setCorrect] = useState(3);
@@ -28,22 +31,24 @@ export default function Game() {
         setPlaying(true);
         const time = setInterval(() => {
             setTimeLeft((old) => {
-                if (old === 0) {
-                    clickMovie(3);
-                }
-                return old - 1;
+                return old - intervall / 1000;
             });
-        }, 100);
+        }, intervall);
         setTimer(time);
     };
 
+    useEffect(() => {
+        if (timeLeft < 0) {
+            clickMovie(3);
+        }
+    }, [timeLeft]);
+
     const clickMovie = (index) => {
-        console.log('click');
+        setTimeLeft(secondsToPlay);
         clearInterval(timer);
         setSelected(index);
         setCorrect(game.rounds[round].correctIndex);
         setPlaying(false);
-        // setTimeLeft(300);
 
         if (index === game.rounds[round].correctIndex) {
             setScore(score + 1);
@@ -123,8 +128,8 @@ export default function Game() {
                 <span>Points</span>
                 <span>Round {round + 1}/10</span>
                 <ProgressBar
-                    now={(timeLeft * 100) / 300}
-                    label={`${(timeLeft / 10).toFixed(1)}s`}
+                    now={(timeLeft / secondsToPlay) * 100}
+                    label={`${timeLeft.toFixed(1)}s`}
                 />
             </div>
             <MovieSelection
