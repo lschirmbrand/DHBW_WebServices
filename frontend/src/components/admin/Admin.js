@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 
 import { Redirect } from 'react-router-dom';
 import { FaFileExport, FaFileImport, FaPlus, FaTrash } from 'react-icons/fa';
-import Spinner from 'react-bootstrap/esm/Spinner';
 import Sound from 'react-sound';
 
 import Movie from './Movie';
