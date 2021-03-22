@@ -42,10 +42,10 @@ docker-db:
     - cd database
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE"/server:db .
-    - docker tag "$CI_REGISTRY_IMAGE"/server:db "$CI_REGISTRY_IMAGE"/server:${CI_COMMIT_SHORT_SHA}
-    - docker push "$CI_REGISTRY_IMAGE"/server:db
-    - docker push "$CI_REGISTRY_IMAGE"/server:${CI_COMMIT_SHORT_SHA}
+    - docker build --pull -t "$CI_REGISTRY_IMAGE"/db:latest .
+    - docker tag "$CI_REGISTRY_IMAGE"/db:latest "$CI_REGISTRY_IMAGE"/db:${CI_COMMIT_SHORT_SHA}
+    - docker push "$CI_REGISTRY_IMAGE"/db:latest
+    - docker push "$CI_REGISTRY_IMAGE"/db:${CI_COMMIT_SHORT_SHA}
   only:
     - main
 
