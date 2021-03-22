@@ -14,9 +14,9 @@ export default class Game extends Component {
 
         this.serverURL =
             'http://' +
-            process.env.REACT_APP_SERVER_HOST +
+            window._env_.SERVER_HOST +
             ':' +
-            process.env.REACT_APP_SERVER_PORT;
+            window._env_.SERVER_PORT;
 
         this.state = {
             round: 0,
@@ -29,19 +29,19 @@ export default class Game extends Component {
             playing: false,
             selected: 3,
             correct: 3,
-            error: false
+            error: false,
         };
     }
 
     componentDidMount() {
         fetch(this.serverURL + '/game')
-            .then((res) =>{
-                if(!res.ok) {
-                    this.setState({error: true, loading: false})
-                    throw new Error(res.status + " " + res.statusText);
+            .then((res) => {
+                if (!res.ok) {
+                    this.setState({ error: true, loading: false });
+                    throw new Error(res.status + ' ' + res.statusText);
                 }
 
-                return res.json()
+                return res.json();
             })
             .then((data) => {
                 this.setState({ game: data, loading: false, timer: true });
@@ -105,22 +105,25 @@ export default class Game extends Component {
         }
 
         if (this.state.redirect) {
-          return <Redirect
-                to={{
-                    pathname: '/results',
-                    state: { score: this.state.score },
-                }}
-            />;
+            return (
+                <Redirect
+                    to={{
+                        pathname: '/results',
+                        state: { score: this.state.score },
+                    }}
+                />
+            );
         }
 
         if (this.state.error) {
             return (
                 <div className="game">
                     <p>
-                        There are not enough matches stored. Go to the <a href="/admin">Admin-Page</a> and create some!
+                        There are not enough matches stored. Go to the{' '}
+                        <a href="/admin">Admin-Page</a> and create some!
                     </p>
                 </div>
-            )
+            );
         }
 
         return (

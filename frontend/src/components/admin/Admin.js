@@ -17,9 +17,9 @@ class Admin extends React.Component {
         super();
         this.serverURL =
             'http://' +
-            process.env.REACT_APP_SERVER_HOST +
+            window._env_.SERVER_HOST +
             ':' +
-            process.env.REACT_APP_SERVER_PORT;
+            window._env_.SERVER_PORT;
         this.state = {
             loading: true,
             matches: [],
