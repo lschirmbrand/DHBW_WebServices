@@ -13,7 +13,7 @@ import Track from './Track';
 import LoadingSpinner from '../LoadingSpinner';
 
 class Admin extends React.Component {
-    constructor({ matches }) {
+    constructor() {
         super();
         this.serverURL =
             'http://' +
@@ -22,7 +22,7 @@ class Admin extends React.Component {
             process.env.REACT_APP_SERVER_PORT;
         this.state = {
             loading: true,
-            matches: matches || [],
+            matches: [],
             redirect: false,
             fileDownloadUrl: '',
             playingIndex: -1,
@@ -32,15 +32,11 @@ class Admin extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.location.state) {
-            this.setState(this.props.location.state);
-        } else {
-            fetch(this.serverURL + '/match')
-                .then((response) => response.json())
-                .then((data) => {
-                    this.setState({ matches: data, loading: false });
-                });
-        }
+        fetch(this.serverURL + '/match')
+            .then((response) => response.json())
+            .then((data) => {
+                this.setState({ matches: data, loading: false });
+            });
     }
 
     setRedirect = () => this.setState({ redirect: true });
@@ -108,19 +104,16 @@ class Admin extends React.Component {
     };
 
     render() {
-        return this.state.loading ? (
-            <LoadingSpinner />
-        ) : (
-            <div className="admin">
-                {this.state.redirect && (
-                    <Redirect
-                        to={{
-                            pathname: '/admin/new',
-                            state: { matches: this.state.matches },
-                        }}
-                    />
-                )}
+        if (this.state.loading) {
+            return <LoadingSpinner />;
+        }
 
+        if (this.state.redirect) {
+            return <Redirect to="/admin/new" />;
+        }
+
+        return (
+            <div className="admin">
                 <Sound
                     url={this.state.mp3url}
                     playStatus={

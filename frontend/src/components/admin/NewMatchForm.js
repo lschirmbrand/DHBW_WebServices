@@ -37,9 +37,7 @@ export default class NewMatchForm extends Component {
         };
     }
 
-    componentDidMount() {
-        this.setState(this.props.location.state);
-    }
+    componentDidMount() {}
 
     handleMovieInputChange = (event) => {
         const query = event.target.value;
@@ -129,19 +127,13 @@ export default class NewMatchForm extends Component {
             body: JSON.stringify(body),
         })
             .then((res) => {
+                if (!res.ok) throw new Error(res.status);
                 this.setState({
                     selectedMovie: { id: 0, title: '' },
                     selectedTrack: { id: '', name: '' },
                     redirect: true,
                 });
-                if (!res.ok) throw new Error(res.status);
-                return res.json();
             })
-            .then((data) =>
-                this.setState({
-                    matches: [...this.state.matches, data],
-                })
-            )
             .catch((err) => console.error(err));
     };
 
@@ -150,6 +142,10 @@ export default class NewMatchForm extends Component {
     };
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to="/admin" />;
+        }
+
         return (
             <div className="new-match">
                 <Sound
@@ -159,17 +155,6 @@ export default class NewMatchForm extends Component {
                     }
                 />
                 <h1>Add new Match</h1>
-                {this.state.redirect && (
-                    <Redirect
-                        to={{
-                            pathname: '/admin',
-                            state: {
-                                matches: this.state.matches,
-                                loading: false,
-                            },
-                        }}
-                    />
-                )}
                 <div className="new-form">
                     {/* Moive input */}
                     <div className="holder">

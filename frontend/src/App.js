@@ -16,18 +16,15 @@ export default function App() {
             <div className="app">
                 <Header />
                 <Switch>
-                    <Route
-                        path="/admin/new"
-                        render={(props) => <NewMatchForm {...props} />}
-                    />
-                    <Route
-                        path="/admin"
-                        render={(props) => <Admin {...props} />}
-                    />
-                    <Route
-                        path="/results"
-                        render={(props) => <Results {...props} />}
-                    />
+                    <Route path="/admin/new">
+                        <NewMatchForm />
+                    </Route>
+                    <Route path="/admin">
+                        <Admin />
+                    </Route>
+                    <Route path="/results">
+                        <Results />
+                    </Route>
                     <Route path="/game">
                         <Game />
                     </Route>
