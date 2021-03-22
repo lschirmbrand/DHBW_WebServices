@@ -1,2 +1,2 @@
 include:
-  - local: frontend/.gitlab-ci-yml
+  - local: frontend/.gitlab-ci.yml
