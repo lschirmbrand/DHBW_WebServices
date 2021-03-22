@@ -22,9 +22,10 @@ export default function App() {
                     <Route path="/admin">
                         <Admin />
                     </Route>
-                    <Route path="/results">
-                        <Results />
-                    </Route>
+                    <Route
+                        path="/results"
+                        render={(props) => <Results {...props} />}
+                    />
                     <Route path="/game">
                         <Game />
                     </Route>
