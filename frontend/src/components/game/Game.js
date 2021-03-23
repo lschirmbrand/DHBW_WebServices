@@ -26,6 +26,7 @@ export default function Game() {
     const [selected, setSelected] = useState(3);
     const [correct, setCorrect] = useState(3);
     const [error, setError] = useState(false);
+    const [locked, setLocked] = useState(false);
 
     const start = () => {
         setPlaying(true);
@@ -44,19 +45,22 @@ export default function Game() {
     }, [timeLeft]);
 
     const clickMovie = (index) => {
-        setTimeLeft(secondsToPlay);
-        clearInterval(timer);
-        setSelected(index);
-        setCorrect(game.rounds[round].correctIndex);
-        setPlaying(false);
+        if (!locked) {
+            setTimeLeft(secondsToPlay);
+            clearInterval(timer);
+            setSelected(index);
+            setCorrect(game.rounds[round].correctIndex);
+            setPlaying(false);
+            setLocked(true);
 
-        if (index === game.rounds[round].correctIndex) {
-            setScore(score + 1);
+            if (index === game.rounds[round].correctIndex) {
+                setScore(score + 1);
+            }
+
+            setTimeout(() => {
+                next();
+            }, 1500);
         }
-
-        setTimeout(() => {
-            next();
-        }, 1500);
     };
 
     const next = () => {
@@ -67,6 +71,7 @@ export default function Game() {
             setCorrect(3);
             setSelected(3);
             start();
+            setLocked(false);
         }
     };
 
