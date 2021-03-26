@@ -1,0 +1,352 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://10.50.15.51:8881
+  description: Generated server url
+paths:
+  /match:
+    get:
+      tags:
+      - match-controller
+      operationId: getAllMatches
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Match'
+    post:
+      tags:
+      - match-controller
+      operationId: addMatch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatchEntity'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Match'
+    patch:
+      tags:
+      - match-controller
+      operationId: updateMatch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatchEntity'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/MatchEntity'
+  /track:
+    get:
+      tags:
+      - track-controller
+      operationId: getAllTracks
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Track'
+  /track/{id}:
+    get:
+      tags:
+      - track-controller
+      operationId: getMovieById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Track'
+  /track/search/{query}:
+    get:
+      tags:
+      - track-controller
+      operationId: getSearch
+      parameters:
+      - name: query
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Track'
+  /track/for/{movieID}:
+    get:
+      tags:
+      - track-controller
+      operationId: getTracksForMovie
+      parameters:
+      - name: movieID
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Track'
+  /movie:
+    get:
+      tags:
+      - movie-controller
+      operationId: getAllMovies
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+  /movie/{id}:
+    get:
+      tags:
+      - movie-controller
+      operationId: getMovieById_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Movie'
+  /movie/search/{query}:
+    get:
+      tags:
+      - movie-controller
+      operationId: getSearch_1
+      parameters:
+      - name: query
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+  /movie/for/{trackID}:
+    get:
+      tags:
+      - movie-controller
+      operationId: getMovieForTrack
+      parameters:
+      - name: trackID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Movie'
+  /match/{id}:
+    get:
+      tags:
+      - match-controller
+      operationId: getMatchByID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Match'
+    delete:
+      tags:
+      - match-controller
+      operationId: deleteMatch
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "200":
+          description: OK
+  /game:
+    get:
+      tags:
+      - game-controller
+      operationId: getNewGame
+      parameters:
+      - name: roundCount
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      - name: moviesPerRound
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 3
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Game'
+  /:
+    get:
+      tags:
+      - index-controller
+      operationId: getHelloWorld
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+components:
+  schemas:
+    MatchEntity:
+      required:
+      - movieID
+      - trackID
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        trackID:
+          type: string
+        movieID:
+          type: integer
+          format: int32
+    Match:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        movie:
+          $ref: '#/components/schemas/Movie'
+        track:
+          $ref: '#/components/schemas/Track'
+    Movie:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        title:
+          type: string
+        posterURL:
+          type: string
+        genres:
+          type: array
+          items:
+            type: string
+        overview:
+          type: string
+    Track:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        artistName:
+          type: string
+        previewURL:
+          type: string
+        url:
+          type: string
+        albumName:
+          type: string
+        coverURL:
+          type: string
+    Game:
+      type: object
+      properties:
+        rounds:
+          type: array
+          items:
+            $ref: '#/components/schemas/Round'
+    Round:
+      type: object
+      properties:
+        movies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Movie'
+        correctIndex:
+          type: integer
+          format: int32
+        soundTrack:
+          $ref: '#/components/schemas/Track'
