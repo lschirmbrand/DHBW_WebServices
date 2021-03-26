@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController()
-@RequestMapping("/movies")
+@RequestMapping("/movie")
 public class MovieController {
 
     private final MovieService movieService;
@@ -35,9 +35,9 @@ public class MovieController {
         return movieService.findForTrack(trackID).orElseThrow(MovieNotFoundException::new);
     }
 
-    @GetMapping("/search/{title}")
-    public List<Movie> getSearch(@PathVariable String title) {
-        return movieService.search(title);
+    @GetMapping("/search/{query}")
+    public List<Movie> getSearch(@PathVariable String query) {
+        return movieService.search(query);
     }
 
 }
