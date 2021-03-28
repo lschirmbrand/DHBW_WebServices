@@ -63,7 +63,7 @@ export default function Admin() {
             URL.revokeObjectURL(fileDownloadUrl);
             setFileDownloadUrl('');
         }
-    }, []);
+    }, [fileDownloadUrl]);
 
     const importFile = (file) => {
         const fileReader = new FileReader();
