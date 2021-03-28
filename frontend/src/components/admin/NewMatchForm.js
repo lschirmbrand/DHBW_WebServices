@@ -32,7 +32,7 @@ export default function NewMatchForm() {
             setMovies([]);
             return;
         }
-        const url = encodeURI(serverURL + '/movies/search/' + query);
+        const url = encodeURI(serverURL + '/movie/search/' + query);
         fetch(url)
             .then((res) => {
                 return res.json();
