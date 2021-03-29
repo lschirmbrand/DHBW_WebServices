@@ -2,6 +2,7 @@
 
 [![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/123niel/soundtrack-guesser/main)](https://gitlab.com/123niel/soundtrack-guesser/-/pipelines)
 
+von Simon Bestler, Fabian Lohmüller, Niel Rohling, Luca Schirmbrand
 
 ## Setup for Development
 
