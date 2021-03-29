@@ -1,4 +1,4 @@
-# DHBW_WebServices
+# Soundtrack Guesser
 
 [![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/123niel/soundtrack-guesser/main)](https://gitlab.com/123niel/soundtrack-guesser/-/pipelines)
 
